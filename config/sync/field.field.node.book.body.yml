@@ -1,0 +1,24 @@
+uuid: 36642c6b-b559-47ab-aaa6-0e54003dbce7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.book
+  module:
+    - text
+id: node.book.body
+field_name: body
+entity_type: node
+bundle: book
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

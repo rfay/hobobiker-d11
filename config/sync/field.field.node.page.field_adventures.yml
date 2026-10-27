@@ -1,0 +1,25 @@
+uuid: 2cf3d3dc-039d-4c46-af13-95df572980b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_adventures
+    - node.type.page
+    - taxonomy.vocabulary.adventures
+id: node.page.field_adventures
+field_name: field_adventures
+entity_type: node
+bundle: page
+label: Adventures
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      adventures: adventures
+    auto_create: false
+field_type: entity_reference

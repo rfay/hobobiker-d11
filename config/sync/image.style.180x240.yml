@@ -1,0 +1,15 @@
+uuid: afc6d90a-57e6-4d6e-ac65-ee3bbde6b1a1
+langcode: en
+status: true
+dependencies: {  }
+name: 180x240
+label: '180x240 (scale and crop)'
+effects:
+  f0e9f7e0-395b-41f8-87bb-6ddc484e367e:
+    uuid: f0e9f7e0-395b-41f8-87bb-6ddc484e367e
+    id: image_scale_and_crop
+    weight: 0
+    data:
+      width: 180
+      height: 240
+      anchor: center-center

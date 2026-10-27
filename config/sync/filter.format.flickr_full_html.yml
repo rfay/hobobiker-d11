@@ -1,0 +1,22 @@
+uuid: 41ddce14-e695-4452-b57b-35d30f708019
+langcode: en
+status: true
+dependencies:
+  module:
+    - hobobiker
+name: 'Flickr with full html'
+format: flickr_full_html
+weight: -1
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
+  hobobiker_hobophoto:
+    id: hobobiker_hobophoto
+    provider: hobobiker
+    status: true
+    weight: 1
+    settings: {  }

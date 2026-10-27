@@ -1,0 +1,14 @@
+uuid: fc8f35f0-5eb7-464a-b47a-605d874e669b
+langcode: en
+status: true
+dependencies: {  }
+name: Wiki
+format: wiki
+weight: -6
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }

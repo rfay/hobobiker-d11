@@ -1,0 +1,19 @@
+uuid: 4f4e2a0b-21e5-41d6-9b41-744bf8219e5b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_trip
+field_name: field_trip
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,39 @@
+uuid: 184f9514-ce36-4ca0-8494-2ebd470e712c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.audio.body
+    - field.field.node.audio.comment
+    - field.field.node.audio.field_topics
+    - node.type.audio
+  module:
+    - text
+    - user
+id: node.audio.default
+targetEntityType: node
+bundle: audio
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_topics:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

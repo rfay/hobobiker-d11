@@ -1,0 +1,19 @@
+uuid: f50208b7-4b38-4676-a8c0-f9df224ee650
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_trip_0
+    - node.type.wp
+id: node.wp.field_trip_0
+field_name: field_trip_0
+entity_type: node
+bundle: wp
+label: trip
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

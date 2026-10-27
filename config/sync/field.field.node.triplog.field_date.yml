@@ -1,0 +1,21 @@
+uuid: a928d1c8-8aea-4878-a85f-1a701829d068
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.triplog
+  module:
+    - datetime
+id: node.triplog.field_date
+field_name: field_date
+entity_type: node
+bundle: triplog
+label: Date
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

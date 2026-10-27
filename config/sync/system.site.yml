@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
+langcode: en
+uuid: 2c86b7b7-c238-422f-87fc-97bfecf97075
+name: "Hobobiker.com: Randy and Nancy's Big Bike Trip"
+mail: admin@example.com
+slogan: "Randy and Nancy's Bike Touring Adventure from the top of the Americas to the Bottom of South America"
+page:
+  403: ''
+  404: ''
+  front: /trip_wrapped_up
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

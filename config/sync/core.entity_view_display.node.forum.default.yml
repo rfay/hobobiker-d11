@@ -1,0 +1,30 @@
+uuid: 22db0056-1928-40bd-bb77-8f1941501637
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.forum.body
+    - field.field.node.forum.comment
+    - node.type.forum
+  module:
+    - text
+    - user
+id: node.forum.default
+targetEntityType: node
+bundle: forum
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

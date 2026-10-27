@@ -1,0 +1,48 @@
+uuid: 9723cafc-39fb-4771-ae4e-d1834890cef5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.page.body
+    - field.field.node.page.comment
+    - field.field.node.page.field_adventures
+    - field.field.node.page.field_topics
+    - node.type.page
+  module:
+    - text
+    - user
+id: node.page.default
+targetEntityType: node
+bundle: page
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_adventures:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_topics:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

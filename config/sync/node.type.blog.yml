@@ -1,0 +1,11 @@
+uuid: d69764d4-7e12-4889-848d-b79a010cfdb2
+langcode: en
+status: true
+dependencies: {  }
+name: 'Blog entry'
+type: blog
+description: null
+help: null
+new_revision: false
+preview_mode: 1
+display_submitted: true

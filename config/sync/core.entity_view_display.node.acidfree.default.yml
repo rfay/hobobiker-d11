@@ -1,0 +1,39 @@
+uuid: 8cd10fa7-dc5b-41f3-acb2-afa1fbf698c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.acidfree.body
+    - field.field.node.acidfree.comment
+    - field.field.node.acidfree.field_adventures
+    - node.type.acidfree
+  module:
+    - text
+    - user
+id: node.acidfree.default
+targetEntityType: node
+bundle: acidfree
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_adventures:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

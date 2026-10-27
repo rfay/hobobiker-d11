@@ -1,0 +1,11 @@
+uuid: 5b759cc3-0fe0-403b-9208-d495178b365d
+langcode: en
+status: true
+dependencies: {  }
+name: Poll
+type: poll
+description: null
+help: null
+new_revision: false
+preview_mode: 1
+display_submitted: true

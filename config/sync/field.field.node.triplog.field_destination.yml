@@ -1,0 +1,19 @@
+uuid: 5cc83380-98c3-45e2-baf2-296c6dd1a8f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_destination
+    - node.type.triplog
+id: node.triplog.field_destination
+field_name: field_destination
+entity_type: node
+bundle: triplog
+label: Destination
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

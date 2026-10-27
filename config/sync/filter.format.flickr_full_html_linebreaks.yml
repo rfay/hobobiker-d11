@@ -1,0 +1,28 @@
+uuid: 0430c4b8-ecf8-4645-bce1-f4133cb24328
+langcode: en
+status: true
+dependencies:
+  module:
+    - hobobiker
+name: 'Flickr with full html and linebreaker'
+format: flickr_full_html_linebreaks
+weight: -2
+filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
+  hobobiker_hobophoto:
+    id: hobobiker_hobophoto
+    provider: hobobiker
+    status: true
+    weight: 1
+    settings: {  }

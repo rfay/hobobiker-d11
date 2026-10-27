@@ -1,0 +1,8 @@
+uuid: b87c0713-e972-419d-a171-d15d4e2185f4
+langcode: en
+status: true
+dependencies: {  }
+name: 'Tripinfo Google Map'
+format: tripinfo_google_map
+weight: -3
+filters: {  }

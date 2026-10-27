@@ -1,0 +1,11 @@
+uuid: a0a27e81-043e-425a-aee5-e9163fa142b6
+langcode: en
+status: true
+dependencies: {  }
+name: 'Book page'
+type: book
+description: null
+help: null
+new_revision: false
+preview_mode: 1
+display_submitted: true

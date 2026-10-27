@@ -1,0 +1,11 @@
+uuid: d86a3098-2cf4-488e-902e-c9d0f5e7252d
+langcode: en
+status: true
+dependencies: {  }
+name: 'Forum topic'
+type: forum
+description: null
+help: null
+new_revision: false
+preview_mode: 1
+display_submitted: true

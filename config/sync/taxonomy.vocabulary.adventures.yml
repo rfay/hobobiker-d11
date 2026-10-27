@@ -1,0 +1,9 @@
+uuid: e9c1dda6-bd8e-4385-b12a-511a05327e9c
+langcode: en
+status: true
+dependencies: {  }
+name: Adventures
+vid: adventures
+description: null
+weight: 0
+new_revision: false

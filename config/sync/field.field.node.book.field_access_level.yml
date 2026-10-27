@@ -1,0 +1,25 @@
+uuid: 9c7a648b-cf30-41b8-8759-bb6ee8e10b6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_access_level
+    - node.type.book
+    - taxonomy.vocabulary.access_level
+id: node.book.field_access_level
+field_name: field_access_level
+entity_type: node
+bundle: book
+label: 'Access Level'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      access_level: access_level
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,159 @@
+uuid: ecac67ae-01d6-4f93-988a-ef8a54dea557
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.triplog.body
+    - field.field.node.triplog.comment
+    - field.field.node.triplog.field_bad_dogs
+    - field.field.node.triplog.field_camp_or_hotel
+    - field.field.node.triplog.field_date
+    - field.field.node.triplog.field_destination
+    - field.field.node.triplog.field_elevation_gain
+    - field.field.node.triplog.field_flat_tires
+    - field.field.node.triplog.field_miles
+    - field.field.node.triplog.field_miles_not_ridden
+    - field.field.node.triplog.field_start
+    - field.field.node.triplog.field_trip
+    - field.field.node.triplog.field_vid
+    - node.type.triplog
+  module:
+    - datetime
+    - path
+    - text
+id: node.triplog.default
+targetEntityType: node
+bundle: triplog
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 1
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bad_dogs:
+    type: number
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_camp_or_hotel:
+    type: string_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_date:
+    type: datetime_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_destination:
+    type: string_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_elevation_gain:
+    type: number
+    weight: 6
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_flat_tires:
+    type: number
+    weight: 7
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_miles:
+    type: number
+    weight: 8
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_miles_not_ridden:
+    type: number
+    weight: 9
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_start:
+    type: string_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_trip:
+    type: string_textarea
+    weight: 11
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_vid:
+    type: number
+    weight: 12
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  comment: true
+  promote: true
+  sticky: true

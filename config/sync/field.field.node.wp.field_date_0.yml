@@ -1,0 +1,21 @@
+uuid: 8c29acb3-f843-4364-a984-8e5e30b25ab3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_0
+    - node.type.wp
+  module:
+    - datetime
+id: node.wp.field_date_0
+field_name: field_date_0
+entity_type: node
+bundle: wp
+label: 'WP Date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

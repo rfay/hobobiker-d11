@@ -1,0 +1,8 @@
+name: Hobobiker
+type: module
+description: 'What hobobiker.com needs that core does not provide: the [hobophoto:] text filter.'
+package: Custom
+core_version_requirement: ^11
+dependencies:
+  - drupal:filter
+  - drupal:image

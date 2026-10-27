@@ -1,0 +1,23 @@
+uuid: cefb04e4-421c-4129-af22-a1ccea472c7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_elevation_gain
+    - node.type.triplog
+id: node.triplog.field_elevation_gain
+field_name: field_elevation_gain
+entity_type: node
+bundle: triplog
+label: 'Elevation Gain'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

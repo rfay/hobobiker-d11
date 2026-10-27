@@ -1,0 +1,23 @@
+uuid: e3e212db-247a-46c9-a855-b51a79c436b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vid
+    - node.type.triplog
+id: node.triplog.field_vid
+field_name: field_vid
+entity_type: node
+bundle: triplog
+label: vid
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

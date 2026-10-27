@@ -1,0 +1,30 @@
+uuid: 7911920b-01c1-4200-85c2-e523e801d84c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.poll.body
+    - field.field.node.poll.comment
+    - node.type.poll
+  module:
+    - text
+    - user
+id: node.poll.default
+targetEntityType: node
+bundle: poll
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

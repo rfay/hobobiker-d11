@@ -1,0 +1,20 @@
+uuid: cb0f14d6-4284-4188-bcaf-0340ca79e493
+langcode: en
+status: true
+dependencies: {  }
+name: 'HTML with line breaks'
+format: html_with_line_breaks
+weight: -7
+filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }
