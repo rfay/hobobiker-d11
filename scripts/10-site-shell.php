@@ -129,6 +129,22 @@ $storages = [
   'field_vid' => ['integer', 1, []],
   'field_blog_image' => ['image', -1, ['uri_scheme' => 'public']],
   'field_blog_image_portrait' => ['image', -1, ['uri_scheme' => 'public']],
+  // The audio module's data: the file, its ID3 tags, length, format and counts (rendered by the hobobiker module).
+  'field_audio_file' => ['file', 1, ['uri_scheme' => 'public']],
+  'field_audio_artist' => ['string', 1, []],
+  'field_audio_title' => ['string', 1, []],
+  'field_audio_album' => ['string', 1, []],
+  'field_audio_track' => ['string', 1, []],
+  'field_audio_genre' => ['string', 1, []],
+  'field_audio_year' => ['string', 1, []],
+  'field_audio_length' => ['string', 1, []],
+  'field_audio_format' => ['string', 1, []],
+  'field_audio_size' => ['integer', 1, ['size' => 'big']],
+  'field_audio_downloads' => ['integer', 1, []],
+  'field_audio_plays' => ['integer', 1, []],
+  // The poll module's one poll (closed): its choices and their votes, in order (rendered by the hobobiker module).
+  'field_poll_choices' => ['string', -1, []],
+  'field_poll_votes' => ['integer', -1, []],
 ];
 foreach ($vocabs as $v) {
   $storages[$v['field']] = ['entity_reference', $v['multiple'] ? -1 : 1, ['target_type' => 'taxonomy_term']];
@@ -149,6 +165,12 @@ foreach (array_keys($types) as $b) {
 foreach ($q('SELECT field_name, type_name, label FROM content_node_field_instance') as $i) {
   $instances[] = [$i['type_name'], $i['field_name'], $i['label'], []];
 }
+foreach (['file' => 'Audio file', 'artist' => 'Artist', 'title' => 'Title', 'album' => 'Album', 'track' => 'Track', 'genre' => 'Genre',
+  'year' => 'Year', 'length' => 'Length', 'format' => 'Format', 'size' => 'Size shown', 'downloads' => 'Downloads', 'plays' => 'Plays'] as $f => $label) {
+  $instances[] = ['audio', "field_audio_$f", $label, $f === 'file' ? ['file_extensions' => 'mp3 wav ogg'] : []];
+}
+$instances[] = ['poll', 'field_poll_choices', 'Choices', []];
+$instances[] = ['poll', 'field_poll_votes', 'Votes', []];
 $vocabTypes = $q("SELECT vid, type FROM vocabulary_node_types
   UNION SELECT DISTINCT td.vid, IF(n.type = '', 'page', n.type) FROM term_node tn JOIN node n ON n.vid = tn.vid JOIN term_data td ON td.tid = tn.tid");
 foreach ($vocabTypes as $vt) {
@@ -182,8 +204,9 @@ foreach (array_keys($types) as $b) {
     if (!$def instanceof FieldConfig) {
       continue;
     }
-    // Comments are hidden, as on the original; terms show in the theme's "Tagged:" line instead.
-    if ($name === 'comment' || $def->getSetting('target_type') === 'taxonomy_term') {
+    // Comments are hidden, as on the original; terms show in the theme's "Tagged:" line instead; the audio fields
+    // are shown by the hobobiker module as the audio module showed them.
+    if ($name === 'comment' || $def->getSetting('target_type') === 'taxonomy_term' || str_starts_with($name, 'field_audio_') || str_starts_with($name, 'field_poll_')) {
       $view->removeComponent($name);
       $form->setComponent($name, ['weight' => $weight]);
       continue;

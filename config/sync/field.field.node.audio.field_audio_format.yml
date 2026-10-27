@@ -1,0 +1,19 @@
+uuid: bc23ba15-cf8c-44d9-9819-87c190817c31
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_format
+    - node.type.audio
+id: node.audio.field_audio_format
+field_name: field_audio_format
+entity_type: node
+bundle: audio
+label: Format
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

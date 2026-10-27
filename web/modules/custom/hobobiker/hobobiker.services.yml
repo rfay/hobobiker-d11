@@ -7,3 +7,7 @@ services:
   hobobiker.tripinfo:
     class: Drupal\hobobiker\TripInfo
     arguments: ['@database']
+  hobobiker.audio_breadcrumb:
+    class: Drupal\hobobiker\AudioBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }

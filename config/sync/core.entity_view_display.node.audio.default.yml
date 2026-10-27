@@ -5,6 +5,18 @@ dependencies:
   config:
     - field.field.node.audio.body
     - field.field.node.audio.comment
+    - field.field.node.audio.field_audio_album
+    - field.field.node.audio.field_audio_artist
+    - field.field.node.audio.field_audio_downloads
+    - field.field.node.audio.field_audio_file
+    - field.field.node.audio.field_audio_format
+    - field.field.node.audio.field_audio_genre
+    - field.field.node.audio.field_audio_length
+    - field.field.node.audio.field_audio_plays
+    - field.field.node.audio.field_audio_size
+    - field.field.node.audio.field_audio_title
+    - field.field.node.audio.field_audio_track
+    - field.field.node.audio.field_audio_year
     - field.field.node.audio.field_topics
     - node.type.audio
   module:
@@ -29,4 +41,16 @@ content:
     region: content
 hidden:
   comment: true
+  field_audio_album: true
+  field_audio_artist: true
+  field_audio_downloads: true
+  field_audio_file: true
+  field_audio_format: true
+  field_audio_genre: true
+  field_audio_length: true
+  field_audio_plays: true
+  field_audio_size: true
+  field_audio_title: true
+  field_audio_track: true
+  field_audio_year: true
   field_topics: true

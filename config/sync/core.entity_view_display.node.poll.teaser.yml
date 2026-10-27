@@ -6,6 +6,8 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.poll.body
     - field.field.node.poll.comment
+    - field.field.node.poll.field_poll_choices
+    - field.field.node.poll.field_poll_votes
     - node.type.poll
   module:
     - text
@@ -24,4 +26,6 @@ content:
     region: content
 hidden:
   comment: true
+  field_poll_choices: true
+  field_poll_votes: true
   links: true

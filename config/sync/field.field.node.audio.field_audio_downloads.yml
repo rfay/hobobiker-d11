@@ -1,0 +1,23 @@
+uuid: c0decacd-2f37-4bb5-adc9-c2572f34a24d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_downloads
+    - node.type.audio
+id: node.audio.field_audio_downloads
+field_name: field_audio_downloads
+entity_type: node
+bundle: audio
+label: Downloads
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

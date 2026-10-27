@@ -1,0 +1,23 @@
+uuid: a6ff4641-4281-4132-b950-24f239c50a20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_size
+    - node.type.audio
+id: node.audio.field_audio_size
+field_name: field_audio_size
+entity_type: node
+bundle: audio
+label: 'Size shown'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,21 @@
+uuid: 0093ec25-12f7-4f33-9322-4800cf570a51
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_audio_year
+field_name: field_audio_year
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

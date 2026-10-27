@@ -22,3 +22,23 @@ hobobiker.front_page:
     _title: ''
   requirements:
     _permission: 'access content'
+# The Drupal 6 audio module's pages.
+hobobiker.audio_browse:
+  path: '/audio/by/{tag}/{value}'
+  defaults:
+    _controller: '\Drupal\hobobiker\Controller\AudioController::browse'
+    _title_callback: '\Drupal\hobobiker\Controller\AudioController::browseTitle'
+    tag: null
+    value: null
+  requirements:
+    _permission: 'access content'
+hobobiker.audio_download:
+  path: '/audio/download/{node}/{filename}'
+  defaults:
+    _controller: '\Drupal\hobobiker\Controller\AudioController::download'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node

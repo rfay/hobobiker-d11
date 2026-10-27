@@ -5,10 +5,23 @@ dependencies:
   config:
     - field.field.node.audio.body
     - field.field.node.audio.comment
+    - field.field.node.audio.field_audio_album
+    - field.field.node.audio.field_audio_artist
+    - field.field.node.audio.field_audio_downloads
+    - field.field.node.audio.field_audio_file
+    - field.field.node.audio.field_audio_format
+    - field.field.node.audio.field_audio_genre
+    - field.field.node.audio.field_audio_length
+    - field.field.node.audio.field_audio_plays
+    - field.field.node.audio.field_audio_size
+    - field.field.node.audio.field_audio_title
+    - field.field.node.audio.field_audio_track
+    - field.field.node.audio.field_audio_year
     - field.field.node.audio.field_topics
     - node.type.audio
   module:
     - comment
+    - file
     - path
     - text
 id: node.audio.default
@@ -37,6 +50,98 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_audio_album:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_artist:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_downloads:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_file:
+    type: file_generic
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+  field_audio_format:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_genre:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_length:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_plays:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_size:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_track:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_audio_year:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_topics:
     type: entity_reference_autocomplete

@@ -1,0 +1,20 @@
+uuid: 021d2306-6aa5-4617-b232-5c28d30f3bd6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_audio_downloads
+field_name: field_audio_downloads
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

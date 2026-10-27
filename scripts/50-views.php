@@ -155,6 +155,11 @@ $make('blog', 'Blogs', ['path' => 'blog', 'title' => 'Blogs', 'feed' => 'blog/fe
 $make('blog_author', "Author's blog", ['path' => 'blog/%', 'title' => "{{ arguments.uid }}'s blog", 'author' => TRUE, 'feed' => 'blog/%/feed'] + $blog);
 $log("2 blog listings: /blog /blog/UID, $perPage per page, with feeds");
 
+// The audio module's default view: /audio, published audio, 10 teasers per page, oldest first.
+$make('d6_audio', 'audio', ['path' => 'audio', 'title' => 'Audio', 'types' => ['audio'], 'published' => TRUE, 'items' => 10, 'view_mode' => 'teaser',
+  'sorts' => [['created', 'ASC']], 'feed' => 'audio/feed']);
+$log('audio listing: /audio');
+
 // 3. Taxonomy term pages.
 $tt = $cf->getEditable('views.view.taxonomy_term');
 $tt->set('display.default.display_options.pager', $pager(10))

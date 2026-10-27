@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.field.node.poll.body
     - field.field.node.poll.comment
+    - field.field.node.poll.field_poll_choices
+    - field.field.node.poll.field_poll_votes
     - node.type.poll
   module:
     - comment
@@ -36,6 +38,21 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_poll_choices:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_poll_votes:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   path:
     type: path

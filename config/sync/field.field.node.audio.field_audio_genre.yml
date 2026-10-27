@@ -1,0 +1,19 @@
+uuid: 9c4f4660-0ff0-4d79-9ff2-c35773f5c380
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_genre
+    - node.type.audio
+id: node.audio.field_audio_genre
+field_name: field_audio_genre
+entity_type: node
+bundle: audio
+label: Genre
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

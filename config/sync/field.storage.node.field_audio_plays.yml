@@ -1,0 +1,20 @@
+uuid: 7f13bd70-db99-4c02-a664-6533324e48b7
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_audio_plays
+field_name: field_audio_plays
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

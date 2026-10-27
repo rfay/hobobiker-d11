@@ -11,7 +11,9 @@ database; nothing is configured by hand. The plan and its decisions are in
 - Drush: `ddev drush ...` (Drupal 11 project).
 - **Source data:** the schema `d6` in this project's database is a copy of the original's sanitized
   pristine snapshot (`~/workspace/hobo/hobobiker-copy/.tarballs/db.sql.zst`, hobobiker-assets v1.2). The
-  scripts only read it. Reload it rather than change it.
+  scripts only read it. Reload it rather than change it. (The original's own database is also reachable from this
+  project's web container, `mysql -h hobobiker-copy-db -udb -pdb db`, a common way to migrate; the copy keeps the
+  source fixed while the pipeline is rehearsed. `ddev mysql -h ...` does not work for this.)
 - **Files:** read-only source is the original's files directory,
   `~/workspace/hobo/hobobiker-copy/docroot/sites/default/files` (1.1 GB). Copy, never move or edit.
 - The model this pipeline started from: `~/workspace/randyfay-d11/scripts/`.

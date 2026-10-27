@@ -121,6 +121,28 @@ foreach (['field_blog_image', 'field_blog_image_portrait'] as $field) {
     $images[$r['vid']][$field][] = ['fid' => $r['fid'], 'alt' => $data['description'] ?? $data['alt'] ?? ''];
   }
 }
+// The audio module: file, tags, length, format and counts, by revision. Format as it showed it
+// ("MP3 Mono 32kHz 48Kbps (CBR)", whole numbers). The size it showed is the files table's, which stopped at
+// 8,388,607 bytes for three files (Drupal 11 records the true size on the file; the pages keep the original's).
+$audio = [];
+foreach ($q('SELECT a.*, f.filesize FROM audio a LEFT JOIN files f ON f.fid = a.fid') as $a) {
+  $audio[$a['vid']] = [
+    'field_audio_file' => [['target_id' => $a['fid']]], 'field_audio_length' => $a['playtime'], 'field_audio_size' => $a['filesize'],
+    'field_audio_format' => sprintf('%s %s %dkHz %dKbps (%s)', strtoupper($a['format']), ucfirst($a['channel_mode']), $a['sample_rate'] / 1000,
+      $a['bitrate'] / 1000, strtoupper($a['bitrate_mode'])),
+    'field_audio_downloads' => $a['download_count'], 'field_audio_plays' => $a['play_count'],
+  ];
+}
+foreach ($q('SELECT vid, tag, value FROM audio_metadata') as $m) {
+  $audio[$m['vid']]['field_audio_' . $m['tag']] = $m['value'];
+}
+
+// The poll module: each poll's choices and votes, in order.
+foreach ($q('SELECT n.vid, c.chtext, c.chvotes FROM poll_choices c JOIN node n ON n.nid = c.nid ORDER BY c.nid, c.chorder') as $c) {
+  $audio[$c['vid']]['field_poll_choices'][] = $c['chtext'];
+  $audio[$c['vid']]['field_poll_votes'][] = $c['chvotes'];
+}
+
 $termsByVid = [];
 foreach ($q('SELECT tn.vid, tn.tid, td.vid AS vocab FROM term_node tn JOIN term_data td ON td.tid = tn.tid ORDER BY td.weight, td.name') as $r) {
   $termsByVid[$r['vid']][$vocabField[$r['vocab']]][] = ['target_id' => $r['tid']];
@@ -162,6 +184,8 @@ foreach ($nodes as $row) {
     }],
     'comment' => [['status' => (int) $row['comment']]],
   ] + ($termsByVid[$vid] ?? []);
+  // Module data that lived in its own tables (audio, poll).
+  $v += $audio[$vid] ?? [];
   if ($c = $cck[$vid] ?? NULL) {
     foreach ($c as $col => $value) {
       if ($value === NULL || !preg_match('/^(field_.+)_value$/', $col, $m)) {

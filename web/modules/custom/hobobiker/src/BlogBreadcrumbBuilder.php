@@ -39,7 +39,8 @@ class BlogBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $breadcrumb->setLinks([
       Link::createFromRoute($this->t('Home'), '<front>'),
       Link::fromTextAndUrl($this->t('Blogs'), Url::fromUserInput('/blog')),
-      Link::fromTextAndUrl($this->t("@name's blog", ['@name' => $owner->getDisplayName()]), Url::fromUserInput($this->aliasManager->getAliasByPath('/blog/' . $owner->id()))),
+      // An entry by user 0 has no name: "'s blog", /blog/0, as on the original.
+      Link::fromTextAndUrl($this->t("@name's blog", ['@name' => $owner->isAnonymous() ? '' : $owner->getDisplayName()]), Url::fromUserInput($this->aliasManager->getAliasByPath('/blog/' . $owner->id()))),
     ]);
     return $breadcrumb->addCacheableDependency($node)->addCacheableDependency($owner)->addCacheContexts(['route']);
   }

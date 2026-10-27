@@ -1,0 +1,19 @@
+uuid: a31c8552-92d6-4e0e-8e41-ae415cdf4ebb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_artist
+    - node.type.audio
+id: node.audio.field_audio_artist
+field_name: field_audio_artist
+entity_type: node
+bundle: audio
+label: Artist
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

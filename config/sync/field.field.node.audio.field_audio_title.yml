@@ -1,0 +1,19 @@
+uuid: ba78a57f-7b6b-49d1-b652-dcff686afcbc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_title
+    - node.type.audio
+id: node.audio.field_audio_title
+field_name: field_audio_title
+entity_type: node
+bundle: audio
+label: Title
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
