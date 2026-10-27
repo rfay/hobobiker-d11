@@ -1,0 +1,31 @@
+uuid: 859a9247-4bad-4ce0-ad62-0baa77d0a109
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.wp.body
+    - field.field.node.wp.comment
+    - field.field.node.wp.field_date_0
+    - field.field.node.wp.field_trip_0
+    - node.type.wp
+  module:
+    - text
+id: node.wp.teaser
+targetEntityType: node
+bundle: wp
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  comment: true
+  field_date_0: true
+  field_trip_0: true
+  links: true

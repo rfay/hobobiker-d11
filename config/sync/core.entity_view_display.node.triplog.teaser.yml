@@ -1,0 +1,49 @@
+uuid: 8de14337-d2d4-4a33-b073-f6e68e148a89
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.triplog.body
+    - field.field.node.triplog.comment
+    - field.field.node.triplog.field_bad_dogs
+    - field.field.node.triplog.field_camp_or_hotel
+    - field.field.node.triplog.field_date
+    - field.field.node.triplog.field_destination
+    - field.field.node.triplog.field_elevation_gain
+    - field.field.node.triplog.field_flat_tires
+    - field.field.node.triplog.field_miles
+    - field.field.node.triplog.field_miles_not_ridden
+    - field.field.node.triplog.field_start
+    - field.field.node.triplog.field_trip
+    - field.field.node.triplog.field_vid
+    - node.type.triplog
+  module:
+    - text
+id: node.triplog.teaser
+targetEntityType: node
+bundle: triplog
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  comment: true
+  field_bad_dogs: true
+  field_camp_or_hotel: true
+  field_date: true
+  field_destination: true
+  field_elevation_gain: true
+  field_flat_tires: true
+  field_miles: true
+  field_miles_not_ridden: true
+  field_start: true
+  field_trip: true
+  field_vid: true
+  links: true

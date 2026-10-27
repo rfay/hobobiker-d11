@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.forum.comment
     - node.type.forum
   module:
+    - comment
     - path
     - text
 id: node.forum.default
@@ -23,6 +24,12 @@ content:
       summary_rows: 3
       placeholder: ''
       show_summary: false
+    third_party_settings: {  }
+  comment:
+    type: comment_default
+    weight: 1
+    region: content
+    settings: {  }
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -62,6 +69,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  comment: true
   promote: true
   sticky: true

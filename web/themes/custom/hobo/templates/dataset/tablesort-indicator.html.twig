@@ -1,0 +1,8 @@
+{#
+/**
+ * @file
+ * The sort arrow in a table header, as the original's tables showed it: arrow-asc.png or arrow-desc.png for the
+ * direction a click will sort in (style), as Drupal 6's theme_tablesort_indicator() did.
+ */
+#}
+<img src="{{ file_url(directory ~ '/images/arrow-' ~ style ~ '.png') }}" alt="sort icon" title="sort {{ style == 'asc' ? 'ascending' : 'descending' }}" width="13" height="13" />

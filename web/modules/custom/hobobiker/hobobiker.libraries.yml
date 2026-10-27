@@ -1,0 +1,15 @@
+# The Drupal 6 tripinfo module's maps: Leaflet 1.9.4 with OpenStreetMap tiles, KML and KMZ read in the browser.
+# Served from lib/, as on the original (no CDN).
+tripinfo_map:
+  version: 1.0
+  css:
+    component:
+      lib/leaflet-1.9.4/leaflet.css: {}
+  js:
+    lib/leaflet-1.9.4/leaflet.js: { minified: true }
+    lib/togeojson-5.8.1/togeojson.umd.js: { minified: true }
+    lib/jszip-3.10.1/jszip.min.js: { minified: true }
+    js/tripinfo-map.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

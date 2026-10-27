@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.wp.field_trip_0
     - node.type.wp
   module:
+    - comment
     - datetime
     - path
     - text
@@ -26,6 +27,12 @@ content:
       summary_rows: 3
       placeholder: ''
       show_summary: false
+    third_party_settings: {  }
+  comment:
+    type: comment_default
+    weight: 1
+    region: content
+    settings: {  }
     third_party_settings: {  }
   created:
     type: datetime_timestamp
@@ -79,6 +86,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  comment: true
   promote: true
   sticky: true

@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * The Drupal 6 hobo_golden node template's words on Olivero: "By X - Posted on <date>", "Tagged: a • b", the
+ * "X's blog" link, and CCK-style field labels ("Date:").
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\Markup;
+use Drupal\taxonomy\TermInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for node.html.twig.
+ */
+function hobo_preprocess_node(array &$variables): void {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  // Drupal 6 formatted dates with a fixed offset (date_default_timezone = -21600), not America/Denver with
+  // daylight saving: UTC-6 all year round.
+  $variables['hobo_submitted'] = t('By @name - Posted on @date', [
+    '@name' => $node->getOwner()->getDisplayName(),
+    '@date' => \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'custom', 'F jS, Y', 'Etc/GMT+6'),
+  ]);
+
+  // All terms of all vocabularies, ordered as Drupal 6 did (term weight, then name), joined by bullets.
+  $terms = [];
+  foreach ($node->getFieldDefinitions() as $name => $def) {
+    if ($def->getType() === 'entity_reference' && $def->getSetting('target_type') === 'taxonomy_term') {
+      foreach ($node->get($name)->referencedEntities() as $term) {
+        $terms[] = $term;
+      }
+    }
+  }
+  usort($terms, fn(TermInterface $a, TermInterface $b) => [$a->getWeight(), $a->getName()] <=> [$b->getWeight(), $b->getName()]);
+  if ($terms) {
+    $links = array_map(fn(TermInterface $t) => '<span class="taxonomy_term_' . $t->id() . '"><a href="' . Html::escape($t->toUrl()->toString())
+      . '" rel="tag">' . Html::escape($t->getName()) . '</a></span>', $terms);
+    $variables['hobo_terms'] = Markup::create('Tagged: ' . implode(' &nbsp;&bull; &nbsp;', $links));
+  }
+
+  // Blog entries link to their author's blog, at its alias (/blog/rfay).
+  if ($node->bundle() === 'blog') {
+    $owner = $node->getOwner();
+    $variables['hobo_blog_link'] = [
+      '#type' => 'link',
+      '#title' => t("@name's blog", ['@name' => $owner->getDisplayName()]),
+      '#url' => \Drupal\Core\Url::fromUserInput(\Drupal::service('path_alias.manager')->getAliasByPath('/blog/' . $owner->id())),
+    ];
+  }
+  $variables['#cache']['tags'][] = 'taxonomy_term_list';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field.html.twig.
+ *
+ * Drupal 6 CCK printed "Label:" above each field's value.
+ */
+function hobo_preprocess_field(array &$variables): void {
+  if ($variables['element']['#entity_type'] === 'node' && $variables['label_display'] === 'above') {
+    $variables['label'] = $variables['label'] . ':';
+  }
+}

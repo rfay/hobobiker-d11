@@ -1,0 +1,24 @@
+# The Drupal 6 tripinfo module's pages. /tripinfo without dates was a PHP fatal error on the original; here it is
+# not found (declared).
+hobobiker.tripinfo_list:
+  path: '/tripinfo/{startdate}/{enddate}'
+  defaults:
+    _controller: '\Drupal\hobobiker\Controller\TripinfoController::list'
+    _title_callback: '\Drupal\hobobiker\Controller\TripinfoController::listTitle'
+  requirements:
+    _permission: 'access content'
+hobobiker.tripinfo_item:
+  path: '/tripinfo_item/{date}/{startdate}/{enddate}'
+  defaults:
+    _controller: '\Drupal\hobobiker\Controller\TripinfoController::item'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+# The home page (the original's Panels page at /trip_wrapped_up, its site_frontpage).
+hobobiker.front_page:
+  path: '/trip_wrapped_up'
+  defaults:
+    _controller: '\Drupal\hobobiker\Controller\FrontPageController::page'
+    _title: ''
+  requirements:
+    _permission: 'access content'

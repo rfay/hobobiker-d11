@@ -22,14 +22,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_image_galleries:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -37,3 +29,4 @@ content:
     region: content
 hidden:
   comment: true
+  field_image_galleries: true

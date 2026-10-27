@@ -1,0 +1,168 @@
+langcode: en
+status: true
+id: d6_great_divide_blog
+label: great_divide_blog
+module: node
+description: 'All content promoted to the front page.'
+tag: default
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Great Divide to Copper Canyon'
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          pagination_heading_level: h4
+          items_per_page: 20
+          total_pages: null
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          expose:
+            items_per_page: false
+            offset: false
+          quantity: 9
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          exposed: false
+          granularity: second
+      arguments: {  }
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            blog: blog
+            page: page
+            story: story
+          group: 1
+          expose:
+            operator: ''
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          operator: between
+          value:
+            min: '2003-07-15'
+            max: '2003-11-15'
+            value: ''
+            type: date
+          group: 1
+          expose:
+            operator: ''
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          uses_fields: false
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: full
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: "This was our 2003 trip from Colorado down Adventure Cycling's Great Divide route. We went past the Mexican border and into Chihuahua to the Copper Canyon area and descended into the canyons.\r\nIf you have any questions or comments feel free to email <script language=\"Javascript\" type=\"text/javascript\">\r\n<!--\r\ndocument.write('<a href=\"mai');\r\ndocument.write('lto');\r\ndocument.write(':&#114;&#97;&#110;&#100;&#121;&#65;&#110;&#100;&#78;&#97;&#110;&#99;&#121;');\r\ndocument.write('@');\r\ndocument.write('&#104;&#111;&#98;&#111;&#98;&#105;&#107;&#101;&#114;&#46;&#99;&#111;&#109;\">');\r\ndocument.write('&#114;&#97;&#110;&#100;&#121;&#65;&#110;&#100;&#78;&#97;&#110;&#99;&#121;');\r\ndocument.write('@');\r\ndocument.write('&#104;&#111;&#98;&#111;&#98;&#105;&#107;&#101;&#114;&#46;&#99;&#111;&#109;<\\/a>');\r\n// -->\r\n</script><noscript>&#114;&#97;&#110;&#100;&#121;&#65;&#110;&#100;&#78;&#97;&#110;&#99;&#121; at \r\n&#104;&#111;&#98;&#111;&#98;&#105;&#107;&#101;&#114; dot &#99;&#111;&#109;</noscript>.\r\n<br/><br/>\r\n\r\n"
+            format: full_html_no_restrictions
+          tokenize: false
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: great_divide_blog
+      menu:
+        type: none
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

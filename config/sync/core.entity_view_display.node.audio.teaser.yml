@@ -1,0 +1,29 @@
+uuid: 733f00d8-86dd-428d-9408-583246562e90
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.audio.body
+    - field.field.node.audio.comment
+    - field.field.node.audio.field_topics
+    - node.type.audio
+  module:
+    - text
+id: node.audio.teaser
+targetEntityType: node
+bundle: audio
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  comment: true
+  field_topics: true
+  links: true

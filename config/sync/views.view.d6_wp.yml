@@ -1,0 +1,168 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - user
+    - hobobiker
+id: d6_wp
+label: wp
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Wonderful People'
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Name
+          exclude: false
+          element_label_colon: false
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+        field_date_0_value:
+          id: field_date_0_value
+          table: node__field_date_0
+          field: field_date_0
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: field_date_0
+          plugin_id: field
+          label: 'WP Date'
+          exclude: false
+          element_label_colon: false
+          click_sort_column: value
+          type: datetime_custom
+          settings:
+            date_format: 'j F Y'
+        body:
+          id: body
+          table: node__body
+          field: body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: body
+          plugin_id: field
+          label: Body
+          exclude: false
+          element_label_colon: false
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          pagination_heading_level: h4
+          items_per_page: 30
+          total_pages: null
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          expose:
+            items_per_page: false
+            offset: false
+          quantity: 9
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
+      sorts: {  }
+      arguments:
+        field_date_0_value:
+          id: field_date_0_value
+          table: node__field_date_0
+          field: field_date_0_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: hobobiker_date_range
+          default_action: ignore
+          exception:
+            value: all
+          title_enable: false
+          default_argument_type: fixed
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          break_phrase: false
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            wp: wp
+          group: 1
+          expose:
+            operator: ''
+      style:
+        type: table
+        options:
+          columns:
+            title: title
+            field_date_0_value: field_date_0_value
+            body: body
+          default: field_date_0_value
+          info:
+            field_date_0_value:
+              sortable: true
+              default_sort_order: asc
+          sticky: false
+          order: asc
+          empty_table: false
+      row:
+        type: fields
+      query:
+        type: views_query
+        options: {  }
+      header: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: wp

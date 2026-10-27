@@ -1,0 +1,29 @@
+uuid: 8a3a61f7-a7b9-4674-b462-2f22ba292086
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.acidfree.body
+    - field.field.node.acidfree.comment
+    - field.field.node.acidfree.field_adventures
+    - node.type.acidfree
+  module:
+    - text
+id: node.acidfree.teaser
+targetEntityType: node
+bundle: acidfree
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  comment: true
+  field_adventures: true
+  links: true

@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.story.field_topics
     - node.type.story
   module:
+    - comment
     - path
     - text
 id: node.story.default
@@ -26,6 +27,12 @@ content:
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
+  comment:
+    type: comment_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 10
@@ -34,7 +41,7 @@ content:
     third_party_settings: {  }
   field_adventures:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -44,7 +51,7 @@ content:
     third_party_settings: {  }
   field_topics:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -84,6 +91,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  comment: true
   promote: true
   sticky: true

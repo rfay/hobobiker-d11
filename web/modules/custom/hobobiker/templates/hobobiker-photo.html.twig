@@ -3,7 +3,8 @@
  * @file
  * A [hobophoto:] image: the 240x180 (or 180x240) derivative, linked to the full-size file.
  *
- * Same markup as the Drupal 6 site (imagecache inside a lightbox2 link), so pages keep their images and links.
+ * Same markup as the Drupal 6 site (hobo_golden's hobobiker-filter-photo.tpl.php: imagecache inside a lightbox2
+ * link; a caption is printed under the image), so pages keep their images, captions and links.
  */
 #}
-<a rel="{{ rel }}" href="{{ href }}"><div><img src="{{ src }}" alt="{{ caption }}" title="{{ caption }}" rel="{{ rel }}" /></div></a>
+<div class="flickrfloat"><div class="flickr-img-wrapper"><a rel="{{ rel }}" href="{{ href }}"><div><img src="{{ src }}" alt="{{ caption }}" title="{{ caption }}" rel="{{ rel }}" />{% if caption %}<br />{{ caption }}<br />{% endif %}</div></a></div></div>

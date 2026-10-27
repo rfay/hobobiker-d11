@@ -1,8 +1,22 @@
 uuid: b87c0713-e972-419d-a171-d15d4e2185f4
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - hobobiker
 name: 'Tripinfo Google Map'
 format: tripinfo_google_map
 weight: -3
-filters: {  }
+filters:
+  hobobiker_multisource:
+    id: hobobiker_multisource
+    provider: hobobiker
+    status: true
+    weight: -10
+    settings: {  }
+  hobobiker_tripinfo_table:
+    id: hobobiker_tripinfo_table
+    provider: hobobiker
+    status: true
+    weight: -9
+    settings: {  }

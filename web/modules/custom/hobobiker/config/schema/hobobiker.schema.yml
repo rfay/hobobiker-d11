@@ -1,0 +1,22 @@
+hobobiker.front_page:
+  type: config_object
+  label: 'Front page panes'
+  mapping:
+    panes:
+      type: sequence
+      label: 'Panes, in order'
+      sequence:
+        type: mapping
+        mapping:
+          region:
+            type: string
+            label: 'Region of layout_threecol_25_50_25'
+          type:
+            type: string
+            label: 'node, search or block_content'
+          id:
+            type: string
+            label: 'Node id, or block description'
+          title:
+            type: label
+            label: 'Pane title'

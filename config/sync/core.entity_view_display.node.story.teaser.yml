@@ -1,0 +1,31 @@
+uuid: 4adb07f2-4c39-457b-80d4-a235dea4d923
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.story.body
+    - field.field.node.story.comment
+    - field.field.node.story.field_adventures
+    - field.field.node.story.field_topics
+    - node.type.story
+  module:
+    - text
+id: node.story.teaser
+targetEntityType: node
+bundle: story
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  comment: true
+  field_adventures: true
+  field_topics: true
+  links: true

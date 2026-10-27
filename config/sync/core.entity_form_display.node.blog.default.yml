@@ -12,6 +12,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.blog
   module:
+    - comment
     - image
     - path
     - text
@@ -30,6 +31,12 @@ content:
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
+  comment:
+    type: comment_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 10
@@ -38,7 +45,7 @@ content:
     third_party_settings: {  }
   field_adventures:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -48,7 +55,7 @@ content:
     third_party_settings: {  }
   field_blog_image:
     type: image_image
-    weight: 3
+    weight: 1
     region: content
     settings:
       progress_indicator: throbber
@@ -56,7 +63,7 @@ content:
     third_party_settings: {  }
   field_blog_image_portrait:
     type: image_image
-    weight: 4
+    weight: 2
     region: content
     settings:
       progress_indicator: throbber
@@ -64,7 +71,7 @@ content:
     third_party_settings: {  }
   field_topics:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -104,6 +111,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  comment: true
   promote: true
   sticky: true

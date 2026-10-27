@@ -1,0 +1,9 @@
+services:
+  hobobiker.blog_breadcrumb:
+    class: Drupal\hobobiker\BlogBreadcrumbBuilder
+    arguments: ['@path_alias.manager']
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+  hobobiker.tripinfo:
+    class: Drupal\hobobiker\TripInfo
+    arguments: ['@database']

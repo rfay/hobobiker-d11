@@ -1,0 +1,16 @@
+uuid: 9616b75a-c262-49bc-8d3f-2e9142224240
+langcode: en
+status: true
+dependencies:
+  module:
+    - hobobiker
+name: 'Trip tables (was PHP code)'
+format: trip_tables
+weight: -9
+filters:
+  hobobiker_tripinfo_table:
+    id: hobobiker_tripinfo_table
+    provider: hobobiker
+    status: true
+    weight: 0
+    settings: {  }

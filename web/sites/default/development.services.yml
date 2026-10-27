@@ -1,0 +1,9 @@
+# Development copy only (see settings.local.php): the null cache backend, and Twig recompiling changed templates.
+parameters:
+  twig.config:
+    debug: false
+    auto_reload: true
+    cache: false
+services:
+  cache.backend.null:
+    class: Drupal\Core\Cache\NullBackendFactory

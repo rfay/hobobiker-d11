@@ -35,7 +35,12 @@ Rebuild everything (about 30 seconds): `scripts/run-all.sh`
 | `20-import.php` | users, terms, file records, nodes (current revision, CCK fields, terms), aliases, comments, with the original ids |
 | `drush cex` | the configuration, to `config/sync` |
 
-`web/modules/custom/hobobiker`: the `[hobophoto:]` text filter, a port of the Drupal 6 `hobobiker_filter`.
+`web/modules/custom/hobobiker`: the `[hobophoto:]` and (later) `[tripinfo:]` text filters and the blog breadcrumb.
+`web/themes/custom/hobo`: an Olivero subtheme with the Drupal 6 theme's node meta lines, pager and feed icon.
+
+**Caching is off in this copy** (`web/sites/default/settings.local.php`): page, dynamic page and render caches use
+the null backend and Twig recompiles changed templates, so a test never sees a stale page. The exported config
+keeps `page_cache` and `dynamic_page_cache` enabled; a production copy leaves out settings.local.php.
 Drupal's database layer reads `[brackets]` in a query string as a quoted identifier: pass a regex as a placeholder.
 
 ## What is NOT disposable

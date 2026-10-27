@@ -1,0 +1,22 @@
+uuid: afb54b1f-83e4-4838-ab9f-d1ec07c0dda2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - hobo
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: hobo_content
+theme: hobo
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,26 @@
+panes:
+  -
+    region: first
+    type: node
+    id: '4281'
+    title: ''
+  -
+    region: second
+    type: node
+    id: '4344'
+    title: ''
+  -
+    region: second
+    type: node
+    id: '4018'
+    title: ''
+  -
+    region: third
+    type: block_content
+    id: Statistics
+    title: Statistics
+  -
+    region: top
+    type: search
+    id: ''
+    title: Search

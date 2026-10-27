@@ -1,0 +1,167 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - user
+    - hobobiker
+id: d6_mexico_route
+label: mexico_route
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Big trip Mexico Route Maps and Information'
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Title
+          exclude: false
+          element_label_colon: false
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+      pager:
+        type: none
+        options:
+          offset: 0
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          exposed: false
+          granularity: second
+      arguments: {  }
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            acidfree: acidfree
+            audio: audio
+            blog: blog
+            book: book
+            forum: forum
+            image: image
+            page: page
+            poll: poll
+            story: story
+            triplog: triplog
+            wp: wp
+          group: 1
+          expose:
+            operator: ''
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        tid:
+          id: tid
+          table: taxonomy_index
+          field: tid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            31: 31
+          group: 1
+          exposed: false
+          expose:
+            operator: ''
+            reduce: false
+          vid: ''
+          type: select
+          hierarchy: false
+          limit: false
+          error_message: true
+      style:
+        type: table
+        options:
+          columns:
+            title: title
+          default: ''
+          info: {  }
+          sticky: false
+          order: asc
+          empty_table: false
+      row:
+        type: fields
+      query:
+        type: views_query
+        options: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<!--<div style=\"height:400px;width:100%\">[multisource:http://www.hobobiker.com/files/regional_kml/MexicoAndGuatemala.kmz]\r\n</div>-->\r\n<iframe src=\"https://www.google.com/maps/d/u/0/embed?mid=zgrTbi5vnCXo.kGi9pzlOzLAQ\" width=\"100%\" height=\"480\"></iframe>\r\n<p>\r\nHere are the detail maps for our route. Each map has an overview, a narrative, and day-by-day maps and GPS/elevation information. We hope you enjoy it!</p>\r\n<p>You can read about the <a href=\"/node/4137\">maps and GPS maps we used</a> on our route <a href=\"/node/4137\">here</a>"
+            format: tripinfo_google_map
+          tokenize: false
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: big_trip_mexico_route

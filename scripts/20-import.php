@@ -29,7 +29,7 @@ $log = fn($m) => print($m . "\n");
 $etm = \Drupal::entityTypeManager();
 
 // Drupal 6 format id => text format (10-site-shell.php). 0 is the site default, Filtered HTML.
-$formats = [0 => 'filtered_html', 1 => 'filtered_html', 2 => 'php_code', 3 => 'full_html_no_restrictions', 5 => 'html_with_line_breaks',
+$formats = [0 => 'filtered_html', 1 => 'filtered_html', 2 => 'trip_tables', 3 => 'full_html_no_restrictions', 5 => 'html_with_line_breaks',
   6 => 'wiki', 7 => 'html_full_with_gmap', 8 => 'full_html_with_email_obfuscation', 9 => 'tripinfo_google_map',
   10 => 'flickr_full_html_linebreaks', 11 => 'flickr_full_html'];
 $fmt = fn($f) => $formats[(int) $f] ?? throw new \RuntimeException("Unknown Drupal 6 format $f");
@@ -56,14 +56,16 @@ foreach ($etm->getStorage('user')->loadMultiple() as $u) {
 }
 
 // 2. Users. uid 1 here is the installed administrator: it takes the original name and keeps its own password.
-// Emails come from the sanitized snapshot (user+UID@localhost).
+// Emails: the sanitized snapshot's user+UID@localhost is not a valid address for Drupal 11; the same anonymous form
+// at example.invalid is (owner, 2026-10-27). Time zones: the original's offsets become the site's zone.
 $users = $q('SELECT uid, name, mail, created, access, login, status FROM users WHERE uid > 0 ORDER BY uid');
 foreach ($users as $u) {
   if ($u['uid'] == 1) {
     User::load(1)->setUsername($u['name'])->save();
     continue;
   }
-  User::create(['uid' => $u['uid'], 'name' => $u['name'], 'mail' => $u['mail'], 'status' => $u['status'],
+  User::create(['uid' => $u['uid'], 'name' => $u['name'], 'mail' => "user+{$u['uid']}@example.invalid", 'status' => $u['status'],
+    'timezone' => 'America/Denver',
     'created' => $u['created'], 'access' => $u['access'], 'login' => $u['login']])->save();
 }
 $log(count($users) . ' users');
@@ -113,8 +115,10 @@ foreach (['triplog', 'wp'] as $type) {
 }
 $images = [];
 foreach (['field_blog_image', 'field_blog_image_portrait'] as $field) {
-  foreach ($q("SELECT vid, {$field}_fid fid FROM content_$field WHERE {$field}_fid IS NOT NULL ORDER BY vid, delta") as $r) {
-    $images[$r['vid']][$field][] = $r['fid'];
+  foreach ($q("SELECT vid, {$field}_fid fid, {$field}_data data FROM content_$field WHERE {$field}_fid IS NOT NULL ORDER BY vid, delta") as $r) {
+    // The original showed the image's description as its alt text and caption (lightbox2).
+    $data = @unserialize((string) $r['data']) ?: [];
+    $images[$r['vid']][$field][] = ['fid' => $r['fid'], 'alt' => $data['description'] ?? $data['alt'] ?? ''];
   }
 }
 $termsByVid = [];
@@ -122,8 +126,8 @@ foreach ($q('SELECT tn.vid, tn.tid, td.vid AS vocab FROM term_node tn JOIN term_
   $termsByVid[$r['vid']][$vocabField[$r['vocab']]][] = ['target_id' => $r['tid']];
 }
 $nodes = $q('SELECT n.nid, n.vid, n.type, n.uid, n.status, n.created, n.changed, n.comment, n.promote, n.sticky,
-  r.title, r.body, r.format, r.log, r.timestamp FROM node n JOIN node_revisions r ON n.vid = r.vid ORDER BY n.nid');
-$count = $retyped = $retitled = $lostImages = 0;
+  r.title, r.body, r.teaser, r.format, r.log, r.timestamp FROM node n JOIN node_revisions r ON n.vid = r.vid ORDER BY n.nid');
+$count = $retyped = $retitled = $lostImages = $rewritten = 0;
 foreach ($nodes as $row) {
   $vid = $row['vid'];
   $type = $row['type'] === '' ? 'page' : $row['type'];
@@ -133,11 +137,29 @@ foreach ($nodes as $row) {
     $row['title'] = '(untitled)';
     $retitled++;
   }
+  // No PHP is run (owner, D6): each PHP block that only prints tripinfo_table('START','END') becomes
+  // [tripinfo:START,END], which the hobobiker module renders. Any other PHP stops the import.
+  $php = "~<\\?php\\s+print\\s+tripinfo_table\\('(\\d{4}-\\d\\d-\\d\\d)','(\\d{4}-\\d\\d-\\d\\d)'\\);\\s*\\?>~";
+  $sameTeaser = $row['teaser'] === $row['body'];
+  $row['body'] = preg_replace($php, '[tripinfo:$1,$2]', $row['body'], -1, $n);
+  $row['teaser'] = $sameTeaser ? $row['body'] : preg_replace($php, '[tripinfo:$1,$2]', $row['teaser']);
+  $rewritten += $n;
+  if (str_contains($row['body'] . $row['teaser'], '<?php')) {
+    throw new \RuntimeException("Node {$row['nid']}: PHP that is not a tripinfo_table() call");
+  }
   $v = [
     'nid' => $row['nid'], 'type' => $type, 'title' => $row['title'], 'uid' => $row['uid'], 'status' => $row['status'],
     'promote' => $row['promote'], 'sticky' => $row['sticky'], 'created' => $row['created'], 'changed' => $row['changed'],
     'revision_timestamp' => $row['timestamp'], 'revision_log' => $row['log'],
-    'body' => ['value' => $row['body'], 'format' => $fmt($row['format'])],
+    // Drupal 6 stored the teaser (cut at 1,600 characters or <!--break--> when saved); kept as the summary, so
+    // listings show exactly the original's teasers. A teaser equal to the body needs none.
+    // An EMPTY teaser (Drupal 6 made none for bodies with PHP) showed only the read-more link; an empty summary
+    // would mean "trim the body" in Drupal 11, so it is a comment that renders nothing.
+    'body' => ['value' => $row['body'], 'format' => $fmt($row['format']), 'summary' => match (TRUE) {
+      $row['teaser'] === $row['body'] => '',
+      $row['teaser'] === '' => '<!-- no teaser on the original -->',
+      default => $row['teaser'],
+    }],
     'comment' => [['status' => (int) $row['comment']]],
   ] + ($termsByVid[$vid] ?? []);
   if ($c = $cck[$vid] ?? NULL) {
@@ -150,9 +172,9 @@ foreach ($nodes as $row) {
     }
   }
   foreach ($images[$vid] ?? [] as $field => $list) {
-    foreach ($list as $fid) {
+    foreach ($list as ['fid' => $fid, 'alt' => $alt]) {
       if (isset($fids[$fid])) {
-        $v[$field][] = ['target_id' => $fid];
+        $v[$field][] = ['target_id' => $fid, 'alt' => $alt];
       }
       else {
         $lostImages++;
@@ -162,7 +184,7 @@ foreach ($nodes as $row) {
   Node::create($v)->save();
   $count++;
 }
-$log("$count nodes ($retyped without a type became pages, $retitled empty titles became \"(untitled)\"; $lostImages image references to missing files)");
+$log("$count nodes ($retyped without a type became pages, $retitled empty titles became \"(untitled)\"; $lostImages image references to missing files; $rewritten PHP calls became [tripinfo:])");
 
 // 6. Aliases, oldest first so the newest wins for generated links (as on the original). Aliases of deleted
 // nodes are dropped. (The pattern is a placeholder: Drupal reads [brackets] in a query as a quoted identifier.)

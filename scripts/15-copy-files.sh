@@ -11,4 +11,6 @@ dst="$(cd "$(dirname "$0")/.." && pwd)/web/sites/default/files"
 # Drupal 11's own generated directories (styles, css, js, php) are never touched.
 excl=(--exclude=/css --exclude=/js --exclude=/tmp --exclude=/styles --exclude=/php)
 rsync -rtL "${excl[@]}" "$src"/ "$dst"/
+# The original also served the files directory at /files (a symlink in its docroot); old content links there.
+ln -sfn sites/default/files "$(dirname "$dst")/../../files"
 echo "copied: $(find "$dst" -type f -not -path "$dst/styles/*" -not -path "$dst/css/*" -not -path "$dst/js/*" -not -path "$dst/php/*" | wc -l) files in $dst"

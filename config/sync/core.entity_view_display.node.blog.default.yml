@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.blog.field_topics
     - node.type.blog
   module:
-    - image
+    - hobobiker
     - text
     - user
 id: node.blog.default
@@ -26,43 +26,14 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_adventures:
-    type: entity_reference_label
-    label: above
+  field_blog_image_portrait:
+    type: hobobiker_lightbox_image
+    label: hidden
     settings:
-      link: true
+      image_style: 180x240
+      link_style: 600x800
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_blog_image:
-    type: image
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_blog_image_portrait:
-    type: image
-    label: hidden
-    settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_topics:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
     region: content
   links:
     settings: {  }
@@ -71,3 +42,6 @@ content:
     region: content
 hidden:
   comment: true
+  field_adventures: true
+  field_blog_image: true
+  field_topics: true
