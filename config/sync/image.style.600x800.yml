@@ -1,12 +1,12 @@
-uuid: 741bc786-7110-4a79-91a6-f642b1b36303
+uuid: 5ea8591f-37f0-49b8-9c67-5088dd238e79
 langcode: en
 status: true
 dependencies: {  }
 name: 600x800
 label: '600x800 (scale and crop)'
 effects:
-  6dca4fe3-5ba3-48f7-b834-3c8b63d5e471:
-    uuid: 6dca4fe3-5ba3-48f7-b834-3c8b63d5e471
+  f8429e0f-f2d6-4445-92ff-0d019eb6aafa:
+    uuid: f8429e0f-f2d6-4445-92ff-0d019eb6aafa
     id: image_scale_and_crop
     weight: 0
     data:

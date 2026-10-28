@@ -28,7 +28,8 @@ database; nothing is configured by hand. The plan and its decisions are in
 
 ## The pipeline
 
-Rebuild everything (about 40 seconds): `scripts/run-all.sh`. Validity check: `ddev drush php:script scripts/90-check-integrity.php`.
+Rebuild everything (about 40 seconds): `scripts/run-all.sh`. From nothing (fresh install, `d6` reloaded from the
+`.zst` snapshot, about 20 seconds more): `scripts/00-reset.sh && scripts/run-all.sh`. Validity check: `ddev drush php:script scripts/90-check-integrity.php`.
 
 | Step | What it does |
 |---|---|

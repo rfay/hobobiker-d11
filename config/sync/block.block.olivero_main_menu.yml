@@ -1,4 +1,4 @@
-uuid: ecc05f86-a266-45d7-b741-9b063e05045d
+uuid: fdda6261-4fbd-4912-b26f-6074d36cc42d
 langcode: en
 status: true
 dependencies:
@@ -22,6 +22,6 @@ settings:
   label_display: '0'
   provider: system
   level: 1
-  depth: 0
+  depth: 2
   expand_all_items: true
 visibility: {  }
