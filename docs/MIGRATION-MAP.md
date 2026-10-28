@@ -147,7 +147,7 @@ One page of each kind; open both and compare.
 | triplog node | /node/2759 | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/node/2759) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/node/2759) |
 | wp node | /node/3677 | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/node/3677) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/node/3677) |
 | format "Full html with email obfuscation" (its filter not ported) | /node/3977 | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/node/3977) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/node/3977) |
-| photos ([hobophoto:], overlay) | /node/ | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/node/) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/node/) |
+| photos ([hobophoto:], overlay) | /node/1152 | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/node/1152) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/node/1152) |
 | route table (was PHP) | /node/3801 | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/node/3801) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/node/3801) |
 | home page (Panels) | / | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/) |
 | blog listing | /blog | [original](https://hobobiker-copy--remotework--rfay.coder.ddev.com/blog) · [Drupal 11](https://hobobiker-d11--remotework--rfay.coder.ddev.com/blog) |

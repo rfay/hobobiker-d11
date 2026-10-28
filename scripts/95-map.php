@@ -138,8 +138,10 @@ $examples = [];
 foreach ($q("SELECT n.type, MIN(n.nid) nid FROM node n WHERE n.status = 1 AND n.type <> '' GROUP BY n.type ORDER BY n.type") as $r) {
   $examples[] = ["$r[type] node", "node/$r[nid]"];
 }
-$hobophoto = $q("SELECT MIN(n.nid) nid FROM node n JOIN node_revisions r ON r.vid = n.vid WHERE n.status = 1 AND r.body LIKE '%[hobophoto:%'")[0]['nid'];
-$tripinfo = $q("SELECT MIN(n.nid) nid FROM node n JOIN node_revisions r ON r.vid = n.vid WHERE n.status = 1 AND r.body LIKE '%tripinfo_table%'")[0]['nid'];
+// Patterns as placeholders: Drupal reads [brackets] in a query string as a quoted identifier.
+$first = fn(string $like) => $q('SELECT MIN(n.nid) nid FROM node n JOIN node_revisions r ON r.vid = n.vid WHERE n.status = 1 AND r.body LIKE :l', [':l' => $like])[0]['nid'];
+$hobophoto = $first('%[hobophoto:%');
+$tripinfo = $first('%tripinfo_table%');
 // Published nodes in formats whose Drupal 6 filter has no port (wiki, gmap, email obfuscation): check by eye.
 foreach ($q('SELECT n.nid, f.name FROM node n JOIN node_revisions r ON r.vid = n.vid JOIN filter_formats f ON f.format = r.format
   WHERE n.status = 1 AND r.format IN (6, 7, 8) ORDER BY n.nid') as $r) {
