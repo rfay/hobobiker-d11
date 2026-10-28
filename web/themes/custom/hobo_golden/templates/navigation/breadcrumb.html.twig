@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * The original's breadcrumb: "Home » Blogs » rfay's blog".
+ */
+#}
+{% if breadcrumb %}
+  <div class="breadcrumb"><div class="breadcrumb">
+    {%- for item in breadcrumb -%}
+      {{- loop.first ? '' : ' » ' -}}
+      {%- if item.url -%}<a href="{{ item.url }}">{{ item.text }}</a>{%- else -%}{{ item.text }}{%- endif -%}
+    {%- endfor -%}
+  </div></div>
+{% endif %}

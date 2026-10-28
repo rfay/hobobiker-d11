@@ -1,0 +1,20 @@
+uuid: 3929c3f5-82a6-4b7e-bf02-ba1e5652772a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - hobo_golden
+_core:
+  default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
+id: hobo_golden_page_title
+theme: hobo_golden
+region: content
+weight: -10
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: ''
+  label_display: '0'
+  provider: core
+visibility: {  }

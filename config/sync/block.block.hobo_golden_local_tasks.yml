@@ -1,0 +1,20 @@
+uuid: e5cb64b7-7c68-4632-9033-44b92121768a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - hobo_golden
+id: hobo_golden_local_tasks
+theme: hobo_golden
+region: content
+weight: -9
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: ''
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

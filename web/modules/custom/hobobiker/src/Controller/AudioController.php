@@ -45,7 +45,8 @@ class AudioController extends ControllerBase {
         }
       }
       ksort($tags);
-      $build['#markup'] = Markup::create('<div>You can browse for audio by any of the following fields. </div>' . $list($tags));
+      // The sentence was the audio module's help text (hook_help), in the page's help area.
+      $build['#markup'] = Markup::create('<div class="help"><div class="help">You can browse for audio by any of the following fields. </div></div>' . $list($tags));
       return $build;
     }
     if (!isset(Audio::TAGS[$tag])) {

@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * The original's page (hobo_golden page.tpl.php): the logo banner, the menu bar, the content, the footer.
+ * The site name and slogan are not printed: the original's theme settings turned them off.
+ */
+#}
+<div id="wrapper">
+
+  <div id="header">
+    {% if logo %}
+      <div id="logo"><a href="{{ front_page }}" title="{{ 'Home'|t }}"><img src="{{ logo }}" alt="{{ 'Home'|t }}" /></a></div>
+    {% endif %}
+  </div>
+
+  <nav id="main-nav" class="main-nav">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="main-nav-menu">
+      <span class="nav-toggle-icon"></span>
+      <span class="nav-toggle-label">{{ 'Menu'|t }}</span>
+    </button>
+    {{ page.primary_menu }}
+  </nav>
+
+  <div id="content" style="width: {{ page.sidebar_left ? 72 : 96 }}%;">
+    {{ page.breadcrumb }}
+    {{ page.highlighted }}
+    {{ page.help }}
+    {{ page.content_top }}
+    {{ page.content }}
+    {{ page.content_bottom }}
+  </div>
+
+  {% if page.sidebar_left %}
+    <div id="sidebar">{{ page.sidebar_left }}</div>
+  {% endif %}
+
+  <div id="footer"><p>{{ page.footer }}</p></div>
+
+</div>

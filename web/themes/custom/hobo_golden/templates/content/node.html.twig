@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * A node as golden_hour's node.tpl.php printed it: the title (in listings), "By X - Posted on <date>",
+ * "Tagged: ...", the content, the links. Variables from hobo_golden_preprocess_node().
+ */
+#}
+<div class="node{{ node.isSticky() ? ' sticky' }}{{ not node.isPublished() ? ' node-unpublished' }}">
+  {{ title_prefix }}
+  {% if label and not page %}
+    {# On the home page the title is the pane's; the node keeps an empty title link, as Panels left it. #}
+    <h2 class="nodeTitle"><a href="{{ url }}">{{ elements['#hobobiker_pane'] ? '' : label }}</a></h2>
+  {% endif %}
+  {{ title_suffix }}
+  {% if display_submitted %}
+    <div class="submitted">{{ hobo_submitted }}</div>
+  {% endif %}
+  {% if hobo_terms %}
+    <div class="taxonomy">{{ hobo_terms }}</div>
+  {% endif %}
+  <div class="nodeContent">{{ content|without('comment', 'links') }}</div>
+  {% if hobo_blog_link %}
+    <div class="nodeLinks"><span class="first last blog_usernames_blog">{{ hobo_blog_link }}</span></div>
+  {% endif %}
+</div>

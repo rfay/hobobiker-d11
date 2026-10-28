@@ -1,0 +1,14 @@
+/* What Drupal 11's markup needs on top of the original's CSS (the original's own CSS is unchanged). */
+
+/* The home page's three columns (Drupal 6 Panels threecol_25_50_25_stacked) in core's layout. */
+.layout--threecol-25-50-25 > .layout__region--first,
+.layout--threecol-25-50-25 > .layout__region--third { flex: 0 1 25%; }
+.layout--threecol-25-50-25 > .layout__region--second { flex: 0 1 50%; padding: 0 0.5em; }
+.layout--threecol-25-50-25 > .layout__region { box-sizing: border-box; }
+
+/* Visually hidden text (pager, labels), as core's system CSS provided it on Drupal 6. */
+.visually-hidden { position: absolute !important; clip: rect(1px, 1px, 1px, 1px); overflow: hidden; height: 1px; width: 1px; word-wrap: normal; }
+
+/* The search form on one line, as Drupal 6's .container-inline did. */
+.container-inline div, .container-inline label, .container-inline .form-item, .container-inline .form-actions { display: inline; }
+.container-inline label { font-weight: bold; }

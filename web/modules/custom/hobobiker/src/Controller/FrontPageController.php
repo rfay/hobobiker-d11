@@ -17,13 +17,17 @@ class FrontPageController extends ControllerBase {
     $config = $this->config('hobobiker.front_page');
     foreach ($config->get('panes') ?? [] as $pane) {
       $content = match ($pane['type']) {
+        // Panels moved a node's title into the pane title and left the node's own title link empty.
         'node' => ($node = $this->entityTypeManager()->getStorage('node')->load($pane['id']))
-          ? $this->entityTypeManager()->getViewBuilder('node')->view($node, 'teaser') : NULL,
+          ? ['#hobobiker_pane' => TRUE] + $this->entityTypeManager()->getViewBuilder('node')->view($node, 'teaser') : NULL,
         'search' => $this->formBuilder()->getForm('Drupal\search\Form\SearchBlockForm'),
         'block_content' => ($blocks = $this->entityTypeManager()->getStorage('block_content')->loadByProperties(['info' => $pane['id']]))
           ? $this->entityTypeManager()->getViewBuilder('block_content')->view(reset($blocks)) : NULL,
         default => NULL,
       };
+      if ($content && $pane['type'] === 'node') {
+        $pane['title'] = $node->label();
+      }
       if ($content) {
         $regions[$pane['region']][] = ['#type' => 'container', '#attributes' => ['class' => ['panel-pane']],
           'title' => $pane['title'] ? ['#markup' => '<h2 class="pane-title">' . htmlspecialchars($pane['title']) . '</h2>'] : [],

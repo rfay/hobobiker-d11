@@ -1,7 +1,7 @@
 # Agent instructions: hobobiker-d11
 
 The Drupal 11 rebuild of hobobiker.com (Part 3 of "Hobobiker Rides Again"). Drupal 11.4, PHP 8.4, MariaDB
-11.8, Olivero. The site is built **entirely by scripts** in `scripts/`, from a copy of the original's
+11.8, with the original's theme ported. The site is built **entirely by scripts** in `scripts/`, from a copy of the original's
 database; nothing is configured by hand. The plan and its decisions are in
 `~/workspace/hobo/hobobiker-copy/PART3-PLAN.md`.
 
@@ -28,17 +28,23 @@ database; nothing is configured by hand. The plan and its decisions are in
 
 ## The pipeline
 
-Rebuild everything (about 30 seconds): `scripts/run-all.sh`
+Rebuild everything (about 40 seconds): `scripts/run-all.sh`. Validity check: `ddev drush php:script scripts/90-check-integrity.php`.
 
 | Step | What it does |
 |---|---|
-| `10-site-shell.php` | modules (incl. the custom `hobobiker`), 10 text formats (one per Drupal 6 format in use), image styles, 11 content types, 4 vocabularies, fields, comment type (comments stored, never shown), site settings |
-| `15-copy-files.sh` | the original's files, same paths (incremental rsync, 1.1 GB; runs before the import) |
-| `20-import.php` | users, terms, file records, nodes (current revision, CCK fields, terms), aliases, comments, with the original ids |
+| `10-site-shell.php` | modules (incl. the custom `hobobiker`), 10 text formats (one per Drupal 6 format in use), image styles, 11 content types, 4 vocabularies, fields (incl. audio and poll data), comment type (comments stored, never shown), site settings |
+| `15-copy-files.sh` | the original's files, same paths (incremental rsync, 1.1 GB; runs before the import), and the /files symlink |
+| `20-import.php` | users, terms, file records, nodes (current revision, CCK, audio and poll data, terms; PHP rewritten to `[tripinfo:]`), aliases, comments, with the original ids |
+| `30-menus.php` | the main menu (Drupal 6 menu-menu), every level |
+| `40-theme.php` | the `hobo_golden` theme, its logo, favicon and blocks |
+| `50-views.php` | listings: the Drupal 6 views, /blog, taxonomy pages, the triplog/wp/route tables, /audio |
+| `60-front-page.php` | the home page (the Panels page's panes) and the statistics block |
 | `drush cex` | the configuration, to `config/sync` |
 
-`web/modules/custom/hobobiker`: the `[hobophoto:]` and (later) `[tripinfo:]` text filters and the blog breadcrumb.
-`web/themes/custom/hobo`: an Olivero subtheme with the Drupal 6 theme's node meta lines, pager and feed icon.
+`web/modules/custom/hobobiker`: what the original's modules did (photo and tripinfo filters, tripinfo pages, audio,
+poll, the Panels home page, breadcrumbs, read-more).
+`web/themes/custom/hobo_golden`: the original theme ported (stable9 base): its page, menu, breadcrumb and node markup,
+so its CSS, images and nav.js work unchanged; `css/drupal11.css` and `css/d6-core.css` hold the few additions.
 
 **Caching is off in this copy** (`web/sites/default/settings.local.php`): page, dynamic page and render caches use
 the null backend and Twig recompiles changed templates, so a test never sees a stale page. The exported config

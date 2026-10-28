@@ -1,0 +1,22 @@
+uuid: e4c7159a-fb2b-473a-ad6a-f32cea9027a5
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - hobo_golden
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: hobo_golden_help
+theme: hobo_golden
+region: help
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: ''
+  label_display: '0'
+  provider: help
+visibility: {  }

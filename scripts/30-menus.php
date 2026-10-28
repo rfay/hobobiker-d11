@@ -40,8 +40,3 @@ $log(count($rows) . " main menu links ($hidden hidden, as on the original)");
 
 // Drupal's own "Home" link would duplicate the original's.
 \Drupal::service('plugin.manager.menu.link')->updateDefinition('standard.front_page', ['enabled' => FALSE]);
-
-// Every level shown, as the original's menu did (Olivero's block stops at 2).
-$block = \Drupal\block\Entity\Block::load('olivero_main_menu');
-$settings = $block->get('settings');
-$block->set('settings', ['level' => 1, 'depth' => 0, 'expand_all_items' => TRUE] + $settings)->save();

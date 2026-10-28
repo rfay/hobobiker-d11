@@ -1,0 +1,14 @@
+# The original theme's stylesheets, in its order (golden_hour, then hobo_golden), and its click-to-toggle menu.
+global:
+  version: 1.0
+  css:
+    base:
+      css/d6-core.css: {}
+    theme:
+      css/style.css: {}
+      css/icons.css: {}
+      css/hobo.css: {}
+      css/nav.css: {}
+      css/drupal11.css: {}
+  js:
+    js/nav.js: {}

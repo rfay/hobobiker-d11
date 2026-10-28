@@ -1,0 +1,17 @@
+name: Hobo Golden
+type: theme
+description: 'The original hobobiker.com theme (Drupal 6 hobo_golden on golden_hour), ported: its page and node markup, its CSS and images as they were.'
+base theme: stable9
+core_version_requirement: ^11
+libraries:
+  - hobo_golden/global
+regions:
+  primary_menu: 'Menu bar'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content_top: 'Content top'
+  content: Content
+  content_bottom: 'Content bottom'
+  sidebar_left: 'Left sidebar'
+  footer: Footer

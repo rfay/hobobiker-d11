@@ -210,7 +210,7 @@ foreach ($nodes as $row) {
 }
 $log("$count nodes ($retyped without a type became pages, $retitled empty titles became \"(untitled)\"; $lostImages image references to missing files; $rewritten PHP calls became [tripinfo:])");
 
-// 6. Aliases, oldest first so the newest wins for generated links (as on the original). Aliases of deleted
+// 6. Aliases, oldest first: 73 paths have several, and Drupal 6, like Drupal 11, linked the newest. Aliases of deleted
 // nodes are dropped. (The pattern is a placeholder: Drupal reads [brackets] in a query as a quoted identifier.)
 $aliases = $q('SELECT a.src, a.dst FROM url_alias a
   LEFT JOIN node n ON a.src REGEXP :re AND n.nid = CAST(SUBSTRING(a.src, 6) AS UNSIGNED)

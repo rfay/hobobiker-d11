@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * The main menu as the original printed it (menu_tree_output() in div#main-nav-menu): nested ul.menu, items
+ * classed leaf or expanded, first and last. nav.js and nav.css work on exactly this.
+ */
+#}
+{% import _self as menus %}
+<div id="main-nav-menu">{{ menus.menu_links(items) }}</div>
+
+{% macro menu_links(items) %}
+  {% import _self as menus %}
+  {% if items %}
+    <ul class="menu">
+      {% for item in items %}
+        {% set classes = [item.below ? 'expanded' : 'leaf', loop.first ? 'first', loop.last ? 'last']|filter(c => c) %}
+        <li class="{{ classes|join(' ') }}">{{ link(item.title, item.url) }}{{ menus.menu_links(item.below) }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

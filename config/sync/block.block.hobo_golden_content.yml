@@ -1,0 +1,22 @@
+uuid: ba059c8d-dd12-49eb-a283-0ab2bdddc378
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - hobo_golden
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: hobo_golden_content
+theme: hobo_golden
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * The Drupal 6 hobo_golden node template's words on Olivero: "By X - Posted on <date>", "Tagged: a • b", the
+ * The Drupal 6 hobo_golden node template's words: "By X - Posted on <date>", "Tagged: a • b", the
  * "X's blog" link, and CCK-style field labels ("Date:").
  */
 
@@ -13,7 +13,7 @@ use Drupal\taxonomy\TermInterface;
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
-function hobo_preprocess_node(array &$variables): void {
+function hobo_golden_preprocess_node(array &$variables): void {
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
   // Drupal 6 formatted dates with a fixed offset (date_default_timezone = -21600), not America/Denver with
@@ -56,8 +56,30 @@ function hobo_preprocess_node(array &$variables): void {
  *
  * Drupal 6 CCK printed "Label:" above each field's value.
  */
-function hobo_preprocess_field(array &$variables): void {
+function hobo_golden_preprocess_field(array &$variables): void {
   if ($variables['element']['#entity_type'] === 'node' && $variables['label_display'] === 'above') {
     $variables['label'] = $variables['label'] . ':';
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ *
+ * The logo (the painted HOBOBIKER.COM banner, the original's logo setting) and the front page link.
+ */
+function hobo_golden_preprocess_page(array &$variables): void {
+  $variables['logo'] = theme_get_setting('logo.url');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the search block form.
+ *
+ * As the original's: "Search this site:", a 15-character box and the button on one line.
+ */
+function hobo_golden_form_search_block_form_alter(array &$form): void {
+  $form['#attributes']['class'][] = 'container-inline';
+  $form['keys']['#title'] = t('Search this site:');
+  $form['keys']['#title_display'] = 'before';
+  $form['keys']['#size'] = 15;
+  $form['keys']['#attributes']['placeholder'] = '';
 }

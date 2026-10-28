@@ -1,0 +1,7 @@
+logo:
+  use_default: false
+  path: 'public://logo.jpg'
+favicon:
+  use_default: false
+  path: 'public://favicon.ico'
+  mimetype: image/vnd.microsoft.icon
