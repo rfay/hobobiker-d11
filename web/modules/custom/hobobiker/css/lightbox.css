@@ -1,0 +1,13 @@
+/* The photo overlay (js/lightbox.js), in the original's settings: black overlay at 0.8, white box with a 10px
+   border, black text. */
+.hobobiker-lightbox[hidden] { display: none; }
+.hobobiker-lightbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.hobobiker-lightbox__overlay { position: absolute; inset: 0; background: #000; opacity: 0.8; }
+.hobobiker-lightbox__frame { position: relative; margin: 0; padding: 10px; background: #fff; color: #000; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; }
+.hobobiker-lightbox__frame img { max-width: calc(90vw - 20px); max-height: calc(90vh - 60px); object-fit: contain; border: 0; }
+.hobobiker-lightbox__frame figcaption { display: flex; justify-content: space-between; gap: 1em; padding-top: 6px; font: 13px Helvetica, Arial, sans-serif; }
+.hobobiker-lightbox__frame button { position: absolute; border: 0; background: rgba(255, 255, 255, 0.85); color: #000; cursor: pointer; font-size: 28px; line-height: 1; padding: 4px 10px; }
+.hobobiker-lightbox__prev { left: 10px; top: 45%; }
+.hobobiker-lightbox__next { right: 10px; top: 45%; }
+.hobobiker-lightbox__close { right: 10px; top: 10px; }
+.hobobiker-lightbox__frame button[hidden] { display: none; }

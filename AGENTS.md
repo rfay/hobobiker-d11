@@ -40,6 +40,7 @@ Rebuild everything (about 40 seconds): `scripts/run-all.sh`. From nothing (fresh
 | `40-theme.php` | the `hobo_golden` theme, its logo, favicon and blocks |
 | `50-views.php` | listings: the Drupal 6 views, /blog, taxonomy pages, the triplog/wp/route tables, /audio |
 | `60-front-page.php` | the home page (the Panels page's panes) and the statistics block |
+| `95-map.php` | `docs/MIGRATION-MAP.md`: where each piece of the original went, counts on both sides, example pages to compare |
 | `drush cex` | the configuration, to `config/sync` |
 
 `web/modules/custom/hobobiker`: what the original's modules did (photo and tripinfo filters, tripinfo pages, audio,

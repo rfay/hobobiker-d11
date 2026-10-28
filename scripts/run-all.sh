@@ -15,3 +15,5 @@ ddev drush php:script scripts/50-views.php
 ddev drush php:script scripts/60-front-page.php
 ddev drush cr
 ddev drush cex -y
+# Where each piece of the original went, with counts and example pages: docs/MIGRATION-MAP.md.
+ddev drush php:script scripts/95-map.php

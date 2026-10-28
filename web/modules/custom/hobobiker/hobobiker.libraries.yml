@@ -13,3 +13,14 @@ tripinfo_map:
   dependencies:
     - core/drupal
     - core/once
+# The original's photo overlay (the lightbox module), for links with rel="lightbox[...]".
+lightbox:
+  version: 1.0
+  css:
+    component:
+      css/lightbox.css: {}
+  js:
+    js/lightbox.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

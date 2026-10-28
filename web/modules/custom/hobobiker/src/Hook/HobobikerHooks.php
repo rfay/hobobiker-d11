@@ -22,6 +22,18 @@ class HobobikerHooks {
   }
 
   /**
+   * Implements hook_page_attachments().
+   *
+   * The photo overlay on every page: photo macros, image fields and hand-written lightbox links all use it.
+   */
+  #[Hook('page_attachments')]
+  public function pageAttachments(array &$attachments): void {
+    if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
+      $attachments['#attached']['library'][] = 'hobobiker/lightbox';
+    }
+  }
+
+  /**
    * Implements hook_node_view_alter().
    *
    * A teaser shorter than its body (it has a summary, the original's stored teaser) ends with the read-more link,
