@@ -2,8 +2,9 @@
 
 The Drupal 11 rebuild of hobobiker.com, started live in Part 3 of "Hobobiker Rides Again". Drupal 11.4, PHP 8.4,
 MariaDB 11.8, the standard profile. **This is the start state: an empty site, no pipeline yet.** The site is to be
-built **entirely by scripts** in `scripts/`, from a copy of the original's database; nothing configured by hand.
-The owner's decisions are in `~/workspace/hobo/hobobiker-copy/PART3-PLAN.md`.
+built **entirely by rerunnable steps** in `scripts/` (the Migrate API or plain scripts, whichever the plan
+chooses), from a copy of the original's database; nothing configured by hand. The owner's decisions are given in
+the session's opening prompt.
 
 ## What this environment is
 
@@ -50,7 +51,7 @@ The owner's decisions are in `~/workspace/hobo/hobobiker-copy/PART3-PLAN.md`.
 ## Ground rules
 
 - **Reproduce the site, don't repair it.** A page broken on the original stays broken the same way; an
-  unpublished page still answers 403. Record findings in `hobobiker-copy/DISCOVERIES.md`.
+  unpublished page still answers 403. Record findings in `docs/DISCOVERIES.md` here.
 - Deliberate changes are declared in `hobobiker-copy/test/playwright/expected-differences.json` with
   `"target": "drupal11"`, exact (`equals` or an anchored `regex`), each with a reason.
 - **Every script reports a count** and is rerunnable, keeping the original ids (nid, cid, tid, fid, uid).
