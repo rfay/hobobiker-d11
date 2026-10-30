@@ -1,4 +1,4 @@
-uuid: 1d725827-ee96-4bf0-95de-908da5f126bc
+uuid: 30b1c6b1-f1f2-4e40-9549-409d55d29ebc
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - core.entity_view_mode.node.hobo_list_full
     - taxonomy.vocabulary.adventures
   content:
-    - 'taxonomy_term:adventures:708f9dc7-02aa-4998-a1a0-0c9777fa8598'
+    - 'taxonomy_term:adventures:bb99c25a-4b54-4558-b54b-96add1f258b4'
   module:
     - node
     - taxonomy

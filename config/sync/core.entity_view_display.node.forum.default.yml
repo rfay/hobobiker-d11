@@ -1,15 +1,13 @@
-uuid: af8e5a08-088d-4504-9b84-cd27aee0622a
+uuid: 6725fa3c-b408-45e8-924e-a57ebc1d1ab5
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment.default
     - field.field.node.forum.body
     - field.field.node.forum.comment
     - field.field.node.forum.field_tags
     - node.type.forum
   module:
-    - comment
     - text
     - user
 id: node.forum.default
@@ -24,15 +22,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  comment:
-    type: comment_default
-    label: hidden
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-    weight: 20
-    region: content
   field_tags:
     type: entity_reference_label
     label: inline
@@ -46,4 +35,5 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  comment: true

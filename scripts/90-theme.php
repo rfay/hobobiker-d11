@@ -17,9 +17,13 @@ use Drupal\block\Entity\Block;
 \Drupal::configFactory()->getEditable('system.theme')->set('default', 'hobo_golden')->save();
 \Drupal::configFactory()->getEditable('hobo_golden.settings')
   ->set('logo', ['use_default' => FALSE, 'path' => 'public://logo.jpg'])
+  // The original's shortcut icon setting (its /favicon.ico is a different icon, web/favicon.ico here).
+  ->set('favicon', ['use_default' => FALSE, 'path' => 'public://favicon.ico', 'mimetype' => 'image/x-icon'])
   ->set('features', ['logo' => TRUE, 'name' => FALSE, 'slogan' => FALSE, 'node_user_picture' => FALSE, 'comment_user_picture' => FALSE, 'favicon' => TRUE])
   ->save();
 \Drupal::configFactory()->getEditable('system.date')->set('timezone.default', 'Etc/GMT+6')->set('timezone.user.configurable', FALSE)->save();
+// CSS and JS served file by file (no aggregation), so the original's scripts and styles can be read and debugged.
+\Drupal::configFactory()->getEditable('system.performance')->set('css.preprocess', FALSE)->set('js.preprocess', FALSE)->save();
 
 $blocks = [
   'hobo_golden_main_menu' => ['system_menu_block:main', 'primary_menu', ['level' => 1, 'depth' => 0, 'expand_all_items' => TRUE]],
@@ -42,5 +46,6 @@ $storage->delete($storage->loadMultiple($copied));
 drupal_flush_all_caches();
 
 $placed = \Drupal::entityQuery('block')->condition('theme', 'hobo_golden')->count()->execute();
-printf("theme %s (default), logo %s, blocks placed %d (copied ones removed %d), timezone %s\n", \Drupal::config('system.theme')->get('default'),
-  theme_get_setting('logo.url', 'hobo_golden'), $placed, count($copied), \Drupal::config('system.date')->get('timezone.default'));
+printf("theme %s (default), logo %s, favicon %s, blocks placed %d (copied ones removed %d), timezone %s, aggregation %s\n", \Drupal::config('system.theme')->get('default'),
+  theme_get_setting('logo.url', 'hobo_golden'), theme_get_setting('favicon.url', 'hobo_golden'), $placed, count($copied), \Drupal::config('system.date')->get('timezone.default'),
+  \Drupal::config('system.performance')->get('js.preprocess') ? 'on' : 'off');

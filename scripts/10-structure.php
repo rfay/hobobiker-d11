@@ -97,13 +97,14 @@ foreach (array_keys($types) as $bundle) {
   FieldConfig::loadByName('node', $bundle, 'comment')->setDefaultValue([['status' => 2]])->save();
 }
 
-// What a node page shows: body, terms, comments (the theme step arranges them like the original).
+// What a node page shows: body and terms (the theme step arranges them like the original). No comments: the
+// original had the comment module off, so its comments are kept but not shown.
 $display_repository = \Drupal::service('entity_display.repository');
 foreach (array_keys($types) as $bundle) {
   $display_repository->getViewDisplay('node', $bundle)
     ->setComponent('body', ['type' => 'text_default', 'label' => 'hidden', 'weight' => 0])
     ->setComponent('field_tags', ['type' => 'entity_reference_label', 'label' => 'inline', 'weight' => 10])
-    ->setComponent('comment', ['type' => 'comment_default', 'label' => 'hidden', 'weight' => 20])
+    ->removeComponent('comment')
     ->save();
   $display_repository->getViewDisplay('node', $bundle, 'teaser')
     ->setComponent('body', ['type' => 'text_summary_or_trimmed', 'label' => 'hidden', 'weight' => 0, 'settings' => ['trim_length' => 1000000]])
@@ -204,9 +205,10 @@ foreach ($formats as [$id, $name, $filters]) {
   }
   $format->save();
 }
-// Everyone may view; only Filtered HTML is for visitors to write in, as on D6.
+// Everyone may view; only Filtered HTML is for visitors to write in, as on D6. Comments: none to see (module off).
 foreach (['anonymous', 'authenticated'] as $rid) {
-  user_role_grant_permissions($rid, ['access content', 'access comments', 'use text format filtered_html']);
+  user_role_grant_permissions($rid, ['access content', 'use text format filtered_html']);
+  user_role_revoke_permissions($rid, ['access comments']);
 }
 
 // The imagecache presets, same names (D6: scale and crop).

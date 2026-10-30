@@ -1,15 +1,13 @@
-uuid: 79cf369b-9c3a-4fc9-bb12-d7907a46c4c5
+uuid: 917046ba-71c8-4937-a9e8-a8a84b52b9c0
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment.default
     - field.field.node.acidfree.body
     - field.field.node.acidfree.comment
     - field.field.node.acidfree.field_tags
     - node.type.acidfree
   module:
-    - comment
     - text
     - user
 id: node.acidfree.default
@@ -24,15 +22,6 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  comment:
-    type: comment_default
-    label: hidden
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-    weight: 20
-    region: content
   field_tags:
     type: entity_reference_label
     label: inline
@@ -46,4 +35,5 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  comment: true

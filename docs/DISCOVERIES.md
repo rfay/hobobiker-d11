@@ -10,9 +10,10 @@ Findings about the source while planning (2026-10-30). Counts are from the `d6` 
 - 876 of 1657 aliases point at deleted nodes. Comment 27 is on deleted node 1198. Node 2307 has an empty type.
 - D6 comment `status = 0` means published (169 of 447).
 - 192 node bodies have format 0 (none set: the site default, Filtered HTML).
-- Comments: the original stores 447 but shows none (its comment module is disabled). On Drupal 11 the 168
-  published comments are visible to visitors. Owner's decision (2026-10-30): keep them visible. The tests do not
-  flag extra text, so no expected-differences entry is involved.
+- Comments: the original stores 447 but shows none (its comment module is disabled). Drupal 11 first showed the
+  168 published ones to visitors; the owner first chose to keep them visible, then (later on 2026-10-30) to match
+  the original. All 446 are kept (stored tier); step 10 leaves the comment field off the node displays and gives no
+  role `access comments`. The tests do not flag extra text, so they passed either way.
 - Files: the image module's 24 files (fids 1-24, D6 path `images/...`) are missing on the original's disk too; they
   keep their file records and are counted as missing. The original's docroot has a symlink `files ->
   sites/default/files`, which old content's `/files/...` links rely on; step 60 reproduces it.
@@ -41,3 +42,26 @@ Findings about the source while planning (2026-10-30). Counts are from the `d6` 
   whose parent has a higher tid, with only a notice and "0 failed" (the parent stub had no vocabulary); fixed with a
   stub default. The comparison found a bug in step 30 (setDescription() ignores a format; 30 descriptions had none),
   now fixed: both give identical terms. migrate_drupal is deprecated in Drupal 11.
+
+## The lightbox (found by a person, after every tier passed)
+
+- On the original, clicking a `[hobophoto:]` photo or the blog portrait opens it in the Lightbox2 module's overlay
+  (`sites/all/modules/lightbox/js/lightbox.js`, 6.x-1.12, added to every page). Drupal 11 printed the same
+  `rel="lightbox[group1][caption]"` links but no script, so a click opened the bare image. No tier clicks, so all
+  passed.
+- Fix: the original's `lightbox.js`, CSS and images, copied unchanged into the module
+  (`lib/lightbox2-6.x-1.12`), with its settings as the original printed them (library `hobobiker/lightbox2`, on
+  every page as on D6). An adapter (`js/lightbox2.js`) covers what Drupal 11 changed: `jQuery.noConflict()` (the
+  script uses a global `$`), no `$.browser`, `Drupal.settings` is `drupalSettings`, behaviors are `{attach}`.
+  The script posts each caption to `system/lightbox2/filter-xss`; that route is ported with D6's allowed tags.
+- Checked in a browser on node 1335 and node 1313: the same overlay, image and caption as the original, no
+  script errors.
+- Step 90 turns off CSS/JS aggregation, so the original's scripts are served as files.
+
+## Favicon (found by a person)
+
+- The original's pages link `/sites/default/files/favicon.ico` (its theme setting); its docroot `/favicon.ico` is a
+  different icon, served to browsers that ask for it directly. Drupal 11 linked core's icon. Step 90 sets the theme
+  setting to `public://favicon.ico` (the same file, in the copied files), and `web/favicon.ico` is a copy of the
+  original's docroot icon. Both match the original byte for byte; the tag is `rel="icon"` (Drupal 11's markup)
+  instead of `rel="shortcut icon"`. No tier checks the favicon.

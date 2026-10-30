@@ -1,12 +1,12 @@
-uuid: a9551391-b9af-4abf-8946-e6cc958bd936
+uuid: 9137ee73-9d18-4381-8074-9f9425e924fd
 langcode: en
 status: true
 dependencies: {  }
 name: 800x600
 label: 800x600
 effects:
-  6395a004-33c0-482f-a1a5-5e2dd0da1f1e:
-    uuid: 6395a004-33c0-482f-a1a5-5e2dd0da1f1e
+  d4f8e422-b25b-4973-b120-39759bdec54c:
+    uuid: d4f8e422-b25b-4973-b120-39759bdec54c
     id: image_scale_and_crop
     weight: 0
     data:

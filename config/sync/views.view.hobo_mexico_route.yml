@@ -1,11 +1,11 @@
-uuid: 5d4235dd-b855-4a7f-b5e4-22ef51a73d29
+uuid: 8c4791dc-2b11-48f6-a088-28431c942b34
 langcode: en
 status: true
 dependencies:
   config:
     - taxonomy.vocabulary.adventures
   content:
-    - 'taxonomy_term:adventures:b0ea8354-3d69-4911-99ea-437004cbf5e1'
+    - 'taxonomy_term:adventures:b6b7dab4-6eb2-480e-bb97-92c46cd91418'
   module:
     - node
     - taxonomy

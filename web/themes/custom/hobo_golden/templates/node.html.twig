@@ -2,7 +2,7 @@
 /**
  * @file
  * golden_hour's node.tpl.php: title (in lists), "By NAME - Posted on DATE", "Tagged: TERMS", the content, then
- * the links (the blog link). Comments follow the node.
+ * the links (the blog link). No comments: the original had the comment module off.
  */
 #}
   <div class="node{{ node.isSticky() ? ' sticky' }}{{ not node.isPublished() ? ' node-unpublished' }}">
@@ -14,4 +14,3 @@
     <div class="nodeContent">{{ content|without('links', 'field_tags', 'comment') }}</div>
     {% if hobo_links %}<div class="nodeLinks">{{ hobo_links }}</div>{% endif %}
   </div>
-{{ content.comment }}

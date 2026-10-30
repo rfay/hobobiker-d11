@@ -1,9 +1,8 @@
-uuid: 03f00b02-41f2-42c0-ac31-ee49bf2fbb72
+uuid: 9a0f0824-e9dc-410f-b434-f41a51317e79
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment.default
     - field.field.node.poll.body
     - field.field.node.poll.comment
     - field.field.node.poll.field_poll_choice
@@ -11,7 +10,6 @@ dependencies:
     - field.field.node.poll.field_tags
     - node.type.poll
   module:
-    - comment
     - text
     - user
 id: node.poll.default
@@ -25,15 +23,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
-    region: content
-  comment:
-    type: comment_default
-    label: hidden
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-    weight: 20
     region: content
   field_tags:
     type: entity_reference_label
@@ -49,5 +38,6 @@ content:
     weight: 100
     region: content
 hidden:
+  comment: true
   field_poll_choice: true
   field_poll_votes: true

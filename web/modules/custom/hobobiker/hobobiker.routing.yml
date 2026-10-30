@@ -51,3 +51,12 @@ hobobiker.audio_download:
     parameters:
       node:
         type: entity:node
+
+# Lightbox2's caption filter: the script posts each caption here before showing it.
+hobobiker.lightbox2_filter_xss:
+  path: '/system/lightbox2/filter-xss'
+  defaults:
+    _controller: '\Drupal\hobobiker\Controller\Lightbox2Controller::filterXss'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'

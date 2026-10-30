@@ -57,3 +57,12 @@ function hobobiker_poll_results(\Drupal\Core\Entity\EntityInterface $node): stri
   }
   return "<div class=\"poll\">\n$output<div class=\"total\">\n  Total votes: $total</div>\n</div>\n";
 }
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * D6 lightbox2_init() added the lightbox to every page.
+ */
+function hobobiker_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'hobobiker/lightbox2';
+}

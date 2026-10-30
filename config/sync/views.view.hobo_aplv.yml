@@ -1,4 +1,4 @@
-uuid: 5b4e542a-d148-4e7d-a6ff-428b2ffc8b81
+uuid: cfa2bd4a-975d-451f-a97c-e983407c0817
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - core.entity_view_mode.node.hobo_list_full
     - taxonomy.vocabulary.topics
   content:
-    - 'taxonomy_term:topics:735d14eb-306b-41ee-b740-c2bcd7d0b7e0'
+    - 'taxonomy_term:topics:2380f621-73a7-4ec1-953c-5904650781eb'
   module:
     - node
     - taxonomy

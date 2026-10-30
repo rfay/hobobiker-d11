@@ -1,4 +1,4 @@
-uuid: 6616cd87-bd8c-4ef2-a0ce-17959567436f
+uuid: 0da7b2a8-03f4-4c0f-8de8-734afe5a548e
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,6 @@ dependencies:
     - filter.format.filtered_html
     - filter.format.restricted_html
   module:
-    - comment
     - filter
     - system
 _core:
@@ -16,7 +15,6 @@ label: 'Anonymous user'
 weight: 0
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'use text format filtered_html'
   - 'use text format restricted_html'

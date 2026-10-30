@@ -1,4 +1,4 @@
-uuid: 689445ac-ac27-4426-8e44-e2825199c2df
+uuid: 45e1d4c6-c5c3-41ac-8898-30b3727dbacf
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,6 @@ dependencies:
     - filter.format.basic_html
     - filter.format.filtered_html
   module:
-    - comment
     - file
     - filter
     - system
@@ -17,7 +16,6 @@ label: 'Authenticated user'
 weight: 1
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'delete own files'
   - 'use text format basic_html'

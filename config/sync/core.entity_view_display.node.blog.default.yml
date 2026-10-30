@@ -1,9 +1,8 @@
-uuid: abb3d7a4-b1ea-41a5-8cb9-0e4f05748aff
+uuid: f853db3d-36b0-4b73-a8b4-a0967e828985
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_display.comment.comment.default
     - field.field.node.blog.body
     - field.field.node.blog.comment
     - field.field.node.blog.field_blog_image
@@ -11,7 +10,6 @@ dependencies:
     - field.field.node.blog.field_tags
     - node.type.blog
   module:
-    - comment
     - hobobiker
     - text
     - user
@@ -26,15 +24,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
-    region: content
-  comment:
-    type: comment_default
-    label: hidden
-    settings:
-      view_mode: default
-      pager_id: 0
-    third_party_settings: {  }
-    weight: 20
     region: content
   field_blog_image_portrait:
     type: hobobiker_lightbox_image
@@ -59,4 +48,5 @@ content:
     weight: 100
     region: content
 hidden:
+  comment: true
   field_blog_image: true
