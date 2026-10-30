@@ -1,0 +1,2 @@
+{# D6 theme_tablesort_indicator(): the arrow image for the direction a click on the active column sorts in. #}
+{% if style == 'asc' %}<img src="{{ file_url(directory ~ '/images/arrow-asc.png') }}" alt="sort icon" title="sort ascending" width="13" height="13" />{% else %}<img src="{{ file_url(directory ~ '/images/arrow-desc.png') }}" alt="sort icon" title="sort descending" width="13" height="13" />{% endif %}

@@ -1,0 +1,23 @@
+uuid: 1072e571-bafe-49e8-9c11-284d0dbe8fff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bad_dogs
+    - node.type.triplog
+id: node.triplog.field_bad_dogs
+field_name: field_bad_dogs
+entity_type: node
+bundle: triplog
+label: bad_dogs
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,20 @@
+uuid: 4458afec-98fb-45a7-b11f-604894f10da3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_audio_play_count
+field_name: field_audio_play_count
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

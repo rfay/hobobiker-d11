@@ -1,0 +1,9 @@
+uuid: e1b60375-7d5b-41dc-a5b9-27160600cda6
+langcode: en
+status: true
+dependencies: {  }
+name: 'Image Galleries'
+vid: image_galleries
+description: null
+weight: 0
+new_revision: false

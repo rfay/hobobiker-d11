@@ -1,0 +1,11 @@
+uuid: afa2aeaa-8d2c-4d09-b95f-74014511d711
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.hobo_list_full
+label: 'Full content in lists'
+description: null
+targetEntityType: node
+cache: true

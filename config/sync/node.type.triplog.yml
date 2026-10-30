@@ -1,0 +1,11 @@
+uuid: 3914ddb3-b495-4bce-ae2a-ce8bd2a529a7
+langcode: en
+status: true
+dependencies: {  }
+name: triplog
+type: triplog
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

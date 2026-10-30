@@ -1,0 +1,132 @@
+uuid: dac4f0a4-cb3a-4a76-9fb1-db8259737103
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.blog
+  module:
+    - node
+    - user
+id: hobo_central_america_blog
+label: 'D6: central_america_blog'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Central America Blog (In Order)'
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          quantity: 9
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          granularity: second
+      arguments: {  }
+      filters:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          operator: between
+          value:
+            min: '2007-06-29 00:00:00 America/Denver'
+            max: '2008-04-14 23:59:59 America/Denver'
+            value: ''
+            type: date
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            blog: blog
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: teaser
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: false
+          content:
+            value: "This section is the Central America part of our Big Trip from \"the north pole to the south pole\", in the first part of 2007.\r\n<br/><br/>\r\nFeel free to email <a href=\"/contact\">send us a note</a> with any questions or comments. \r\n"
+            format: full_html_no_restrictions
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: central_america_blog
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

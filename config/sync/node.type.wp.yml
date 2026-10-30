@@ -1,0 +1,11 @@
+uuid: 9325d4bb-67bd-49f8-8245-12b6a7d494c4
+langcode: en
+status: true
+dependencies: {  }
+name: 'Wonderful People'
+type: wp
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

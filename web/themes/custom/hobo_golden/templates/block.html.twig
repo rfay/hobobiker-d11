@@ -1,0 +1,5 @@
+{# Blocks print their content only, as the original's regions did; a block with a visible title gets an h2. #}
+{{ title_prefix }}
+{% if label %}<h2>{{ label }}</h2>{% endif %}
+{{ title_suffix }}
+{{ content }}

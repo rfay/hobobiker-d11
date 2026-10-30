@@ -1,0 +1,133 @@
+uuid: 5b4e542a-d148-4e7d-a6ff-428b2ffc8b81
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.hobo_list_full
+    - taxonomy.vocabulary.topics
+  content:
+    - 'taxonomy_term:topics:735d14eb-306b-41ee-b740-c2bcd7d0b7e0'
+  module:
+    - node
+    - taxonomy
+    - user
+id: hobo_aplv
+label: 'D6: APLV'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Agua Para La Vida visit in Rio Blanco, Nicaragua'
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 10
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          quantity: 9
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          granularity: second
+      arguments: {  }
+      filters:
+        tid:
+          id: tid
+          table: taxonomy_index
+          field: tid
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            38: 38
+          reduce_duplicates: true
+          vid: topics
+          type: textfield
+          limit: true
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          operator: '='
+          value: '1'
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: hobo_list_full
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: false
+          content:
+            value: "Following are the articles we wrote after visiting the amazing <a href=\"http://aplv.org\">Agua para la Vida</a> (\"Water for Life\") project in Rio Blanco, Nicaragua. We're amazingly impressed with them, as you can see :-)  You can view all the pictures from our visit <a href=\"http://www.flickr.com/photos/hobobiker/sets/72157603965747445/show/\" target=\"_blank\">here</a>.\r\n\r\n<b>¿Hablas español?</b> Hay una traducción malísima de esta página <a href=\"http://babelfish.altavista.com/babelfish/trurl_pagecontent?lp=en_es&trurl=http://www.hobobiker.com/aplv\" target=\"_blank\">aquí</a>.\r\n"
+            format: html_with_line_breaks
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: aplv
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

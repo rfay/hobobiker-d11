@@ -1,0 +1,16 @@
+uuid: bf7f549f-9b07-497f-9f20-770c67b5b0a9
+langcode: en
+status: true
+dependencies:
+  module:
+    - hobobiker
+name: 'PHP code (rewritten; no PHP runs)'
+format: php_code
+weight: 0
+filters:
+  tripinfo_table:
+    id: tripinfo_table
+    provider: hobobiker
+    status: true
+    weight: 0
+    settings: {  }

@@ -1,0 +1,40 @@
+uuid: e0412f1c-67a0-49ef-9f78-004cd0fab497
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.hobo_list_full
+    - field.field.node.acidfree.body
+    - field.field.node.acidfree.comment
+    - field.field.node.acidfree.field_tags
+    - node.type.acidfree
+  module:
+    - text
+    - user
+id: node.acidfree.hobo_list_full
+targetEntityType: node
+bundle: acidfree
+mode: hobo_list_full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

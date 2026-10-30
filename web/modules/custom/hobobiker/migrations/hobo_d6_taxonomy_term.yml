@@ -1,0 +1,45 @@
+# Step 30 (terms) done with the Migrate API instead of a script, for comparison: scripts/alt/30-terms-migrate.php.
+# Core's d6_taxonomy_term, adapted: the vocabulary is mapped to this site's ids (step 10 made the vocabularies),
+# descriptions get step 30's format, and the source reads the read-only d6 connection.
+id: hobo_d6_taxonomy_term
+label: 'Taxonomy terms (Migrate API version of step 30)'
+migration_tags:
+  - Drupal 6
+source:
+  plugin: d6_taxonomy_term
+  key: d6
+process:
+  tid: tid
+  vid:
+    plugin: static_map
+    source: vid
+    map:
+      1: adventures
+      2: image_galleries
+      3: access_level
+      5: topics
+    # A parent with a higher tid is first made as a stub, which has no vid; without a default, the stub and so
+    # its child (term 31, whose parent is 32) are skipped with only a notice. The real row overwrites the stub.
+    default_value: adventures
+  name: name
+  description/value: description
+  description/format:
+    plugin: default_value
+    default_value: full_html_no_restrictions
+  weight: weight
+  # Only attempt to stub real (non-zero) parents.
+  parent_id:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: parent
+    -
+      plugin: migration_lookup
+      migration: hobo_d6_taxonomy_term
+  parent:
+    plugin: default_value
+    default_value: 0
+    source: '@parent_id'
+  changed: timestamp
+destination:
+  plugin: entity:taxonomy_term

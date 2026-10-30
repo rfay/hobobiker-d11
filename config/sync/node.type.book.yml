@@ -1,0 +1,11 @@
+uuid: deb8b5cc-27dd-4552-b0a9-28d85b2472bc
+langcode: en
+status: true
+dependencies: {  }
+name: 'Book page'
+type: book
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

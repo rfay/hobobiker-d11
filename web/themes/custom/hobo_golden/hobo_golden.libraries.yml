@@ -1,0 +1,18 @@
+global:
+  css:
+    # D6's core module stylesheets, which the original loaded on every page (book navigation, poll, system), and
+    # the front page Panel's layout.
+    base:
+      css/d6/defaults.css: {}
+      css/d6/system.css: {}
+      css/d6/node.css: {}
+      css/d6/book.css: {}
+      css/d6/poll.css: {}
+      css/d6/threecol_25_50_25_stacked.css: {}
+    theme:
+      css/golden_hour.css: {}
+      css/icons.css: {}
+      css/hobo.css: {}
+      css/nav.css: {}
+  js:
+    js/nav.js: {}

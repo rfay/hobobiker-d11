@@ -1,0 +1,27 @@
+uuid: dbc66fad-3261-4224-8705-0986e241307b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio
+    - node.type.audio
+  module:
+    - file
+id: node.audio.field_audio
+field_name: field_audio
+entity_type: node
+bundle: audio
+label: 'Audio file'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: mp3
+  max_filesize: ''
+  description_field: false
+field_type: file

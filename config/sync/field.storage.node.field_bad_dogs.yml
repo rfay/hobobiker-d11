@@ -1,0 +1,20 @@
+uuid: 25423d27-9014-4f29-9532-3f3381478cf7
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_bad_dogs
+field_name: field_bad_dogs
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

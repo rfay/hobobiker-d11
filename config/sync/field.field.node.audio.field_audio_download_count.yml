@@ -1,0 +1,23 @@
+uuid: 68e1052c-fbc4-4673-8cac-349fdcaa42fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_download_count
+    - node.type.audio
+id: node.audio.field_audio_download_count
+field_name: field_audio_download_count
+entity_type: node
+bundle: audio
+label: 'Audio download count'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,22 @@
+uuid: 02a6eb7d-78ac-41e5-ae09-aa677d692ad7
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - hobo_golden
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: hobo_golden_breadcrumbs
+theme: hobo_golden
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: ''
+  label_display: '0'
+  provider: core
+visibility: {  }

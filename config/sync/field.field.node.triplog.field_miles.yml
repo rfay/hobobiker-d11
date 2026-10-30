@@ -1,0 +1,23 @@
+uuid: 2455838e-71e0-4e14-b054-dc300931a52b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_miles
+    - node.type.triplog
+id: node.triplog.field_miles
+field_name: field_miles
+entity_type: node
+bundle: triplog
+label: Miles
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

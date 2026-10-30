@@ -1,0 +1,23 @@
+uuid: 28eeec47-9a02-4032-b2bb-fd0d0c2870a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flat_tires
+    - node.type.triplog
+id: node.triplog.field_flat_tires
+field_name: field_flat_tires
+entity_type: node
+bundle: triplog
+label: 'Flat Tires'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

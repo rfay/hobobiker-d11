@@ -1,0 +1,28 @@
+uuid: 94963271-234d-4bc6-ba5b-0eb0ac650413
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.comment
+    - node.type.wp
+  module:
+    - comment
+id: node.wp.comment
+field_name: comment
+entity_type: node
+bundle: wp
+label: Comments
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    status: 2
+default_value_callback: ''
+settings:
+  default_mode: 1
+  per_page: 50
+  anonymous: 0
+  form_location: true
+  preview: 1
+field_type: comment

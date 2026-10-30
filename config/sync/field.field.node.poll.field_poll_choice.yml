@@ -1,0 +1,19 @@
+uuid: d8952bee-0f28-4a94-8e33-ded23851654b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_poll_choice
+    - node.type.poll
+id: node.poll.field_poll_choice
+field_name: field_poll_choice
+entity_type: node
+bundle: poll
+label: Choice
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

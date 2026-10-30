@@ -1,0 +1,23 @@
+uuid: 4335c91b-1c8c-4006-9495-0a50d2435e5c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_play_count
+    - node.type.audio
+id: node.audio.field_audio_play_count
+field_name: field_audio_play_count
+entity_type: node
+bundle: audio
+label: 'Audio play count'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

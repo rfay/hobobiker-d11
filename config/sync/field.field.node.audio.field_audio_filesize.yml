@@ -1,0 +1,23 @@
+uuid: 02e56430-889a-4a30-bb4a-031470a25f7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_filesize
+    - node.type.audio
+id: node.audio.field_audio_filesize
+field_name: field_audio_filesize
+entity_type: node
+bundle: audio
+label: 'Audio filesize'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

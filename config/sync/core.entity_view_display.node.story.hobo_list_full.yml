@@ -1,0 +1,40 @@
+uuid: d71a0ed6-569a-4908-8a23-4114dbf646ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.hobo_list_full
+    - field.field.node.story.body
+    - field.field.node.story.comment
+    - field.field.node.story.field_tags
+    - node.type.story
+  module:
+    - text
+    - user
+id: node.story.hobo_list_full
+targetEntityType: node
+bundle: story
+mode: hobo_list_full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true

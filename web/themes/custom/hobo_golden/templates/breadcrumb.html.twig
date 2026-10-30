@@ -1,0 +1,4 @@
+{# D6's breadcrumb: links separated by " » ", in div.breadcrumb (twice, as the original's page and theme did). #}
+{% if breadcrumb %}
+<div class="breadcrumb"><div class="breadcrumb">{% for item in breadcrumb %}{% if not loop.first %} » {% endif %}{% if item.url %}<a href="{{ item.url }}">{{ item.text }}</a>{% else %}{{ item.text }}{% endif %}{% endfor %}</div></div>
+{% endif %}

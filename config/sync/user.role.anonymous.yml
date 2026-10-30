@@ -1,0 +1,22 @@
+uuid: 6616cd87-bd8c-4ef2-a0ce-17959567436f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.filtered_html
+    - filter.format.restricted_html
+  module:
+    - comment
+    - filter
+    - system
+_core:
+  default_config_hash: Tus1ZTNXKIOnrennR1hnTbc7wUPBXHTUm5UdCpEhJSk
+id: anonymous
+label: 'Anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'use text format filtered_html'
+  - 'use text format restricted_html'

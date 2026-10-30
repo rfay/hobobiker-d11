@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * The original's page.tpl.php (hobo_golden): logo-only header, the click-to-open main menu, the content column
+ * (breadcrumb, h2.pageTitle, content) at 96% width with no sidebar, and an empty footer paragraph.
+ */
+#}
+  <div id="wrapper">
+
+    <div id="header">
+      {% if logo %}
+          <div id="logo">
+            <a href="{{ path('<front>') }}" title="Home">
+              <img src="{{ logo }}" alt="Home" /></a>
+          </div>
+      {% endif %}
+      {{ page.header }}
+    </div>
+
+    <nav id="main-nav" class="main-nav">
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="main-nav-menu">
+        <span class="nav-toggle-icon"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+      {{ page.primary_menu }}
+    </nav>
+
+    <div id="content" style="width: {{ page.sidebar_left ? 72 : 96 }}%;">
+      {{ page.breadcrumb }}
+      {% if page_title is not empty %}<h2 class="pageTitle">{{ page_title }}</h2>{% endif %}
+      {{ page.highlighted }}
+      {{ page.content_top }}
+      {{ page.content }}
+      {{ page.content_bottom }}
+    </div>
+
+    {% if page.sidebar_left %}
+      <div id="sidebar">{{ page.sidebar_left }}</div>
+    {% endif %}
+
+    <div id="footer">
+      <p>{{ page.footer }}</p>
+    </div>
+
+  </div>

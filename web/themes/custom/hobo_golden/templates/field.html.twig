@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * CCK's field markup for fields with a label (triplog, wp): "Label:" above the value. Other fields: values only.
+ */
+#}
+{% if label_hidden %}
+{% for item in items %}{{ item.content }}{% endfor %}
+{% else %}
+<div class="field field-type-{{ field_type|clean_class }} field-{{ field_name|clean_class }}">
+      <div class="field-label">{{ label }}:&nbsp;</div>
+    <div class="field-items">
+{% for item in items %}
+            <div class="field-item {{ cycle(['odd', 'even'], loop.index0) }}">
+                    {{ item.content }}        </div>
+{% endfor %}
+        </div>
+</div>
+{% endif %}

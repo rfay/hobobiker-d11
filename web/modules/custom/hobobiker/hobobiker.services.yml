@@ -1,0 +1,14 @@
+services:
+  hobobiker.blog_breadcrumb:
+    class: Drupal\hobobiker\Breadcrumb\BlogBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+  hobobiker.audio_breadcrumb:
+    class: Drupal\hobobiker\Breadcrumb\AudioBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+  hobobiker.requested_alias:
+    class: Drupal\hobobiker\PathProcessor\RequestedAliasProcessor
+    arguments: ['@path_alias.manager', '@router.request_context']
+    tags:
+      - { name: path_processor_outbound, priority: 250 }

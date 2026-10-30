@@ -1,0 +1,34 @@
+uuid: 43b152fc-4485-446b-9c12-8f35a31152ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.image.body
+    - field.field.node.image.comment
+    - field.field.node.image.field_tags
+    - node.type.image
+  module:
+    - text
+    - user
+id: node.image.teaser
+targetEntityType: node
+bundle: image
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true
+  field_tags: true

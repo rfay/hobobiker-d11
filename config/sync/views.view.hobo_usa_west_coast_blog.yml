@@ -1,0 +1,132 @@
+uuid: f25dd70f-a212-4e6b-a523-6b6c33708300
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.hobo_list_full
+    - node.type.blog
+  module:
+    - node
+    - user
+id: hobo_usa_west_coast_blog
+label: 'D6: usa_west_coast_blog'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'USA West Coast Big Trip Blog (In Order)'
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          quantity: 9
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          granularity: second
+      arguments: {  }
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            blog: blog
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          operator: between
+          value:
+            min: '2006-08-31 America/Denver'
+            max: '2006-11-15 America/Denver'
+            value: ''
+            type: date
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: hobo_list_full
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: false
+          content:
+            value: "This section is the USA West Coast part of our Big Trip from \"the north pole to the south pole\". We got to Washington State on August 31, 2006 and got to Tijuana, Mexico in late October.\r\n<br/><br/>\r\nFeel free to email <script language=\"Javascript\" type=\"text/javascript\">\r\n<!--\r\ndocument.write('<a href=\"mai');\r\ndocument.write('lto');\r\ndocument.write(':&#114;&#97;&#110;&#100;&#121;&#65;&#110;&#100;&#78;&#97;&#110;&#99;&#121;');\r\ndocument.write('@');\r\ndocument.write('&#104;&#111;&#98;&#111;&#98;&#105;&#107;&#101;&#114;&#46;&#99;&#111;&#109;\">');\r\ndocument.write('&#114;&#97;&#110;&#100;&#121;&#65;&#110;&#100;&#78;&#97;&#110;&#99;&#121;');\r\ndocument.write('@');\r\ndocument.write('&#104;&#111;&#98;&#111;&#98;&#105;&#107;&#101;&#114;&#46;&#99;&#111;&#109;<\\/a>');\r\n// -->\r\n</script><noscript>&#114;&#97;&#110;&#100;&#121;&#65;&#110;&#100;&#78;&#97;&#110;&#99;&#121; at \r\n&#104;&#111;&#98;&#111;&#98;&#105;&#107;&#101;&#114; dot &#99;&#111;&#109;</noscript>.\r\n<br/><br/>\r\n\r\n"
+            format: full_html_no_restrictions
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: usa_west_coast_big_trip_blog
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

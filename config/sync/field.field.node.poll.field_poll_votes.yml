@@ -1,0 +1,23 @@
+uuid: 8cab91af-af1c-47df-aa2f-ed3f0ac5410d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_poll_votes
+    - node.type.poll
+id: node.poll.field_poll_votes
+field_name: field_poll_votes
+entity_type: node
+bundle: poll
+label: Votes
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

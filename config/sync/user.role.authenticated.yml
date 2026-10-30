@@ -1,0 +1,24 @@
+uuid: 689445ac-ac27-4426-8e44-e2825199c2df
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - filter.format.filtered_html
+  module:
+    - comment
+    - file
+    - filter
+    - system
+_core:
+  default_config_hash: wkW7P5A53YhGmsgamrmTbfwpZrqdnPYiJdoAZQtdmJg
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'delete own files'
+  - 'use text format basic_html'
+  - 'use text format filtered_html'

@@ -1,0 +1,72 @@
+uuid: 5a07f97d-8aec-434c-b8fa-a0bbbced8733
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.hobo_list_full
+    - field.field.node.audio.body
+    - field.field.node.audio.comment
+    - field.field.node.audio.field_audio
+    - field.field.node.audio.field_audio_album
+    - field.field.node.audio.field_audio_artist
+    - field.field.node.audio.field_audio_bitrate
+    - field.field.node.audio.field_audio_bitrate_mode
+    - field.field.node.audio.field_audio_channel_mode
+    - field.field.node.audio.field_audio_download_count
+    - field.field.node.audio.field_audio_filesize
+    - field.field.node.audio.field_audio_format
+    - field.field.node.audio.field_audio_genre
+    - field.field.node.audio.field_audio_play_count
+    - field.field.node.audio.field_audio_playtime
+    - field.field.node.audio.field_audio_sample_rate
+    - field.field.node.audio.field_audio_title
+    - field.field.node.audio.field_audio_track
+    - field.field.node.audio.field_audio_year
+    - field.field.node.audio.field_tags
+    - node.type.audio
+  module:
+    - text
+    - user
+id: node.audio.hobo_list_full
+targetEntityType: node
+bundle: audio
+mode: hobo_list_full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true
+  field_audio: true
+  field_audio_album: true
+  field_audio_artist: true
+  field_audio_bitrate: true
+  field_audio_bitrate_mode: true
+  field_audio_channel_mode: true
+  field_audio_download_count: true
+  field_audio_filesize: true
+  field_audio_format: true
+  field_audio_genre: true
+  field_audio_play_count: true
+  field_audio_playtime: true
+  field_audio_sample_rate: true
+  field_audio_title: true
+  field_audio_track: true
+  field_audio_year: true

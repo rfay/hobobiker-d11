@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * golden_hour's node.tpl.php: title (in lists), "By NAME - Posted on DATE", "Tagged: TERMS", the content, then
+ * the links (the blog link). Comments follow the node.
+ */
+#}
+  <div class="node{{ node.isSticky() ? ' sticky' }}{{ not node.isPublished() ? ' node-unpublished' }}">
+    {% if not page %}<h2 class="nodeTitle"><a href="{{ url }}">{{ label }}</a></h2>{% endif %}
+    {% if hobo_submitted %}
+      <div class="submitted">{{ hobo_submitted }}</div>
+    {% endif %}
+    {% if hobo_terms %}<div class="taxonomy">Tagged: {{ hobo_terms }}</div>{% endif %}
+    <div class="nodeContent">{{ content|without('links', 'field_tags', 'comment') }}</div>
+    {% if hobo_links %}<div class="nodeLinks">{{ hobo_links }}</div>{% endif %}
+  </div>
+{{ content.comment }}

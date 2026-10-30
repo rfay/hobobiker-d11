@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Views data for the D6 date argument (hobobiker_date_range) on the triplog and wp dates and the post date.
+ */
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function hobobiker_views_data_alter(array &$data) {
+  foreach (['field_date', 'field_date_0'] as $field) {
+    $data["node__$field"]["{$field}_range"] = [
+      'title' => t('@field (D6 date range)', ['@field' => $field]),
+      'help' => t('START--END, as the D6 date module argument took it.'),
+      'argument' => ['id' => 'hobobiker_date_range', 'field' => "{$field}_value"],
+    ];
+  }
+  $data['node_field_data']['created_range'] = [
+    'title' => t('Authored on (D6 date range)'),
+    'help' => t('START--END, as the D6 date module argument took it.'),
+    'argument' => ['id' => 'hobobiker_date_range', 'field' => 'created', 'timestamp' => TRUE],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for nodes.
+ *
+ * The D6 audio module's node content: the audio-info list on the page, the length in lists (its teaser format
+ * "[audio-player]<br />[audio-length]"; the Flash player is gone).
+ */
+function hobobiker_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $node, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  if ($node->bundle() === 'poll') {
+    $build['hobobiker_poll'] = ['#markup' => \Drupal\Core\Render\Markup::create(hobobiker_poll_results($node)), '#weight' => 5];
+    return;
+  }
+  if ($node->bundle() !== 'audio') {
+    return;
+  }
+  $markup = $view_mode === 'teaser' ? '<br />' . \Drupal\hobobiker\Audio::length($node) : \Drupal\hobobiker\Audio::display($node);
+  $build['hobobiker_audio'] = ['#markup' => \Drupal\Core\Render\Markup::create($markup), '#weight' => 5];
+}
+
+/**
+ * D6 poll_view_results(): each choice, a bar, "45% (9 votes)", then the total (the poll was closed).
+ */
+function hobobiker_poll_results(\Drupal\Core\Entity\EntityInterface $node): string {
+  $choices = array_column($node->get('field_poll_choice')->getValue(), 'value');
+  $votes = array_map('intval', array_column($node->get('field_poll_votes')->getValue(), 'value'));
+  $total = array_sum($votes);
+  $output = '';
+  foreach ($choices as $i => $text) {
+    $n = $votes[$i] ?? 0;
+    $percent = $total ? round($n * 100 / $total) : 0;
+    $output .= '<div class="text">' . \Drupal\Component\Utility\Html::escape($text) . "</div>\n<div class=\"bar\">\n  <div style=\"width: $percent%;\" class=\"foreground\"></div>\n</div>\n"
+      . "<div class=\"percent\">\n  $percent% (" . ($n === 1 ? '1 vote' : "$n votes") . ")\n</div>\n";
+  }
+  return "<div class=\"poll\">\n$output<div class=\"total\">\n  Total votes: $total</div>\n</div>\n";
+}

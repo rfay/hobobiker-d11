@@ -1,0 +1,55 @@
+uuid: 7a17bf31-30c4-40ab-a816-4f3747f27d50
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.wp.body
+    - field.field.node.wp.comment
+    - field.field.node.wp.field_date_0
+    - field.field.node.wp.field_tags
+    - field.field.node.wp.field_trip_0
+    - node.type.wp
+  module:
+    - datetime
+    - text
+    - user
+id: node.wp.teaser
+targetEntityType: node
+bundle: wp
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_date_0:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'j F Y'
+    third_party_settings: {  }
+    weight: -39
+    region: content
+  field_trip_0:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: -38
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true
+  field_tags: true

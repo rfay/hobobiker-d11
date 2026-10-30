@@ -1,0 +1,19 @@
+uuid: ab9355d8-2298-463b-8fe6-044c796710cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_trip
+    - node.type.triplog
+id: node.triplog.field_trip
+field_name: field_trip
+entity_type: node
+bundle: triplog
+label: trip
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

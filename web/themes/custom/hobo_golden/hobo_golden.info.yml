@@ -1,0 +1,17 @@
+name: Hobo Golden
+type: theme
+description: 'The original site''s theme (golden_hour with the hobo_golden subtheme), ported to Drupal 11: same CSS, markup and wording.'
+core_version_requirement: ^11
+base theme: false
+libraries:
+  - hobo_golden/global
+regions:
+  header: Header
+  primary_menu: 'Main menu'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  content_top: 'Content top'
+  content: Content
+  content_bottom: 'Content bottom'
+  sidebar_left: 'Left sidebar'
+  footer: Footer

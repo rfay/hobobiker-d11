@@ -1,0 +1,14 @@
+uuid: db0d23fc-bc88-4a33-8344-1bd8d0e50174
+langcode: en
+status: true
+dependencies: {  }
+name: 'Full HTML-No Restrictions'
+format: full_html_no_restrictions
+weight: 0
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 10
+    settings: {  }

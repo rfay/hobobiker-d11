@@ -1,0 +1,28 @@
+uuid: c20ebc64-4c9d-4444-ac84-8278473694d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.comment
+    - node.type.triplog
+  module:
+    - comment
+id: node.triplog.comment
+field_name: comment
+entity_type: node
+bundle: triplog
+label: Comments
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    status: 2
+default_value_callback: ''
+settings:
+  default_mode: 1
+  per_page: 50
+  anonymous: 0
+  form_location: true
+  preview: 1
+field_type: comment

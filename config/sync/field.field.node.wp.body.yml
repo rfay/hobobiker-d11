@@ -1,0 +1,24 @@
+uuid: e9a8fa68-2273-4ccc-8f1f-65aeac9dc2cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.wp
+  module:
+    - text
+id: node.wp.body
+field_name: body
+entity_type: node
+bundle: wp
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

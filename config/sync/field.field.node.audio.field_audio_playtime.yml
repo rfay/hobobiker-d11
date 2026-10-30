@@ -1,0 +1,19 @@
+uuid: c4e80725-4a22-4655-9abe-d43cb2e218f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_playtime
+    - node.type.audio
+id: node.audio.field_audio_playtime
+field_name: field_audio_playtime
+entity_type: node
+bundle: audio
+label: 'Audio playtime'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

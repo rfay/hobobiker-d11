@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * The main menu as D6's menu_tree_output() printed it: nested ul.menu, li.leaf / li.expanded, first and last.
+ */
+#}
+{% import _self as menus %}
+<div id="main-nav-menu">{{ menus.menu_links(items) }}</div>
+
+{% macro menu_links(items) %}
+  {% import _self as menus %}
+  {% if items %}
+<ul class="menu">
+    {% for item in items %}
+<li class="{{ item.below ? 'expanded' : 'leaf' }}{{ loop.first ? ' first' }}{{ loop.last ? ' last' }}">{{ link(item.title, item.url) }}{% if item.below %}{{ menus.menu_links(item.below) }}{% endif %}</li>
+    {% endfor %}
+</ul>
+  {% endif %}
+{% endmacro %}

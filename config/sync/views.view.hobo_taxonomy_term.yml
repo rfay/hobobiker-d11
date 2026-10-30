@@ -1,0 +1,201 @@
+uuid: e001e10e-54e5-453c-ba22-ff379ad28ac8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+  module:
+    - node
+    - taxonomy
+    - user
+id: hobo_taxonomy_term
+label: 'D6: taxonomy_term'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: ''
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 10
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          quantity: 9
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts:
+        sticky:
+          id: sticky
+          table: node_field_data
+          field: sticky
+          entity_type: node
+          entity_field: sticky
+          plugin_id: standard
+          order: DESC
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          granularity: second
+      arguments:
+        term_node_tid_depth:
+          id: term_node_tid_depth
+          table: node_field_data
+          field: term_node_tid_depth
+          entity_type: node
+          plugin_id: taxonomy_index_tid_depth
+          default_action: 'not found'
+          title_enable: true
+          title: '{{ arguments.term_node_tid_depth }}'
+          specify_validation: true
+          validate:
+            type: 'entity:taxonomy_term'
+            fail: 'not found'
+          validate_options:
+            bundles: {  }
+            access: true
+            operation: view
+            multiple: 0
+          break_phrase: true
+          depth: 0
+      filters:
+        status_extra:
+          id: status_extra
+          table: node_field_data
+          field: status_extra
+          entity_type: node
+          plugin_id: node_status
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: teaser
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      header: {  }
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  feed_1:
+    id: feed_1
+    display_title: Feed
+    display_plugin: feed
+    position: 2
+    display_options:
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 10
+      arguments:
+        term_node_tid_depth:
+          id: term_node_tid_depth
+          table: node_field_data
+          field: term_node_tid_depth
+          entity_type: node
+          plugin_id: taxonomy_index_tid_depth
+          default_action: 'not found'
+          title_enable: true
+          title: '{{ arguments.term_node_tid_depth }}'
+          specify_validation: true
+          validate:
+            type: 'entity:taxonomy_term'
+            fail: 'not found'
+          validate_options:
+            bundles: {  }
+            access: true
+            operation: view
+            multiple: 0
+          break_phrase: true
+          depth: 0
+        term_node_tid_depth_modifier:
+          id: term_node_tid_depth_modifier
+          table: node_field_data
+          field: term_node_tid_depth_modifier
+          entity_type: node
+          plugin_id: taxonomy_index_tid_depth_modifier
+          default_action: ignore
+          exception:
+            value: all
+      style:
+        type: rss
+        options: {  }
+      row:
+        type: node_rss
+        options:
+          view_mode: teaser
+      defaults:
+        arguments: false
+      display_extenders: {  }
+      path: taxonomy/term/%/%/feed
+      displays:
+        page_1: page_1
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: taxonomy/term/%
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

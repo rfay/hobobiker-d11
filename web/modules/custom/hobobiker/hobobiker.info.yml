@@ -1,0 +1,9 @@
+name: Hobobiker
+type: module
+description: 'The original site''s render-time behavior: the [hobophoto:] photo macro, the trip tables and maps (tripinfo), without stored PHP.'
+core_version_requirement: ^11
+package: Hobobiker
+dependencies:
+  - drupal:filter
+  - drupal:image
+  - drupal:node

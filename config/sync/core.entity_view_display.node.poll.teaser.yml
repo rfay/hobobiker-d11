@@ -1,0 +1,38 @@
+uuid: 73be31d1-3297-4f29-948d-4d539fe4e649
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.poll.body
+    - field.field.node.poll.comment
+    - field.field.node.poll.field_poll_choice
+    - field.field.node.poll.field_poll_votes
+    - field.field.node.poll.field_tags
+    - node.type.poll
+  module:
+    - text
+    - user
+id: node.poll.teaser
+targetEntityType: node
+bundle: poll
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 1000000
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true
+  field_poll_choice: true
+  field_poll_votes: true
+  field_tags: true

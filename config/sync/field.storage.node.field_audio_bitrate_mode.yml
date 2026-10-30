@@ -1,0 +1,21 @@
+uuid: 5b4177c6-fa33-4988-abc5-2a42a66d2064
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_audio_bitrate_mode
+field_name: field_audio_bitrate_mode
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

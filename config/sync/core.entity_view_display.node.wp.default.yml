@@ -1,0 +1,70 @@
+uuid: 89eeadf4-6969-4634-80a3-f359919bb712
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment.default
+    - field.field.node.wp.body
+    - field.field.node.wp.comment
+    - field.field.node.wp.field_date_0
+    - field.field.node.wp.field_tags
+    - field.field.node.wp.field_trip_0
+    - node.type.wp
+  module:
+    - comment
+    - datetime
+    - text
+    - user
+id: node.wp.default
+targetEntityType: node
+bundle: wp
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  comment:
+    type: comment_default
+    label: hidden
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_date_0:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'j F Y'
+    third_party_settings: {  }
+    weight: -39
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_trip_0:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: -38
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

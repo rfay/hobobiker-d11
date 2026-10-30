@@ -1,0 +1,22 @@
+uuid: 0112c593-adf5-4622-b2cf-b1057506e3ea
+langcode: en
+status: true
+dependencies:
+  module:
+    - hobobiker
+name: 'Tripinfo Google Map'
+format: tripinfo_google_map
+weight: 0
+filters:
+  multisource:
+    id: multisource
+    provider: hobobiker
+    status: true
+    weight: -10
+    settings: {  }
+  tripinfo_table:
+    id: tripinfo_table
+    provider: hobobiker
+    status: true
+    weight: -9
+    settings: {  }

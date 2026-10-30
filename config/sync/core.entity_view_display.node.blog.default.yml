@@ -1,0 +1,62 @@
+uuid: abb3d7a4-b1ea-41a5-8cb9-0e4f05748aff
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment.default
+    - field.field.node.blog.body
+    - field.field.node.blog.comment
+    - field.field.node.blog.field_blog_image
+    - field.field.node.blog.field_blog_image_portrait
+    - field.field.node.blog.field_tags
+    - node.type.blog
+  module:
+    - comment
+    - hobobiker
+    - text
+    - user
+id: node.blog.default
+targetEntityType: node
+bundle: blog
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  comment:
+    type: comment_default
+    label: hidden
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_blog_image_portrait:
+    type: hobobiker_lightbox_image
+    label: hidden
+    settings:
+      image_style: 180x240
+      link_style: 600x800
+    third_party_settings: {  }
+    weight: 31
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_blog_image: true

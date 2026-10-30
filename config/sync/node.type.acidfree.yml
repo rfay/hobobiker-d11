@@ -1,0 +1,11 @@
+uuid: f2bbb645-5ff5-4cfe-8312-fdb91a778fbc
+langcode: en
+status: true
+dependencies: {  }
+name: 'Acidfree album'
+type: acidfree
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

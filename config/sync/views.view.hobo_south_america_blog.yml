@@ -1,0 +1,132 @@
+uuid: cf7296fd-ba55-4650-bd65-be65e4724f90
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.blog
+  module:
+    - node
+    - user
+id: hobo_south_america_blog
+label: 'D6: south_america_blog'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'South America Blog (In Order)'
+      fields: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          quantity: 9
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: none
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: ASC
+          granularity: second
+      arguments: {  }
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            blog: blog
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          operator: between
+          value:
+            min: '2008-04-14 America/Denver'
+            max: '2009-01-30 America/Denver'
+            value: ''
+            type: date
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          view_mode: teaser
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: false
+          content:
+            value: "This section is the South America part of our Big Trip from \"the north pole to the south pole\", from April, 2008 on.\r\n<br/><br/>\r\n<ul><li><a href=\"/taxonomy/term/43\">Colombia</a>\r\n<li><a href=\"/taxonomy/term/58\">Ecuador</a>\r\n<li><a href=\"/taxonomy/term/60\">Peru</a>\r\n<li><a href=\"/taxonomy/term/71\">Bolivia</a>\r\n<li><a href=\"/taxonomy/term/72\">Argentina</a>\r\n</ul>\r\nFeel free to email <a href=\"/contact\">send us a note</a> with any questions or comments. \r\n"
+            format: full_html_no_restrictions
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: south_america_blog
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

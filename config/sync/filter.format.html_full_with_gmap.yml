@@ -1,0 +1,14 @@
+uuid: 9dfe6e64-eb10-4106-9183-eceb350b1724
+langcode: en
+status: true
+dependencies: {  }
+name: 'HTML (full) with Gmap'
+format: html_full_with_gmap
+weight: 0
+filters:
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: 11
+    settings: {  }

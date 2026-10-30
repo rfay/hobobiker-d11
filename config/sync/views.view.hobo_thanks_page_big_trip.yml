@@ -1,0 +1,194 @@
+uuid: 52160030-a2b3-4763-91e7-6b69fee7db45
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - field.storage.node.field_date_0
+    - node.type.wp
+  module:
+    - datetime
+    - hobobiker
+    - node
+    - text
+    - user
+id: hobo_thanks_page_big_trip
+label: 'D6: Thanks Page-Big Trip'
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'Thanks Page - Full of Wonderful People'
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: Title
+          exclude: false
+          element_label_colon: false
+          type: string
+          settings:
+            link_to_entity: true
+        field_date_0:
+          id: field_date_0
+          table: node__field_date_0
+          field: field_date_0
+          entity_type: node
+          entity_field: field_date_0
+          plugin_id: field
+          label: 'WP Date'
+          exclude: false
+          element_label_colon: false
+          type: datetime_custom
+          settings:
+            date_format: 'j F Y'
+        body:
+          id: body
+          table: node__body
+          field: body
+          entity_type: node
+          entity_field: body
+          plugin_id: field
+          label: Body
+          exclude: false
+          element_label_colon: false
+          type: text_default
+          settings: {  }
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 99
+          id: 0
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          quantity: 9
+      exposed_form:
+        type: basic
+        options: {  }
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: none
+        options: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: true
+          content:
+            value: 'Nobody is here yet, but you can bet they will be soon!'
+            format: full_html_no_restrictions
+      sorts:
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          entity_type: node
+          entity_field: nid
+          plugin_id: standard
+          order: ASC
+      arguments:
+        field_date_0_range:
+          id: field_date_0_range
+          table: node__field_date_0
+          field: field_date_0_range
+          plugin_id: hobobiker_date_range
+          default_action: ignore
+          year_range: '-20:+20'
+          timezone: America/Denver
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            wp: wp
+      style:
+        type: table
+        options:
+          columns:
+            title: title
+            field_date_0: field_date_0
+            body: body
+          default: '-1'
+          info: {  }
+          override: false
+          sticky: false
+          order: asc
+          empty_table: false
+      row:
+        type: fields
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+          empty: false
+          content:
+            value: "Here are the wonderful people we've met along the way - the greatest delight of bike touring."
+            format: full_html_no_restrictions
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_date_0'
+  page_1:
+    id: page_1
+    display_title: Page
+    display_plugin: page
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: thanks-bigtrip
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_date_0'

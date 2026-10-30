@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * The original theme's wording (golden_hour, hobo_golden) and the D6 modules that added to a node's output:
+ * submitted line, terms, blog link (blog module), inline read-more (ed_readmore).
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
+
+// D6 theme settings: node types whose "submitted" line was off.
+const HOBO_GOLDEN_NO_SUBMITTED = ['book', 'page', 'triplog', 'wp'];
+
+// D6 ed_readmore_text, placed inline before the teaser's last closing </p>.
+const HOBO_GOLDEN_READMORE = '<strong>&nbsp;<i>read&nbsp;more&nbsp;here... lee mas aquí...</i>&nbsp;&raquo;</strong>';
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function hobo_golden_preprocess_page(array &$variables) {
+  $variables['logo'] = \Drupal::service('file_url_generator')->generateString(theme_get_setting('logo.url'));
+  // The page's final title (a view sets its own while it runs), else the route's.
+  $title = $variables['page']['#title'] ?? '';
+  if (is_string($title)) {
+    // A view's title comes escaped: decode once, escape once.
+    $title = Html::escape(Html::decodeEntities($title));
+    $title = $title === '' ? '' : Markup::create($title);
+  }
+  if ($title === '' && ($route = \Drupal::routeMatch()->getRouteObject())) {
+    $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route) ?? '';
+  }
+  $variables['page_title'] = $title;
+}
+
+/**
+ * golden_hour_links(): links in spans, separated by "&nbsp;&bull; &nbsp;", each followed by a newline.
+ *
+ * @param array $links
+ *   Each [class, url (NULL: text only), text, title].
+ */
+function hobo_golden_links(array $links): string {
+  $output = '';
+  $count = count($links);
+  foreach (array_values($links) as $i => [$class, $url, $text, $title]) {
+    $extra = ($i === 0 ? 'first ' : '') . ($i === $count - 1 ? 'last ' : '');
+    $output .= $i ? '&nbsp;&bull; &nbsp;' : '';
+    $rel = str_starts_with($class, 'taxonomy_term_') ? ' rel="tag"' : '';
+    // D6 printed a title on term links even when empty; the audio links had none.
+    $title_attribute = $title === '' && !$rel ? '' : ' title="' . Html::escape($title) . '"';
+    $output .= '<span class="' . $extra . $class . '">' . ($url === NULL
+      ? "<span class=\"$class\">" . Html::escape($text) . '</span>'
+      : '<a href="' . Html::escape($url) . "\"$rel$title_attribute class=\"$class\">" . Html::escape($text) . '</a>') . "</span>\n";
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function hobo_golden_preprocess_node(array &$variables) {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['node'];
+  $teaser = $variables['view_mode'] === 'teaser';
+
+  if (!in_array($node->bundle(), HOBO_GOLDEN_NO_SUBMITTED, TRUE)) {
+    $date = \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'custom', 'F jS, Y');
+    $variables['hobo_submitted'] = 'By ' . $node->getOwner()->getDisplayName() . ' - Posted on ' . $date;
+  }
+
+  // D6 taxonomy_link(): ordered by vocabulary weight (all 0), term weight, name.
+  $terms = $node->get('field_tags')->referencedEntities();
+  usort($terms, fn($a, $b) => [$a->getWeight(), $a->label()] <=> [$b->getWeight(), $b->label()]);
+  if ($terms) {
+    $links = array_map(fn($term) => ['taxonomy_term_' . $term->id(), $term->toUrl()->toString(), $term->label(),
+      trim(strip_tags((string) $term->getDescription()))], $terms);
+    $variables['hobo_terms'] = Markup::create(hobo_golden_links($links));
+  }
+
+  // D6 blog_link(): on a blog entry, except on that author's own blog page.
+  if ($node->bundle() === 'blog' && \Drupal::service('path.current')->getPath() !== '/blog/' . $node->getOwnerId()) {
+    $name = $node->getOwner()->getDisplayName();
+    $url = Url::fromUserInput('/blog/' . $node->getOwnerId())->toString();
+    $variables['hobo_links'] = Markup::create(hobo_golden_links([['blog_usernames_blog', $url, "$name's blog", "Read $name's latest blog entries."]]));
+  }
+
+  // D6 audio_link(): download link, download and play counts.
+  if ($node->bundle() === 'audio' && ($download = \Drupal\hobobiker\Audio::downloadUrl($node))) {
+    $variables['hobo_links'] = Markup::create(hobo_golden_links([
+      ['audio_download_link', $download, 'Download audio file', ''],
+      ['audio_download_count', NULL, $node->get('field_audio_download_count')->value . ' downloads', ''],
+      ['audio_play_count', NULL, $node->get('field_audio_play_count')->value . ' plays', ''],
+    ]));
+  }
+
+  // ed_readmore: in a teaser that is not the whole body (a summary, or a <!--break--> at the start, which left
+  // D6 an empty teaser), the link goes before the last closing </p>, or after.
+  $body_item = $node->get('body');
+  $more = (string) $body_item->summary !== '' || str_contains((string) $body_item->value, '<!--break-->');
+  if ($teaser && $more && isset($variables['content']['body'][0])) {
+    $body = (string) \Drupal::service('renderer')->renderInIsolation($variables['content']['body'][0]);
+    $link = ' <span class="read-more"><a href="' . $node->toUrl()->toString() . '" title="Read the rest of this posting." rel="nofollow">' . HOBO_GOLDEN_READMORE . '</a></span>';
+    if (preg_match('!</?p[^>]*>$!i', $body, $match, PREG_OFFSET_CAPTURE)) {
+      $body = substr_replace($body, $link, $match[0][1], 0);
+    }
+    else {
+      $body .= $link;
+    }
+    $variables['content']['body'][0] = ['#markup' => Markup::create($body)];
+  }
+}

@@ -1,0 +1,11 @@
+# Leaflet with OpenStreetMap tiles and the KML/KMZ loaders, served from this module (the D6 tripinfo module's lib/).
+tripinfo_map:
+  version: VERSION
+  css:
+    component:
+      lib/leaflet-1.9.4/leaflet.css: {}
+  js:
+    lib/leaflet-1.9.4/leaflet.js: { minified: true }
+    lib/togeojson-5.8.1/togeojson.umd.js: { minified: true }
+    lib/jszip-3.10.1/jszip.min.js: { minified: true }
+    js/tripinfo_filtermap.js: {}

@@ -1,0 +1,19 @@
+uuid: c43ea023-dcf3-4ea8-9d89-2d6f02a0e206
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_channel_mode
+    - node.type.audio
+id: node.audio.field_audio_channel_mode
+field_name: field_audio_channel_mode
+entity_type: node
+bundle: audio
+label: 'Audio channel mode'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

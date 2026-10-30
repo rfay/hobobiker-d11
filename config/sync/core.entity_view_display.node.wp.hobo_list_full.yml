@@ -1,0 +1,61 @@
+uuid: a2025009-5d69-4e4b-b974-9dfbdfc989de
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.hobo_list_full
+    - field.field.node.wp.body
+    - field.field.node.wp.comment
+    - field.field.node.wp.field_date_0
+    - field.field.node.wp.field_tags
+    - field.field.node.wp.field_trip_0
+    - node.type.wp
+  module:
+    - datetime
+    - text
+    - user
+id: node.wp.hobo_list_full
+targetEntityType: node
+bundle: wp
+mode: hobo_list_full
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_date_0:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: 'j F Y'
+    third_party_settings: {  }
+    weight: -39
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_trip_0:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: -38
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  comment: true
