@@ -203,12 +203,13 @@ function hobo_views_save(string $id, string $label, string $path, array $options
 }
 
 /**
- * The pager D6 used: full (9 links) with D6's labels, or a fixed number of items.
+ * The pager D6 used: full (9 links) with D6's labels, or a fixed number of items. A page past the end: D6 Views
+ * showed the first page, D6 core's pager (the blog module's pages, $out_of_range 'last') the last.
  */
-function hobo_views_pager($use_pager, int $per_page): array {
+function hobo_views_pager($use_pager, int $per_page, string $out_of_range = 'first'): array {
   $options = ['items_per_page' => $per_page, 'offset' => 0];
   if ($use_pager && $use_pager !== '0') {
-    return ['type' => $use_pager === 'mini' ? 'mini' : 'full', 'options' => $options + ['id' => 0, 'quantity' => 9, 'tags' => HOBO_PAGER_TAGS]];
+    return ['type' => $use_pager === 'mini' ? 'mini' : 'hobobiker_full', 'options' => $options + ['id' => 0, 'quantity' => 9, 'tags' => HOBO_PAGER_TAGS, 'out_of_range' => $out_of_range]];
   }
   return ['type' => $per_page ? 'some' : 'none', 'options' => $options];
 }
@@ -330,7 +331,7 @@ $blog = [
   'row' => ['type' => 'entity:node', 'options' => ['view_mode' => 'teaser']],
   'fields' => [],
   // The blog module paged by default_nodes_main.
-  'pager' => hobo_views_pager('1', (int) unserialize(d6()->query("SELECT value FROM {variable} WHERE name = 'default_nodes_main'")->fetchField(), ['allowed_classes' => FALSE])),
+  'pager' => hobo_views_pager('1', (int) unserialize(d6()->query("SELECT value FROM {variable} WHERE name = 'default_nodes_main'")->fetchField(), ['allowed_classes' => FALSE]), 'last'),
 ];
 hobo_views_save('hobo_blog', 'D6: blog module, all blogs', 'blog', ['title' => 'Blogs', 'arguments' => []] + $blog, ['path' => 'blog/feed', 'title' => 'RSS - blogs']);
 hobo_views_save('hobo_blog_user', "D6: blog module, one author's blog", 'blog/%', ['title' => '', 'arguments' => [

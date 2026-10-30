@@ -1,4 +1,4 @@
-uuid: 62084391-3c75-4629-8651-22554f93b0d4
+uuid: 5841c824-95da-484d-a4c7-b35160f2aca2
 langcode: en
 status: true
 dependencies:
@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - node.type.blog
   module:
+    - hobobiker
     - node
     - user
 id: hobo_central_america_blog
@@ -25,17 +26,18 @@ display:
       title: 'Central America Blog (In Order)'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 20
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

@@ -1,4 +1,4 @@
-uuid: 18183202-b9a5-4978-87b0-32c283594f67
+uuid: 66a42f89-4411-4204-8a73-f852a7c4bf03
 langcode: en
 status: true
 dependencies:
@@ -26,17 +26,18 @@ display:
       title: 'Latest posts'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 2
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

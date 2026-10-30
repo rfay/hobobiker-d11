@@ -23,17 +23,17 @@ prints counts.
 | Step | Creates | Prints (last run) |
 |---|---|---|
 | `00-reset.sh` | Fresh install, `d6` reloaded | d6 1296 nodes, 447 comments |
-| `10-structure.php` | comment + `hobobiker` modules; 11 content types (D6 names); body, terms, comment fields; triplog/wp CCK fields with D6 labels, order and date formats; audio tag/file fields; poll fields; 10 text formats (one per D6 format); 4 image styles (the imagecache presets) | 11 types, 66 field instances, 4 vocabularies |
+| `10-structure.php` | comment + `hobobiker` modules; 11 content types (D6 names); body, terms, comment fields; triplog/wp CCK fields with D6 labels, order and date formats; audio tag/file fields; poll fields; edit forms with every field; comments kept but not displayed (module off on D6); 10 text formats (one per D6 format); 4 image styles (the imagecache presets) | 11 types, 66 field instances (66 on edit forms), 4 vocabularies |
 | `20-users.php` | 4 users, uids kept, no hash or email copied | 4 users, 3 roles |
 | `30-terms.php` | 82 terms, tids, parents (second pass) | per vocabulary 30/1/2/49 |
 | `40-nodes.php` | 1296 nodes (nid, vid), current revision; teaser as summary; PHP rewritten to `[tripinfo_table:]`; node 2307 -> page, "(no title)"; poll choices | 1255 published, 15 rewritten, 0 PHP left |
 | `50-comments.php` | 446 comments, cids, threads, status inverted; cid 27 dropped | 168 published, 34 replies |
 | `60-files.php` | 44 files (fids); `/files` symlink; blog photos; audio files, tags, counters, D6 sizes | 24 missing on disk (as on D6) |
-| `65-views.php` | The D6 Views translated from their stored definitions (20), blog module pages, audio page, feeds; date-range argument | 20 made, 3 skipped (named) |
+| `65-views.php` | The D6 Views translated from their stored definitions (20), blog module pages, audio page, feeds; date-range argument; D6 paging past the end (`hobobiker_full` pager) | 20 made, 3 skipped (named) |
 | `70-aliases.php` | Aliases whose path routes here (ids kept) | 503 made, 923 of deleted nodes dropped |
-| `75-hobobiker-module.php` | The module's filters in the formats D6 used them in; photo derivatives | 428 photo macros |
+| `75-hobobiker-module.php` | The module's filters in the formats D6 used them in; photo derivatives (the module also carries the D6 Lightbox2 script) | 428 photo macros |
 | `80-menus-front.php` | Main menu (77 links, mlids); front page `/trip_wrapped_up` | 77 links |
-| `90-theme.php` | `hobo_golden` theme (port of golden_hour + hobo_golden + D6 module CSS); timezone UTC-6 as D6 | 5 blocks |
+| `90-theme.php` | `hobo_golden` theme (port of golden_hour + hobo_golden + D6 module CSS, D6 pager markup); favicon; timezone UTC-6 as D6; no CSS/JS aggregation | 5 blocks |
 | `99-validate.php` | Nothing: `validate()` on every entity plus reference checks | 0 violations |
 | `alt/30-terms-migrate.php` | Not in run-all: step 30 with the Migrate API, for comparison (identical result) | 82 imported |
 

@@ -1,4 +1,4 @@
-uuid: 7a1b47b7-50c3-44de-b989-c27cb1d6a9a6
+uuid: ebcb9686-2182-4ee4-ae33-adeef457c7af
 langcode: en
 status: true
 dependencies:
@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - node.type.blog
   module:
+    - hobobiker
     - node
     - user
 id: hobo_blog
@@ -25,17 +26,18 @@ display:
       title: Blogs
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 8
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: last
       exposed_form:
         type: basic
         options: {  }

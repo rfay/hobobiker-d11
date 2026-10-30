@@ -65,3 +65,16 @@ Findings about the source while planning (2026-10-30). Counts are from the `d6` 
   setting to `public://favicon.ico` (the same file, in the copied files), and `web/favicon.ico` is a copy of the
   original's docroot icon. Both match the original byte for byte; the tag is `rel="icon"` (Drupal 11's markup)
   instead of `rel="shortcut icon"`. No tier checks the favicon.
+
+## Pager and edit forms (found by a person)
+
+- Pager: Drupal 11's pager markup (`nav.pager`, `pager__item`) is not styled by the original's CSS, so it showed as a
+  bulleted list. hobo_golden's `pager.html.twig` prints D6's `theme_pager()` list instead: links by the page's alias
+  (D6 `url()`), no `page` parameter on page 1, `class="active"` on every link, and no trailing ellipsis when the
+  window ends one page before the last (D6's `$i < $pager_max`; Drupal 11 prints one).
+- A page past the end: D6 Views showed page 1, D6 core's `pager_query()` (the blog module's pages) the last page
+  with its content; Drupal 11 shows an empty page with the last page current. The module's pager plugin
+  `hobobiker_full` (option `out_of_range`: first/last) reproduces each; step 65 uses it for every full pager.
+- Edit forms: step 10 configured how nodes display but saved no form displays, so node/N/edit showed only the base
+  fields (no body, tags or CCK fields). Step 10 now puts every field on the edit form with the default widget.
+  No tier logs in, so none saw it.

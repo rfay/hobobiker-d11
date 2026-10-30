@@ -1,4 +1,4 @@
-uuid: bf0e5036-138b-49aa-b884-520b7e92d72c
+uuid: 15c55151-0ab9-41e1-a612-86d9c22af9c3
 langcode: en
 status: true
 dependencies:
@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.hobo_list_full
     - node.type.blog
   module:
+    - hobobiker
     - node
     - user
 id: hobo_canada_big_trip_blog
@@ -25,17 +26,18 @@ display:
       title: 'Canada Big Trip Blog (In Order)'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 20
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

@@ -1,4 +1,4 @@
-uuid: d97b2956-75e2-4ba5-98d1-e34ad3da495d
+uuid: eea01a14-6a53-4543-8bb6-50a33460f373
 langcode: en
 status: true
 dependencies:
@@ -7,6 +7,7 @@ dependencies:
     - node.type.blog
     - node.type.poll
   module:
+    - hobobiker
     - node
     - user
 id: hobo_latest_stories
@@ -26,17 +27,18 @@ display:
       title: 'Welcome to Hobobiker.com'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 8
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

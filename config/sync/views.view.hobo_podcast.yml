@@ -1,4 +1,4 @@
-uuid: 410a3050-7218-4991-bc11-d348edadd503
+uuid: 32e969da-dbc9-4241-93b5-625a62e1991c
 langcode: en
 status: true
 dependencies:
@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - node.type.audio
   module:
+    - hobobiker
     - node
     - user
 id: hobo_podcast
@@ -25,17 +26,18 @@ display:
       title: 'Hobobiker.com Podcast'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 10
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

@@ -1,0 +1,101 @@
+uuid: 9bd72ad2-cff7-4704-825b-5c51a992a615
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.wp.body
+    - field.field.node.wp.comment
+    - field.field.node.wp.field_date_0
+    - field.field.node.wp.field_tags
+    - field.field.node.wp.field_trip_0
+    - node.type.wp
+  module:
+    - comment
+    - datetime
+    - path
+    - text
+id: node.wp.default
+targetEntityType: node
+bundle: wp
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 0
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  comment:
+    type: comment_default
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_0:
+    type: datetime_default
+    weight: -39
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_trip_0:
+    type: string_textfield
+    weight: -38
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

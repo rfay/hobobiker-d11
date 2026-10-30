@@ -110,8 +110,9 @@ foreach (array_keys($types) as $bundle) {
     ->setComponent('body', ['type' => 'text_summary_or_trimmed', 'label' => 'hidden', 'weight' => 0, 'settings' => ['trim_length' => 1000000]])
     ->save();
 }
+// A fixed weight (after the links, 100): without one, each rerun puts it after itself.
 $display_repository->getViewDisplay('comment', 'comment')
-  ->setComponent('comment_body', ['type' => 'text_default', 'label' => 'hidden'])
+  ->setComponent('comment_body', ['type' => 'text_default', 'label' => 'hidden', 'weight' => 101])
   ->save();
 
 // triplog and wp CCK fields: the same names, values and types.
@@ -222,8 +223,27 @@ foreach ([[240, 180], [180, 240], [800, 600], [600, 800]] as [$w, $h]) {
   $style->save();
 }
 
+// The edit forms: every field of each type with Drupal's default widget (terms as a tag list), in the order the
+// node page shows them.
+$form_widgets = 0;
+foreach (array_keys($types) as $bundle) {
+  $form = $display_repository->getFormDisplay('node', $bundle);
+  $view = $display_repository->getViewDisplay('node', $bundle);
+  foreach (\Drupal::service('entity_field.manager')->getFieldDefinitions('node', $bundle) as $name => $definition) {
+    if ($definition instanceof FieldConfig) {
+      $options = ['weight' => $view->getComponent($name)['weight'] ?? 50];
+      if ($name === 'field_tags') {
+        $options['type'] = 'entity_reference_autocomplete_tags';
+      }
+      $form->setComponent($name, $options);
+      $form_widgets++;
+    }
+  }
+  $form->save();
+}
+
 // Show what exists now.
 $count = fn($type) => count(\Drupal::entityTypeManager()->getStorage($type)->loadMultiple());
 $fields = \Drupal::entityQuery('field_config')->condition('entity_type', 'node')->count()->execute();
-printf("content types %d, node field instances %d, vocabularies %d, text formats %d (from D6: %d), image styles %d\n",
-  $count('node_type'), $fields, $count('taxonomy_vocabulary'), $count('filter_format'), count($formats), $count('image_style'));
+printf("content types %d, node field instances %d (on edit forms %d), vocabularies %d, text formats %d (from D6: %d), image styles %d\n",
+  $count('node_type'), $fields, $form_widgets, $count('taxonomy_vocabulary'), $count('filter_format'), count($formats), $count('image_style'));

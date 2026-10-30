@@ -1,4 +1,4 @@
-uuid: b45fd36f-082c-47a1-bad3-8eaf06f77691
+uuid: eb4a7fef-997d-4a93-9a18-099399897825
 langcode: en
 status: true
 dependencies:
@@ -8,6 +8,7 @@ dependencies:
     - node.type.page
     - node.type.story
   module:
+    - hobobiker
     - node
     - user
 id: hobo_northwest_trip_blog
@@ -27,17 +28,18 @@ display:
       title: 'Denver to the USA Northwest'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 20
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

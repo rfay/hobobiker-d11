@@ -1,4 +1,4 @@
-uuid: 8ac0d806-5782-4f8f-a67c-6b9477328298
+uuid: 13ae4a82-efee-459d-b0ec-f268244e9e64
 langcode: en
 status: true
 dependencies:
@@ -7,6 +7,7 @@ dependencies:
     - node.type.blog
     - node.type.story
   module:
+    - hobobiker
     - node
     - user
 id: hobo_new_england_blog
@@ -26,17 +27,18 @@ display:
       title: 'New England (2005)'
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 20
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

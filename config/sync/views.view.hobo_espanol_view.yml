@@ -1,4 +1,4 @@
-uuid: 30b1c6b1-f1f2-4e40-9549-409d55d29ebc
+uuid: 21e8f5da-61fe-40a1-b080-a67d033e7e11
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,9 @@ dependencies:
     - core.entity_view_mode.node.hobo_list_full
     - taxonomy.vocabulary.adventures
   content:
-    - 'taxonomy_term:adventures:bb99c25a-4b54-4558-b54b-96add1f258b4'
+    - 'taxonomy_term:adventures:6294c08d-97ad-42fc-8884-13ff9848b3fe'
   module:
+    - hobobiker
     - node
     - taxonomy
     - user
@@ -28,17 +29,18 @@ display:
       title: Español
       fields: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 10
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }

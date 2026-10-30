@@ -1,12 +1,12 @@
-uuid: aed67e40-7a8c-40f7-881c-00bde89ce3e4
+uuid: 26d74112-0d39-4f2a-a360-1df916170742
 langcode: en
 status: true
 dependencies: {  }
 name: 240x180
 label: 240x180
 effects:
-  f3b57f35-e084-4e61-9cb9-c80326fc8600:
-    uuid: f3b57f35-e084-4e61-9cb9-c80326fc8600
+  b0237f4c-5277-4536-a94f-bfbec8342a9f:
+    uuid: b0237f4c-5277-4536-a94f-bfbec8342a9f
     id: image_scale_and_crop
     weight: 0
     data:

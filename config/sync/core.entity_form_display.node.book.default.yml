@@ -1,0 +1,84 @@
+uuid: b7a476f6-fd2d-4268-8ad5-b32de5c25d89
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.book.body
+    - field.field.node.book.comment
+    - field.field.node.book.field_tags
+    - node.type.book
+  module:
+    - comment
+    - path
+    - text
+id: node.book.default
+targetEntityType: node
+bundle: book
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 0
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  comment:
+    type: comment_default
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_tags:
+    type: entity_reference_autocomplete_tags
+    weight: 10
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

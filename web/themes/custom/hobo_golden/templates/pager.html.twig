@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * D6 theme_pager(): an item list of first, previous, ellipsis, pages, ellipsis, next, last (built in
+ * hobo_golden_preprocess_pager()).
+ */
+#}
+{% if hobo_pager %}<div class="item-list"><ul class="pager">
+{%- for item in hobo_pager -%}
+<li class="{{ item.class }}{{ loop.first ? ' first' }}{{ loop.last ? ' last' }}">
+{%- if item.href %}<a href="{{ item.href }}" title="{{ item.title }}" class="active">{{ item.text }}</a>{% else %}{{ item.text }}{% endif -%}
+</li>{{ "\n" }}
+{%- endfor -%}
+</ul></div>{% endif %}

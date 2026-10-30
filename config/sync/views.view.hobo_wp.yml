@@ -1,4 +1,4 @@
-uuid: 4ff274bf-597a-4e8f-ba2c-6fad0914890f
+uuid: e515437c-d476-4d84-b562-aa8cd1d8d8a3
 langcode: en
 status: true
 dependencies:
@@ -67,17 +67,18 @@ display:
           type: text_default
           settings: {  }
       pager:
-        type: full
+        type: hobobiker_full
         options:
           offset: 0
           items_per_page: 30
           id: 0
-          tags:
-            next: 'next ›'
-            previous: '‹ previous'
-            first: '« first'
-            last: 'last »'
           quantity: 9
+          tags:
+            first: '« first'
+            previous: '‹ previous'
+            next: 'next ›'
+            last: 'last »'
+          out_of_range: first
       exposed_form:
         type: basic
         options: {  }
