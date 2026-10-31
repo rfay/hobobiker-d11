@@ -145,12 +145,16 @@ hobo_field('field_audio_bitrate', 'float', ['audio' => 'Audio bitrate']);
 hobo_field('field_poll_choice', 'string', ['poll' => 'Choice'], ['cardinality' => -1]);
 hobo_field('field_poll_votes', 'integer', ['poll' => 'Votes'], ['cardinality' => -1]);
 
-// CCK fields as the original showed them: D6's labels, label above, in D6's order (weight, then field name), with
+// CCK fields as the original showed them: D6's labels, label above, in D6's order around the body (weight 0): by
+// weight, then label (case-insensitive, CCK's query), a field of the body's weight after it (D6 added the body
+// first). With
 // D6's date formats (field_date_long: j M Y; field_date_0_default: j F Y) and no thousands separator. The blog's
 // portrait photos show at 180x240 linked to 600x800 for the lightbox (the landscape field was excluded from display).
 $cck = d6()->query('SELECT type_name, field_name, label, weight FROM {content_node_field_instance}
-  WHERE type_name IN (:types[]) ORDER BY type_name, weight, field_name', [':types[]' => ['triplog', 'wp']])->fetchAll();
-foreach ($cck as $i => $row) {
+  WHERE type_name IN (:types[]) ORDER BY type_name, weight, label', [':types[]' => ['triplog', 'wp']])->fetchAll();
+$tied = [];
+foreach ($cck as $row) {
+  $rank = $tied[$row->type_name][$row->weight] = ($tied[$row->type_name][$row->weight] ?? 0) + 1;
   $field = FieldConfig::loadByName('node', $row->type_name, $row->field_name);
   $field->set('label', $row->label)->save();
   $type = $field->getType();
@@ -161,7 +165,7 @@ foreach ($cck as $i => $row) {
   };
   foreach (['default', 'teaser'] as $mode) {
     \Drupal::service('entity_display.repository')->getViewDisplay('node', $row->type_name, $mode)
-      ->setComponent($row->field_name, $component + ['label' => 'above', 'weight' => -50 + $i])->save();
+      ->setComponent($row->field_name, $component + ['label' => 'above', 'weight' => 10 * $row->weight + $rank])->save();
   }
 }
 foreach (['default', 'teaser'] as $mode) {

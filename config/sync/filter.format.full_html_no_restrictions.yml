@@ -1,14 +1,16 @@
-uuid: 3eb4cf83-5dce-45dd-b1f0-dbb50d418d6b
+uuid: 9b8fa671-221f-41ee-b08a-018a58553c7b
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - hobobiker
 name: 'Full HTML-No Restrictions'
 format: full_html_no_restrictions
 weight: 0
 filters:
-  filter_htmlcorrector:
-    id: filter_htmlcorrector
-    provider: filter
+  hobobiker_htmlcorrector:
+    id: hobobiker_htmlcorrector
+    provider: hobobiker
     status: true
     weight: 10
     settings: {  }

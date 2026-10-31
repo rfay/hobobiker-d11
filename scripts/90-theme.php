@@ -13,6 +13,8 @@
 
 use Drupal\block\Entity\Block;
 
+require __DIR__ . '/lib.php';
+
 \Drupal::service('theme_installer')->install(['hobo_golden']);
 \Drupal::configFactory()->getEditable('system.theme')->set('default', 'hobo_golden')->save();
 \Drupal::configFactory()->getEditable('hobo_golden.settings')
@@ -22,6 +24,9 @@ use Drupal\block\Entity\Block;
   ->set('features', ['logo' => TRUE, 'name' => FALSE, 'slogan' => FALSE, 'node_user_picture' => FALSE, 'comment_user_picture' => FALSE, 'favicon' => TRUE])
   ->save();
 \Drupal::configFactory()->getEditable('system.date')->set('timezone.default', 'Etc/GMT+6')->set('timezone.user.configurable', FALSE)->save();
+// The original's site name and slogan (page titles: "Title | name", or "name | slogan" on a page with no title).
+$site = fn($name) => unserialize(d6()->query('SELECT value FROM {variable} WHERE name = :name', [':name' => $name])->fetchField(), ['allowed_classes' => FALSE]);
+\Drupal::configFactory()->getEditable('system.site')->set('name', $site('site_name'))->set('slogan', $site('site_slogan'))->save();
 // CSS and JS served file by file (no aggregation), so the original's scripts and styles can be read and debugged.
 \Drupal::configFactory()->getEditable('system.performance')->set('css.preprocess', FALSE)->set('js.preprocess', FALSE)->save();
 

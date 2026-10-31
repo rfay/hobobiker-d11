@@ -72,7 +72,9 @@ class Tripinfo {
     $page = "<table class='tripinfo_table_table'>\n";
     $page .= "<tr><th>Ride</th><th>date</th><th>miles/km</th>
 		<th>Elev ft/mt</th></tr>\n";
-    $rows = self::rows('d.field_date_value >= :start AND d.field_date_value <= :end AND m.field_miles_value <> 0',
+    // D6 compared its stored "YYYY-MM-DDT00:00:00" with the bare dates as strings, so the end date's day was never
+    // listed: the same comparison on D6's form of the date.
+    $rows = self::rows("CONCAT(d.field_date_value, 'T00:00:00') >= :start AND CONCAT(d.field_date_value, 'T00:00:00') <= :end AND m.field_miles_value <> 0",
       [':start' => $startdate, ':end' => $enddate]);
     foreach ($rows as $row) {
       $date = substr($row->date, 0, 10);

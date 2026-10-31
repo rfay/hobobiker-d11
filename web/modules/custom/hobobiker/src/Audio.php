@@ -76,7 +76,7 @@ class Audio {
    * D6 theme_audio_display(): the tags (browsable ones linked), length and format, in ul.audio-info.
    */
   public static function display(NodeInterface $node): string {
-    $items = [];
+    $items = array_filter([self::player($node)]);
     foreach (self::TAGS as $tag => $browsable) {
       $value = $node->get("field_audio_$tag")->value;
       if ($value === NULL || $value === '') {
@@ -95,6 +95,21 @@ class Audio {
       $list .= "<li$class>$item</li>\n";
     }
     return "<div class='audio-node block'>\n<div class=\"item-list\"><ul class=\"audio-info\">$list</ul></div></div>\n";
+  }
+
+  /**
+   * The player, first in the full display and after a teaser's body.
+   *
+   * D6 printed its Flash player (1pixelout.swf, 290x24). A deliberate change (the owner's decision): an HTML5 player
+   * of the same size, playing the file itself.
+   */
+  public static function player(NodeInterface $node): string {
+    $file = $node->get('field_audio')->entity;
+    if (!$file) {
+      return '';
+    }
+    $src = \Drupal::service('file_url_generator')->generateString($file->getFileUri());
+    return '<audio controls preload="none" src="' . Html::escape($src) . '" style="width: 290px; height: 24px;"></audio>';
   }
 
   /**

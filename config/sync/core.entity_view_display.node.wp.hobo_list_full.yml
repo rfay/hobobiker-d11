@@ -1,4 +1,4 @@
-uuid: c49b4705-c616-4af5-a017-41444d1ba02a
+uuid: 651553ea-4a52-4a54-a453-1b14224729fc
 langcode: en
 status: true
 dependencies:
@@ -33,7 +33,7 @@ content:
       timezone_override: ''
       date_format: 'j F Y'
     third_party_settings: {  }
-    weight: -39
+    weight: 2
     region: content
   field_tags:
     type: entity_reference_label
@@ -50,7 +50,7 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: -38
+    weight: 1
     region: content
   links:
     settings: {  }

@@ -1,9 +1,10 @@
-uuid: 84e43229-f908-4acc-a84e-ac7cd8551738
+uuid: 393d8228-5614-476c-8933-7fa09aa723d9
 langcode: en
 status: true
 dependencies:
   module:
     - editor
+    - hobobiker
 _core:
   default_config_hash: vpZysv3RHJjhYzq7O_q5q8mVlHdrSzKELmXyiX6RtV0
 name: 'Full HTML'
@@ -28,15 +29,15 @@ filters:
     status: true
     weight: 9
     settings: {  }
-  filter_htmlcorrector:
-    id: filter_htmlcorrector
-    provider: filter
-    status: true
-    weight: 10
-    settings: {  }
   filter_image_lazy_load:
     id: filter_image_lazy_load
     provider: filter
     status: true
     weight: 15
+    settings: {  }
+  hobobiker_htmlcorrector:
+    id: hobobiker_htmlcorrector
+    provider: hobobiker
+    status: true
+    weight: 10
     settings: {  }

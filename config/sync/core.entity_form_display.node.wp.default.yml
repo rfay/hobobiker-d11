@@ -1,4 +1,4 @@
-uuid: 9bd72ad2-cff7-4704-825b-5c51a992a615
+uuid: f45f800b-1819-4920-983a-ba1090da5ce3
 langcode: en
 status: true
 dependencies:
@@ -43,7 +43,7 @@ content:
     third_party_settings: {  }
   field_date_0:
     type: datetime_default
-    weight: -39
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -59,7 +59,7 @@ content:
     third_party_settings: {  }
   field_trip_0:
     type: string_textfield
-    weight: -38
+    weight: 1
     region: content
     settings:
       size: 60

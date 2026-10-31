@@ -1,13 +1,24 @@
 global:
   css:
-    # D6's core module stylesheets, which the original loaded on every page (book navigation, poll, system), and
-    # the front page Panel's layout.
+    # D6's module stylesheets, which the original loaded on every page (in its CSS aggregate, in about this order):
+    # core's (book navigation, poll, system, menus, user), then CCK, CTools, date, filefield, fieldgroup, Panels,
+    # Views and audio; and the front page Panel's layout.
     base:
       css/d6/defaults.css: {}
       css/d6/system.css: {}
       css/d6/node.css: {}
       css/d6/book.css: {}
       css/d6/poll.css: {}
+      css/d6/system-menus.css: {}
+      css/d6/user.css: {}
+      css/d6/filefield.css: {}
+      css/d6/content-module.css: {}
+      css/d6/ctools.css: {}
+      css/d6/date.css: {}
+      css/d6/fieldgroup.css: {}
+      css/d6/panels.css: {}
+      css/d6/views.css: {}
+      css/d6/audio.css: {}
       css/d6/threecol_25_50_25_stacked.css: {}
     theme:
       css/golden_hour.css: {}

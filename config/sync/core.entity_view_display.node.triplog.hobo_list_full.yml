@@ -1,4 +1,4 @@
-uuid: ea9286e3-c076-49f1-b1a2-1e7a041e937e
+uuid: 4369a033-c5ff-4d41-b3ab-9147c2a8d24c
 langcode: en
 status: true
 dependencies:
@@ -42,7 +42,7 @@ content:
       thousand_separator: ''
       prefix_suffix: false
     third_party_settings: {  }
-    weight: -43
+    weight: 91
     region: content
   field_camp_or_hotel:
     type: string
@@ -51,7 +51,7 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: -47
+    weight: -9
     region: content
   field_date:
     type: datetime_custom
@@ -60,7 +60,7 @@ content:
       timezone_override: ''
       date_format: 'j M Y'
     third_party_settings: {  }
-    weight: -50
+    weight: -39
     region: content
   field_destination:
     type: string
@@ -69,7 +69,7 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: -48
+    weight: -19
     region: content
   field_elevation_gain:
     type: number_integer
@@ -78,7 +78,7 @@ content:
       thousand_separator: ''
       prefix_suffix: false
     third_party_settings: {  }
-    weight: -46
+    weight: -8
     region: content
   field_flat_tires:
     type: number_integer
@@ -87,7 +87,7 @@ content:
       thousand_separator: ''
       prefix_suffix: false
     third_party_settings: {  }
-    weight: -42
+    weight: 92
     region: content
   field_miles:
     type: number_integer
@@ -96,7 +96,7 @@ content:
       thousand_separator: ''
       prefix_suffix: false
     third_party_settings: {  }
-    weight: -45
+    weight: -7
     region: content
   field_miles_not_ridden:
     type: number_integer
@@ -105,7 +105,7 @@ content:
       thousand_separator: ''
       prefix_suffix: false
     third_party_settings: {  }
-    weight: -44
+    weight: -6
     region: content
   field_start:
     type: string
@@ -114,7 +114,7 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: -49
+    weight: -29
     region: content
   field_tags:
     type: entity_reference_label
@@ -131,7 +131,7 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: -41
+    weight: 93
     region: content
   field_vid:
     type: number_integer
@@ -140,7 +140,7 @@ content:
       thousand_separator: ''
       prefix_suffix: false
     third_party_settings: {  }
-    weight: -40
+    weight: 94
     region: content
   links:
     settings: {  }

@@ -1,4 +1,4 @@
-uuid: 106e4367-5ef3-43d9-9d83-9ca6affdf1db
+uuid: a216564b-d304-4fa6-af40-cfa3e2f57858
 langcode: en
 status: true
 dependencies:
@@ -34,7 +34,7 @@ content:
       timezone_override: ''
       date_format: 'j F Y'
     third_party_settings: {  }
-    weight: -39
+    weight: 2
     region: content
   field_trip_0:
     type: string
@@ -43,7 +43,7 @@ content:
       link_to_entity: false
       link_rel: canonical
     third_party_settings: {  }
-    weight: -38
+    weight: 1
     region: content
   links:
     settings: {  }

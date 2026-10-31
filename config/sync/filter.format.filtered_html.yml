@@ -1,7 +1,9 @@
-uuid: db194f4d-437f-43cb-9734-5c0db60d680f
+uuid: 8c6a9f79-2b9c-4af6-920b-a186f736303d
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - hobobiker
 name: 'Filtered HTML'
 format: filtered_html
 weight: 0
@@ -21,9 +23,9 @@ filters:
       allowed_html: '<a href title rel name target> <em> <strong> <cite> <code> <ul> <ol> <li> <dl> <dt> <dd> <div class style> <img src alt title width height class style>'
       filter_html_help: true
       filter_html_nofollow: true
-  filter_htmlcorrector:
-    id: filter_htmlcorrector
-    provider: filter
+  hobobiker_htmlcorrector:
+    id: hobobiker_htmlcorrector
+    provider: hobobiker
     status: true
     weight: 10
     settings: {  }

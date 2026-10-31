@@ -1,12 +1,18 @@
 services:
+  # Ahead of taxonomy's term breadcrumb (1002): the blog and audio module pages, then D6's for the rest.
   hobobiker.blog_breadcrumb:
     class: Drupal\hobobiker\Breadcrumb\BlogBreadcrumbBuilder
     tags:
-      - { name: breadcrumb_builder, priority: 100 }
+      - { name: breadcrumb_builder, priority: 1100 }
   hobobiker.audio_breadcrumb:
     class: Drupal\hobobiker\Breadcrumb\AudioBreadcrumbBuilder
     tags:
-      - { name: breadcrumb_builder, priority: 100 }
+      - { name: breadcrumb_builder, priority: 1100 }
+  hobobiker.d6_breadcrumb:
+    class: Drupal\hobobiker\Breadcrumb\D6BreadcrumbBuilder
+    arguments: ['@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@config.factory', '@title_resolver', '@current_user', '@path.current', '@path.matcher']
+    tags:
+      - { name: breadcrumb_builder, priority: 1050 }
   hobobiker.requested_alias:
     class: Drupal\hobobiker\PathProcessor\RequestedAliasProcessor
     arguments: ['@path_alias.manager', '@router.request_context']

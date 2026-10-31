@@ -32,6 +32,18 @@ foreach ($filters as $format_id => $add) {
   $format->save();
 }
 
+// D6's HTML corrector in place of Drupal 11's, at the same weight, wherever the format had one.
+$corrected = 0;
+foreach (FilterFormat::loadMultiple() as $format) {
+  $core = $format->filters('filter_htmlcorrector');
+  if ($core->status) {
+    $format->setFilterConfig('hobobiker_htmlcorrector', ['status' => TRUE, 'weight' => $core->weight]);
+    $format->setFilterConfig('filter_htmlcorrector', ['status' => FALSE, 'weight' => $core->weight]);
+    $format->save();
+    $corrected++;
+  }
+}
+
 // Generate every photo's derivative now: on first view, parallel requests for one derivative get a 503 while
 // another request holds the lock.
 $derivatives = $generated = $missing = 0;
@@ -54,7 +66,7 @@ foreach (\Drupal::database()->query('SELECT body_value FROM {node__body} WHERE b
 printf("photo macros %d: derivatives generated now %d, source missing %d\n", $derivatives, $generated, $missing);
 
 $count = fn(string $pattern) => \Drupal::database()->query('SELECT COUNT(*) FROM {node__body} WHERE body_value LIKE :p', [':p' => $pattern])->fetchField();
-printf("module hobobiker %s; filters enabled %d in %d formats; bodies using hobophoto %d, multisource %d, tripinfo_table %d; routes %d\n",
-  \Drupal::moduleHandler()->moduleExists('hobobiker') ? 'on' : 'off', $enabled, count($filters),
+printf("module hobobiker %s; filters enabled %d in %d formats, D6 HTML corrector in %d formats; bodies using hobophoto %d, multisource %d, tripinfo_table %d; routes %d\n",
+  \Drupal::moduleHandler()->moduleExists('hobobiker') ? 'on' : 'off', $enabled, count($filters), $corrected,
   $count('%[hobophoto:%'), $count('%[multisource:%'), $count('%[tripinfo_table:%'),
   count(\Drupal::service('router.route_provider')->getRoutesByNames(['hobobiker.tripinfo', 'hobobiker.tripinfo_item'])));

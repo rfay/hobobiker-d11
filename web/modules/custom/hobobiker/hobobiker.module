@@ -37,7 +37,7 @@ function hobobiker_node_view(array &$build, \Drupal\Core\Entity\EntityInterface 
   if ($node->bundle() !== 'audio') {
     return;
   }
-  $markup = $view_mode === 'teaser' ? '<br />' . \Drupal\hobobiker\Audio::length($node) : \Drupal\hobobiker\Audio::display($node);
+  $markup = $view_mode === 'teaser' ? \Drupal\hobobiker\Audio::player($node) . '<br />' . \Drupal\hobobiker\Audio::length($node) : \Drupal\hobobiker\Audio::display($node);
   $build['hobobiker_audio'] = ['#markup' => \Drupal\Core\Render\Markup::create($markup), '#weight' => 5];
 }
 
@@ -65,4 +65,24 @@ function hobobiker_poll_results(\Drupal\Core\Entity\EntityInterface $node): stri
  */
 function hobobiker_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'hobobiker/lightbox2';
+}
+
+/**
+ * Implements hook_views_pre_render().
+ *
+ * The blog module's feed links in the page head had their own titles (drupal_add_feed(): "RSS - blogs",
+ * "RSS - NAME's blog"); Views titles them as the page.
+ */
+function hobobiker_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  $titles = ['hobo_blog' => 'RSS - blogs', 'hobo_blog_user' => 'RSS - ' . $view->getTitle()];
+  if (!isset($titles[$view->id()]) || $view->current_display !== 'page_1') {
+    return;
+  }
+  foreach ($view->element['#attached']['html_head_link'] ?? [] as $i => $links) {
+    foreach ($links as $j => $link) {
+      if (($link['rel'] ?? '') === 'alternate') {
+        $view->element['#attached']['html_head_link'][$i][$j]['title'] = \Drupal\Component\Utility\Html::decodeEntities($titles[$view->id()]);
+      }
+    }
+  }
 }

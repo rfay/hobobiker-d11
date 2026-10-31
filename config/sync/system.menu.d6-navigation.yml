@@ -1,0 +1,8 @@
+uuid: 689b70bb-9f4b-4e09-8ab6-0f2c233bb1e2
+langcode: en
+status: true
+dependencies: {  }
+id: d6-navigation
+label: 'D6 navigation'
+description: "The original's navigation menu links: breadcrumbs only."
+locked: false

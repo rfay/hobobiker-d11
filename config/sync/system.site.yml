@@ -1,10 +1,10 @@
 _core:
   default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
 langcode: en
-uuid: 1fcb3cf6-edcc-40ac-a82d-2289af7fa76a
-name: Hobobiker.com
+uuid: 89f1fb0d-76de-4dab-85df-d58afd42e94e
+name: "Hobobiker.com: Randy and Nancy's Big Bike Trip"
 mail: admin@example.com
-slogan: ''
+slogan: "Randy and Nancy's Bike Touring Adventure from the top of the Americas to the Bottom of South America"
 page:
   403: ''
   404: ''

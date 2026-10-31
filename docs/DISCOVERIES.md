@@ -78,3 +78,42 @@ Findings about the source while planning (2026-10-30). Counts are from the `d6` 
 - Edit forms: step 10 configured how nodes display but saved no form displays, so node/N/edit showed only the base
   fields (no body, tags or CCK fields). Step 10 now puts every field on the edit form with the default widget.
   No tier logs in, so none saw it.
+
+## Found by comparing the two sites page by page (not by the test suite)
+
+Scripts run over every baseline page on both sites (2,455): text on Drupal 11 that is nowhere on the original's
+page, breadcrumbs, `<title>`, head feed links, pager markup; and full-page screenshots of every 20th page compared
+pixel by pixel. The suite checks that the original's content is present, so it does not see content a target adds,
+styling, or behavior.
+
+- Submitted line ("By … - Posted on …"): D6 showed it where the theme setting was on (audio, blog, forum, story) or
+  absent for a type D6 still had (poll); acidfree and image (modules off) had none.
+- Tags: D6 ordered them case-insensitively (MySQL collation).
+- Blog link for an anonymous author: "'s blog" (D6 used the empty account name).
+- Trip tables: D6 compared its stored `YYYY-MM-DDT00:00:00` with the bare end date as strings, so the end date's day
+  was never listed; reproduced.
+- Breadcrumbs: D6's came from the router path and its navigation menu, whose hidden links (now the `d6-navigation`
+  menu, step 80) gave five pages "Home » Inuvik to Ushuaia". Alias segments, the tripinfo callbacks and term pages
+  (Views, no parents) gave none. Module builder `hobobiker.d6_breadcrumb`.
+- Read-more: titled "Read the whole post"; a teaser not ending in `</p>` gets it as an appended `div`.
+- Page titles: the original's site name and slogan (step 90); the front page is "name | slogan".
+- Head feed links: "RSS - blogs" and "RSS - NAME's blog", as the blog module set them.
+- "Skip to main content": Drupal 11's link removed (`html.html.twig`).
+- Main menu: the standard profile's own Home link turned off (step 80); D6's `system-menus.css` and the other
+  module stylesheets the original aggregated (user, CCK, CTools, date, filefield, fieldgroup, Panels, Views, audio)
+  added to the theme. Menu boxes now measure the same as the original's.
+- HTML corrector: D6's `_filter_htmlcorrector()` ported (`hobobiker_htmlcorrector`, in place of core's in 8 formats,
+  step 75). It read `<br/>` as an element `br/` and closed it with `</br/>`, which browsers show as a line break: 69
+  bodies had more vertical space on the original.
+- Deliberate changes (owner's decisions, declared in expected-differences.json):
+  - Node 3953's teaser ends inside an unclosed `<!--`; on the original, browsers hid everything after it on four
+    listing pages. The corrector closes it, so those posts show.
+  - Audio: an HTML5 `<audio>` player (290x24) where the original embedded a Flash player.
+- Not reproduced, by the owner's decision: the original's other scripts (simplemenu, thickbox, Panels, preload),
+  its `<head>` meta tags (nodewords) and Drupal 11's own; audio download and play counts, which keep changing on the
+  running original.
+- CCK field order: D6 placed fields around the body (weight 0) by weight, then label case-insensitively, a field of
+  the body's weight after it; the wp fields had been put before the body. Step 10 now derives the weights so.
+- Screenshot sample (every 20th page, 123) after these fixes, on a site rebuilt from nothing: 77 pages identical
+  pixel for pixel, 122 within 0.5%; the one large difference is a listing with node 3953's teaser (the deliberate
+  change), the small ones the audio player (HTML5 instead of Flash).

@@ -1,4 +1,4 @@
-uuid: cb43a62f-4e99-4d57-9f14-dcb66639e2cc
+uuid: 74a7b9e0-281a-414d-bfb6-2fd2beaabb82
 langcode: en
 status: true
 dependencies:
@@ -52,14 +52,14 @@ content:
     third_party_settings: {  }
   field_bad_dogs:
     type: number
-    weight: -43
+    weight: 91
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_camp_or_hotel:
     type: string_textfield
-    weight: -47
+    weight: -9
     region: content
     settings:
       size: 60
@@ -67,13 +67,13 @@ content:
     third_party_settings: {  }
   field_date:
     type: datetime_default
-    weight: -50
+    weight: -39
     region: content
     settings: {  }
     third_party_settings: {  }
   field_destination:
     type: string_textfield
-    weight: -48
+    weight: -19
     region: content
     settings:
       size: 60
@@ -81,35 +81,35 @@ content:
     third_party_settings: {  }
   field_elevation_gain:
     type: number
-    weight: -46
+    weight: -8
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_flat_tires:
     type: number
-    weight: -42
+    weight: 92
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_miles:
     type: number
-    weight: -45
+    weight: -7
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_miles_not_ridden:
     type: number
-    weight: -44
+    weight: -6
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_start:
     type: string_textfield
-    weight: -49
+    weight: -29
     region: content
     settings:
       size: 60
@@ -127,7 +127,7 @@ content:
     third_party_settings: {  }
   field_trip:
     type: string_textfield
-    weight: -41
+    weight: 93
     region: content
     settings:
       size: 60
@@ -135,7 +135,7 @@ content:
     third_party_settings: {  }
   field_vid:
     type: number
-    weight: -40
+    weight: 94
     region: content
     settings:
       placeholder: ''

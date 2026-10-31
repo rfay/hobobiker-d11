@@ -1,7 +1,9 @@
-uuid: 0880275e-af0e-4a0a-ae0f-0abbb7a13cc6
+uuid: 00954d01-c071-4b0f-a015-e5fa4bfa45ec
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - hobobiker
 name: 'Full html with email obfuscation'
 format: full_html_with_email_obfuscation
 weight: 0
@@ -9,6 +11,12 @@ filters:
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
+    status: false
+    weight: 11
+    settings: {  }
+  hobobiker_htmlcorrector:
+    id: hobobiker_htmlcorrector
+    provider: hobobiker
     status: true
     weight: 11
     settings: {  }

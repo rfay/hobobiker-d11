@@ -1,4 +1,4 @@
-uuid: c5db9385-4a2c-4724-9d6b-988b97489137
+uuid: 1f7ef7ee-5d66-440b-9b1f-a111385bd594
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - core.entity_view_mode.node.hobo_list_full
     - taxonomy.vocabulary.topics
   content:
-    - 'taxonomy_term:topics:bea5be71-4e16-4fd2-aea1-7bfd31c53790'
+    - 'taxonomy_term:topics:4cf4fd8a-30b9-4884-b58d-c389219c04ff'
   module:
     - hobobiker
     - node
