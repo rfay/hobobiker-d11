@@ -1,0 +1,52 @@
+#ddev-silent-no-warn
+
+# Synchronize this project with its DDEV instance on the server.
+#
+# Before using this provider, run `ddev auth ssh`. Then use either:
+#
+#   ddev pull rsync
+#   ddev push rsync
+#
+# Pull and push transfer only the database and Drupal public files; code remains
+# under Git control. Both directions transfer DDEV database snapshots.
+# `ddev push rsync` replaces the remote database and makes its public-files
+# directory exactly match this one.
+environment_variables:
+  remote: rfay@ddevprod.thefays.us
+  remote_root: workspace/d11.hobobiker.com
+  remote_files: web/sites/default/files
+  remote_snapshots: .ddev/db_snapshots
+
+auth_command:
+  command: |
+    set -eu -o pipefail
+    ssh-add -l >/dev/null || (echo "Run 'ddev auth ssh' before using this provider." && exit 1)
+
+db_import_command:
+  command: |
+    set -eu -o pipefail
+    snapshot=$(ssh "${remote}" "cd '${remote_root}/${remote_snapshots}' && ls -t | head -1")
+    rsync -az "${remote}:${remote_root}/${remote_snapshots}/${snapshot}" "${DDEV_APPROOT}/.ddev/db_snapshots/latest-mariadb_11.8.zst"
+    ddev snapshot restore --latest
+  service: host
+
+files_pull_command:
+  command: |
+    set -eu -o pipefail
+    mkdir -p "${DDEV_IMPORTDIR}/files"
+    rsync -az "${remote}:${remote_root}/${remote_files}/" "${DDEV_IMPORTDIR}/files/"
+
+db_push_command:
+  command: |
+    set -eu -o pipefail
+    ddev snapshot --name rsync-push
+    snapshot=$(find "${DDEV_APPROOT}/.ddev/db_snapshots" -maxdepth 1 -type f -name '*rsync-push*' -print0 | xargs -0 ls -t | head -1)
+    snapshot_name=$(basename "${snapshot}")
+    rsync -az "${snapshot}" "${remote}:${remote_root}/${remote_snapshots}/${snapshot_name}"
+    ssh "${remote}" "cd '${remote_root}' && ddev snapshot restore '${snapshot_name}'"
+  service: host
+
+files_push_command:
+  command: |
+    set -eu -o pipefail
+    rsync -az --delete "${DDEV_FILES_DIR}/" "${remote}:${remote_root}/${remote_files}/"
