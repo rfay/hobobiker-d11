@@ -13,6 +13,9 @@ composer_version: "2"
 web_environment: []
 nodejs_version: "24"
 corepack_enable: true
+hooks:
+  post-start:
+    - composer: "install"
 
 # Key features of DDEV's config.yaml:
 
