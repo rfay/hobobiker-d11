@@ -2,3 +2,4 @@
 /web/sites/default/files
 /tmp
 /web/files
+/.ddev/config.coder.yaml
