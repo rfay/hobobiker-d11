@@ -33,8 +33,8 @@ db_import_command:
 files_pull_command:
   command: |
     set -eu -o pipefail
-    mkdir -p "${DDEV_IMPORTDIR}/files"
-    rsync -az "${remote}:${remote_root}/${remote_files}/" "${DDEV_IMPORTDIR}/files/"
+    mkdir -p /var/www/html/.ddev/.downloads/files
+    rsync -az "${remote}:${remote_root}/${remote_files}/" /var/www/html/.ddev/.downloads/files/
 
 db_push_command:
   command: |
