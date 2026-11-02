@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * The page document (Starterkit's), plus a tiny inline script that runs before the stylesheets: it marks the
+ * document as having JavaScript and applies the visitor's saved light/dark choice, so the page never flashes the
+ * wrong scheme. js/color-scheme.js owns the toggle that saves the choice.
+ */
+#}
+{%
+  set body_classes = [
+    logged_in ? 'user-logged-in',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'page-node-type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+  ]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121519" media="(prefers-color-scheme: dark)">
+    {# The favicon set (images/favicon/favicon.svg and its renderings); Drupal's own favicon link is off. #}
+    <link rel="icon" href="{{ file_url(directory ~ '/favicon.ico') }}" sizes="48x48">
+    <link rel="icon" href="{{ file_url(directory ~ '/images/favicon/favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ file_url(directory ~ '/images/favicon/icon-180.png') }}">
+    <link rel="manifest" href="{{ file_url(directory ~ '/site.webmanifest') }}">
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <script>
+      (function (d) {
+        d.classList.add('js');
+        try {
+          var s = localStorage.getItem('marlene-color-scheme');
+          if (s === 'light' || s === 'dark') { d.setAttribute('data-color-scheme', s); }
+        } catch (e) {}
+      })(document.documentElement);
+    </script>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+  </head>
+  <body{{ attributes.addClass(body_classes) }}>
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      {{ 'Skip to main content'|t }}
+    </a>
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>

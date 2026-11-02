@@ -1,0 +1,134 @@
+/**
+ * @file
+ * Drupal's own components in this theme's look: breadcrumb, pager, tabs, messages, feed icon, forms in content.
+ */
+
+/* Breadcrumb */
+.breadcrumb { margin: 0 0 .25rem; font-size: var(--text-sm); }
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .15rem .35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.breadcrumb li { display: inline-flex; align-items: center; gap: .35rem; color: var(--color-text-muted); }
+.breadcrumb li + li::before {
+  content: "";
+  width: .4em;
+  height: .4em;
+  border-top: 1.5px solid var(--color-text-subtle);
+  border-right: 1.5px solid var(--color-text-subtle);
+  transform: rotate(45deg);
+}
+.breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--color-accent-text); text-decoration: underline; }
+
+/* Pager */
+.pager { margin: 2.5rem 0 1rem; }
+.pager__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pager__item { display: block; margin: 0; padding: 0; }
+.pager__item a, .pager__item.is-active > *, .pager__item--ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 .8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+.pager__item a:hover { border-color: var(--color-accent); color: var(--color-accent-text); }
+.pager__item.is-active > * {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+.pager__item--ellipsis { border-color: transparent; background: none; }
+@media (max-width: 40em) {
+  .pager__item--first, .pager__item--last { display: none; }
+}
+
+/* Tabs (signed-in editors) */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+  margin: 0 0 1.5rem;
+  padding: .25rem;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-2);
+  width: fit-content;
+}
+.tabs > li { margin: 0; }
+.tabs a {
+  display: block;
+  padding: .35rem .9rem;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+}
+.tabs a.is-active, .tabs a:hover { background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-sm); }
+
+/* Messages */
+.messages {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-success);
+  border-radius: var(--radius-md);
+  background: var(--color-success-soft);
+  background-image: none;
+  color: var(--color-text);
+}
+.messages--warning { border-left-color: var(--color-warning); background: var(--color-warning-soft); }
+.messages--error { border-left-color: var(--color-danger); background: var(--color-danger-soft); }
+
+/* Feed icon */
+.feed-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+/* The search form, wherever it is placed. */
+.search-block-form, .search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+}
+.search-block-form .form-item, .search-form .form-item { flex: 1 1 220px; margin: 0; }
+.search-block-form input[type="search"], .search-form input[type="search"] {
+  width: 100%;
+  border-radius: var(--radius-pill);
+  padding-inline: 1.1rem;
+}
+.search-block-form .form-actions, .search-form .form-actions { margin: 0; }
+
+/* Forms in content */
+.form-item { margin: 0 0 1.1rem; }
+.form-item label { display: block; margin-bottom: .3rem; }
+.description, .form-item .description { color: var(--color-text-muted); font-size: var(--text-sm); }

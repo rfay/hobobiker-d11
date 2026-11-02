@@ -1,0 +1,163 @@
+/**
+ * @file
+ * Element defaults: type, links, media, tables, forms. Token-driven (css/base/tokens.css).
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: var(--weight-body);
+  line-height: var(--leading-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--heading-weight);
+  letter-spacing: var(--heading-tracking);
+  line-height: var(--leading-tight);
+  margin: 1.6em 0 .5em;
+  text-wrap: balance;
+  font-variation-settings: "SOFT" 50, "WONK" 0;
+}
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4, h5, h6 { font-size: var(--text-lg); }
+
+p, ul, ol, dl, blockquote, table, figure { margin: 0 0 1.1em; }
+p { text-wrap: pretty; }
+
+a {
+  color: var(--color-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+  transition: color var(--motion-fast) var(--ease);
+}
+a:hover { color: var(--color-link-hover); text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+img, video, iframe, object, embed { max-width: 100%; }
+img { height: auto; border-style: none; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: 2em 0;
+}
+
+blockquote {
+  margin-inline: 0;
+  padding: .25em 0 .25em 1.25em;
+  border-left: 3px solid var(--color-gold);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+code, kbd, pre, samp { font-family: var(--font-mono); font-size: .9em; }
+pre {
+  overflow-x: auto;
+  padding: 1em;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-md);
+}
+
+table {
+  border-collapse: collapse;
+  width: auto;
+  max-width: 100%;
+  font-size: var(--text-sm);
+}
+th, td {
+  padding: .5em .75em;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  font-weight: var(--weight-strong);
+  color: var(--color-text-muted);
+  background: var(--color-surface-2);
+}
+
+/* Forms */
+input, select, textarea, button { font: inherit; color: inherit; }
+input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="url"],
+input[type="number"], input[type="tel"], select, textarea {
+  max-width: 100%;
+  min-height: 42px;
+  padding: .45em .75em;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  transition: border-color var(--motion-fast) var(--ease), box-shadow var(--motion-fast) var(--ease);
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: var(--focus-ring);
+}
+label { font-weight: var(--weight-medium); }
+
+.button, input[type="submit"], button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4em;
+  min-height: 42px;
+  padding: .45em 1.15em;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-weight: var(--weight-strong);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--motion-fast) var(--ease), transform var(--motion-fast) var(--ease);
+}
+.button:hover, input[type="submit"]:hover, button[type="submit"]:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-accent-contrast);
+}
+.button:active, input[type="submit"]:active { transform: translateY(1px); }
+
+.visually-hidden.focusable:focus, .skip-link:focus {
+  position: fixed !important;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  clip: auto;
+  padding: .6em 1em;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,22 @@
+uuid: 033da75a-fa21-4c96-bdf0-f4af42f499d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - marlene
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: marlene_breadcrumbs
+theme: marlene
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: ''
+  label_display: '0'
+  provider: core
+visibility: {  }

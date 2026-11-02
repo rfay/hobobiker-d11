@@ -1,0 +1,133 @@
+/**
+ * @file
+ * Design tokens: every other stylesheet in this theme reads only these.
+ *
+ * The architecture follows Marlene Wanberg's UI Theme Explorer
+ * (https://mwanberg.github.io/ai-playground/ui-theme-explorer/): color, type, shape, elevation and motion tokens,
+ * light values on :root, dark overrides for prefers-color-scheme and for an explicit choice
+ * (html[data-color-scheme], set by js/color-scheme.js). To retune the look, change values here only.
+ *
+ * Palette "Golden Hour", after the original site's theme: warm paper and ink, a sunset accent, Andean-sky links.
+ */
+
+:root {
+  /* color */
+  --color-bg: #faf7f2;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3eee6;
+  --color-surface-3: #e9e2d6;
+  --color-border: #e4dccf;
+  --color-border-strong: #cbbfae;
+  --color-text: #1d2127;
+  --color-text-muted: #59606c;
+  --color-text-subtle: #7d8390;
+  --color-accent: #c2541b;
+  --color-accent-hover: #a2440f;
+  --color-accent-contrast: #ffffff;
+  --color-accent-soft: #fbe8db;
+  --color-accent-text: #9c3f0c;
+  --color-link: #1d5c92;
+  --color-link-hover: #a2440f;
+  --color-gold: #e2a63b;
+  --color-success: #1f7a48; --color-success-soft: #e4f3ea;
+  --color-warning: #8f5c00; --color-warning-soft: #fbf0d9;
+  --color-danger: #b8322a; --color-danger-soft: #fbe7e5;
+  --color-focus: #c2541b;
+  --color-overlay: rgba(14, 16, 20, .55);
+  --color-hero-ink: #ffffff;
+  --hero-panel: linear-gradient(160deg, #1f3550 0%, #15243a 60%, #2a2233 100%);
+
+  /* type */
+  --font-body: "Figtree", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-xs: .8125rem; --text-sm: .9375rem; --text-md: 1.0625rem; --text-lg: 1.1875rem;
+  --text-xl: 1.375rem; --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.4rem + 2vw, 2.75rem); --text-hero: clamp(2.5rem, 1.6rem + 4.5vw, 4.75rem);
+  --leading-body: 1.65; --leading-tight: 1.15;
+  --weight-body: 400; --weight-medium: 500; --weight-strong: 650;
+  --heading-weight: 600; --heading-tracking: -0.015em;
+
+  /* shape & space */
+  --radius-xs: 4px; --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px; --radius-xl: 24px; --radius-pill: 999px;
+  --space: 4px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --content-max: 1200px;
+  --measure: 70ch;
+  --header-h: 64px;
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgba(40, 28, 12, .06);
+  --shadow-md: 0 1px 2px rgba(40, 28, 12, .05), 0 6px 18px rgba(40, 28, 12, .08);
+  --shadow-lg: 0 2px 6px rgba(40, 28, 12, .06), 0 20px 48px rgba(40, 28, 12, .16);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--color-focus) 35%, transparent);
+
+  /* motion */
+  --motion-fast: 120ms; --motion-base: 220ms; --ease: cubic-bezier(.2, .7, .2, 1);
+
+  color-scheme: light;
+}
+
+/* Dark: "by lantern light". The same tokens, for the visitor's system setting unless they chose light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-scheme="light"]) {
+    --color-bg: #121519;
+    --color-surface: #1a1e24;
+    --color-surface-2: #21262e;
+    --color-surface-3: #2a303a;
+    --color-border: #2f3540;
+    --color-border-strong: #454d5b;
+    --color-text: #ece8e1;
+    --color-text-muted: #a9aeb8;
+    --color-text-subtle: #858b97;
+    --color-accent: #f08a4b;
+    --color-accent-hover: #f6a571;
+    --color-accent-contrast: #1a1108;
+    --color-accent-soft: #3a2518;
+    --color-accent-text: #f6a571;
+    --color-link: #8cc4f2;
+    --color-link-hover: #f6a571;
+    --color-gold: #f0bb5a;
+    --color-success: #5ec88a; --color-success-soft: #18301f;
+    --color-warning: #e9b44c; --color-warning-soft: #33280f;
+    --color-danger: #f07a70; --color-danger-soft: #3a1a18;
+    --color-focus: #f08a4b;
+    --color-overlay: rgba(0, 0, 0, .65);
+    --hero-panel: linear-gradient(160deg, #142235 0%, #0d1726 60%, #1d1724 100%);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+    --shadow-md: 0 1px 2px rgba(0, 0, 0, .35), 0 6px 18px rgba(0, 0, 0, .35);
+    --shadow-lg: 0 2px 6px rgba(0, 0, 0, .4), 0 20px 48px rgba(0, 0, 0, .55);
+    color-scheme: dark;
+  }
+}
+
+/* An explicit choice of dark, whatever the system says. Keep in step with the block above. */
+:root[data-color-scheme="dark"] {
+  --color-bg: #121519;
+  --color-surface: #1a1e24;
+  --color-surface-2: #21262e;
+  --color-surface-3: #2a303a;
+  --color-border: #2f3540;
+  --color-border-strong: #454d5b;
+  --color-text: #ece8e1;
+  --color-text-muted: #a9aeb8;
+  --color-text-subtle: #858b97;
+  --color-accent: #f08a4b;
+  --color-accent-hover: #f6a571;
+  --color-accent-contrast: #1a1108;
+  --color-accent-soft: #3a2518;
+  --color-accent-text: #f6a571;
+  --color-link: #8cc4f2;
+  --color-link-hover: #f6a571;
+  --color-gold: #f0bb5a;
+  --color-success: #5ec88a; --color-success-soft: #18301f;
+  --color-warning: #e9b44c; --color-warning-soft: #33280f;
+  --color-danger: #f07a70; --color-danger-soft: #3a1a18;
+  --color-focus: #f08a4b;
+  --color-overlay: rgba(0, 0, 0, .65);
+  --hero-panel: linear-gradient(160deg, #142235 0%, #0d1726 60%, #1d1724 100%);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 1px 2px rgba(0, 0, 0, .35), 0 6px 18px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 2px 6px rgba(0, 0, 0, .4), 0 20px 48px rgba(0, 0, 0, .55);
+  color-scheme: dark;
+}

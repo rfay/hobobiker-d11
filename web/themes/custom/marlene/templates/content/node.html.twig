@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * A node: title (in lists), byline, tags as chips, the labelled fields as a grid of facts (a trip log's date,
+ * start, destination, miles...), the content, then the node's own links (a blog link, an audio download).
+ *
+ * Variables added in MarleneHooks::preprocessNode(): byline (author, date, datetime), tags (title, url,
+ * description), facts (the labelled fields, moved out of content), node_links (text, url, title).
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    not page ? 'node--in-list',
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {% if label and not page %}
+    <h2{{ title_attributes.addClass('node__title') }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if byline or tags %}
+    <div class="node__meta">
+      {% if byline %}
+        <p class="node__byline">
+          <span class="node__author">{{ byline.author }}</span>
+          <time datetime="{{ byline.datetime }}">{{ byline.date }}</time>
+        </p>
+      {% endif %}
+      {% if tags %}
+        <ul class="node__tags" aria-label="{{ 'Tags'|t }}">
+          {% for tag in tags %}
+            <li><a href="{{ tag.url }}" rel="tag"{% if tag.description %} title="{{ tag.description }}"{% endif %}>{{ tag.title }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if facts %}
+    <div class="node__facts">{{ facts }}</div>
+  {% endif %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content|without('links', 'field_tags', 'comment') }}
+  </div>
+
+  {% if node_links %}
+    <ul class="node__links">
+      {% for item in node_links %}
+        <li>{% if item.url %}<a href="{{ item.url }}"{% if item.title %} title="{{ item.title }}"{% endif %}>{{ item.text }}</a>{% else %}{{ item.text }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</article>

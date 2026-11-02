@@ -1,0 +1,20 @@
+uuid: b3f5c11a-ddb6-4d1a-bdcd-364f0b778e21
+langcode: en
+status: true
+dependencies:
+  theme:
+    - marlene
+id: marlene_local_tasks
+theme: marlene
+region: highlighted
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: ''
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

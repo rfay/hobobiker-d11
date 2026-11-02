@@ -1,0 +1,36 @@
+name: Marlene
+type: theme
+'base theme': false
+version: 1.0.0
+libraries:
+  - marlene/base
+  - marlene/messages
+  - core/normalize
+  - marlene/global
+libraries-extend:
+  user/drupal.user:
+    - marlene/user
+  core/drupal.dropbutton:
+    - marlene/dropbutton
+  core/drupal.dialog:
+    - marlene/dialog
+  file/drupal.file:
+    - marlene/file
+  core/drupal.item-list:
+    - marlene/item-list
+  core/drupal.progress:
+    - marlene/progress
+  core/drupal.tablesort:
+    - marlene/drupal.tablesort
+description: 'A modern, responsive theme for hobobiker.com: design tokens, light and dark modes.'
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.4.11'
+regions:
+  primary_menu: 'Main menu'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  content_top: 'Content top'
+  content: Content
+  content_bottom: 'Content bottom'
+  sidebar_left: Sidebar
+  footer: Footer

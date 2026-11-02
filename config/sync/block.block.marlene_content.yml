@@ -1,0 +1,22 @@
+uuid: 9280d758-e0cf-40b1-b922-7c4f24106f03
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - marlene
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: marlene_content
+theme: marlene
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  label_display: '0'
+  provider: core
+visibility: {  }

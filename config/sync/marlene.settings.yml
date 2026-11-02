@@ -1,0 +1,13 @@
+logo:
+  use_default: false
+  path: ''
+favicon:
+  use_default: true
+  path: ''
+features:
+  logo: false
+  name: false
+  slogan: false
+  node_user_picture: false
+  comment_user_picture: false
+  favicon: false

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Hobobiker: the golden-hour sun rising behind the Cordillera Blanca, on the hero's dusk blue. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f3550"/>
+      <stop offset="1" stop-color="#15243a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#sky)"/>
+  <g stroke="#e2a63b" stroke-width="3.2" stroke-linecap="round">
+    <path d="M41 8v4M55 22h-4M50.9 12.1l-2.8 2.8M31.1 12.1l2.8 2.8M27 22h4"/>
+  </g>
+  <circle cx="41" cy="24" r="9" fill="#e2a63b"/>
+  <path d="M0 50 18 27l8 9 8-11 12 13 6-5 12 13v18H0Z" fill="#f4efe6"/>
+  <path d="M0 50 18 27l4 4.6L16 40l-6-3-10 13Zm34-25 12 13-4 3-5-7-6 4Z" fill="#c9d6e6"/>
+  <path d="M0 64V54c10-4 22-5 32-3s22 1 32-3v16Z" fill="#c2541b"/>
+</svg>

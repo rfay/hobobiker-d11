@@ -1,0 +1,215 @@
+/**
+ * @file
+ * Page layout: header, banner, main column, sidebar, footer.
+ */
+
+/* Header */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+.site-header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space) * 4);
+  max-width: var(--content-max);
+  min-height: var(--header-h);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-right: auto;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-brand:hover { color: var(--color-accent-text); text-decoration: none; }
+.site-brand__sun {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  fill: var(--color-gold);
+  color: var(--color-gold);
+  transition: transform var(--motion-base) var(--ease);
+}
+.site-brand:hover .site-brand__sun { transform: rotate(30deg); }
+
+.site-header__tools {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--space) * 2);
+}
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 .6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
+}
+.icon-button:hover { border-color: var(--color-border-strong); background: var(--color-surface-2); }
+.icon-button[hidden] { display: none; }
+
+/* The light/dark toggle shows the icon of the current setting. */
+.color-scheme-toggle .icon { width: 20px; height: 20px; fill: currentColor; display: none; }
+.color-scheme-toggle[data-scheme="auto"] .icon--auto,
+.color-scheme-toggle[data-scheme="light"] .icon--light,
+.color-scheme-toggle[data-scheme="dark"] .icon--dark { display: block; }
+
+/* Banner: the photo of Randy and Nancy. A short band on inner pages, a hero with the site's name on the front. */
+.banner {
+  position: relative;
+  height: clamp(90px, 13vw, 180px);
+  overflow: hidden;
+  background: #6d8fb8;
+}
+.banner__picture, .banner__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.banner__image {
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, var(--color-bg) 100%);
+  pointer-events: none;
+}
+/* The front page hero: the photo with the site's name on a panel the color of the Andean sky at dusk, beside it on
+   wide screens and under it on small ones, so the words never cover Randy and Nancy. */
+.banner--hero {
+  display: grid;
+  height: auto;
+  background: var(--hero-panel);
+}
+.banner--hero::after { content: none; }
+.banner--hero .banner__picture { aspect-ratio: 4 / 3; max-height: 70vh; }
+.banner--hero .banner__image { object-position: 46% 62%; }
+.banner__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 5vw, 64px) var(--gutter);
+  color: var(--color-hero-ink);
+}
+@media (min-width: 56em) {
+  .banner--hero {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    height: clamp(440px, 68vh, 660px);
+  }
+  .banner--hero .banner__picture { aspect-ratio: auto; max-height: none; }
+  .banner__text {
+    order: -1;
+    padding-left: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
+  }
+}
+.banner__kicker {
+  align-self: flex-start;
+  margin: 0 0 1rem;
+  padding: .25em .8em;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--color-gold) 92%, transparent);
+  color: #241a06;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-strong);
+  letter-spacing: .04em;
+  text-shadow: none;
+}
+.banner__title {
+  max-width: 14ch;
+  margin: 0 0 .45em;
+  font-size: var(--text-hero);
+  font-weight: 650;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.banner__slogan {
+  max-width: 40ch;
+  margin: 0;
+  color: color-mix(in srgb, var(--color-hero-ink) 82%, transparent);
+  font-size: clamp(1.0625rem, 1rem + .4vw, 1.3125rem);
+  line-height: 1.5;
+}
+
+/* Main */
+.site-main { outline: none; }
+.site-main__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: clamp(20px, 3vw, 40px) var(--gutter) clamp(48px, 7vw, 96px);
+}
+/* A reading column, wider for pages built of panels, maps and tables. */
+.layout-content {
+  max-width: 800px;
+  margin-inline: auto;
+}
+.path-frontpage .layout-content,
+.layout-content:has(.panel-display, .tripinfo_table_table, .leaflet-container, .views-table, .views-view-grid) {
+  max-width: none;
+}
+.site-main__inner.has-sidebar {
+  display: grid;
+  gap: clamp(24px, 4vw, 56px);
+}
+@media (min-width: 64em) {
+  .site-main__inner.has-sidebar { grid-template-columns: minmax(0, 1fr) 300px; }
+}
+
+.page-title {
+  margin: .2em 0 .6em;
+  font-size: var(--text-3xl);
+}
+.banner + .site-main .site-main__inner { padding-top: clamp(8px, 2vw, 24px); }
+.banner--hero + .site-main .site-main__inner { padding-top: clamp(28px, 4vw, 56px); }
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.site-footer__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: 32px var(--gutter) 40px;
+}
+.site-footer__brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .25rem 1rem;
+  margin: 0;
+}
+.site-footer__brand a {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 650;
+  text-decoration: none;
+}

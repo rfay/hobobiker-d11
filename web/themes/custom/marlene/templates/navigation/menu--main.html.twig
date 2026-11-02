@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * The main menu as a disclosure menu: each top-level item that has children gets a button that opens its panel
+ * (the second level as headed groups, the levels below as their links, nested). js/site-nav.js wires the buttons;
+ * without JavaScript every panel is shown inline. On wide screens a panel drops down under the header, on small
+ * screens the whole menu is a drawer and the panels open in place.
+ */
+#}
+{% import _self as menus %}
+{% if items %}
+<ul class="site-nav__list">
+  {% for item in items %}
+    {% set panel_id = 'site-nav-panel-' ~ loop.index %}
+    <li class="site-nav__item{{ item.below ? ' has-panel' }}{{ item.in_active_trail ? ' is-active-trail' }}">
+      {% if item.below %}
+        <div class="site-nav__row">
+          {{ link(item.title, item.url, {'class': ['site-nav__link']}) }}
+          <button type="button" class="site-nav__toggle" aria-expanded="false" aria-controls="{{ panel_id }}" data-nav-panel-toggle>
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 6l4.5 4.5L12.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="visually-hidden">{{ 'More in @title'|t({'@title': item.title}) }}</span>
+          </button>
+        </div>
+        <div class="site-nav__panel" id="{{ panel_id }}">
+          <ul class="site-nav__groups">
+            {% for group in item.below %}
+              <li class="site-nav__group{{ group.below ? ' has-links' }}{{ group.in_active_trail ? ' is-active-trail' }}">
+                {{ link(group.title, group.url, {'class': ['site-nav__group-link']}) }}
+                {{ menus.sublist(group.below) }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        {{ link(item.title, item.url, {'class': ['site-nav__link']}) }}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% macro sublist(items) %}
+  {% import _self as menus %}
+  {% if items %}
+    <ul class="site-nav__sublist">
+      {% for child in items %}
+        <li{{ child.in_active_trail ? ' class="is-active-trail"' }}>
+          {{ link(child.title, child.url) }}
+          {{ menus.sublist(child.below) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

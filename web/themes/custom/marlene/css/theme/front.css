@@ -1,0 +1,44 @@
+/**
+ * @file
+ * The front page: the hobobiker module's three-column panel (search on top; favorite stories, the trip's story,
+ * trip statistics) as a responsive grid. The story comes first on small screens.
+ */
+
+.panel-display { display: grid; gap: clamp(20px, 3vw, 32px); }
+.panel-display .center-wrapper {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+  align-items: start;
+}
+.panel-display .panel-col { order: -1; }
+@media (min-width: 64em) {
+  .panel-display .center-wrapper { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr); }
+  .panel-display .panel-col { order: 0; }
+}
+.panel-panel { width: auto !important; float: none !important; min-width: 0; }
+.panel-panel .inside { margin: 0 !important; display: grid; gap: clamp(16px, 2.5vw, 28px); }
+
+/* Each pane a card; a pane that holds a node shows the node's own title, not the pane's. */
+.panel-pane {
+  padding: clamp(20px, 3vw, 28px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+.panel-pane::after { content: ""; display: block; clear: both; }
+.pane-title { margin: 0 0 1rem; font-size: var(--text-xl); }
+.pane-node > .pane-title { display: none; }
+.panel-pane .node--in-list { margin: 0; padding: 0; border: 0; box-shadow: none; background: none; }
+.panel-col-first .node__title, .panel-col-last .node__title { font-size: var(--text-xl); }
+
+/* The search pane: a slim search bar across the top. */
+.pane-search-0 { padding: .75rem; border-radius: var(--radius-pill); }
+.pane-search-0 .pane-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.pane-search-0 input[type="search"] { border-color: transparent; background: var(--color-surface-2); }
+
+/* The trip statistics block */
+.statstable { display: table; width: 100%; font-size: var(--text-sm); }
+.statstable th, .statstable td { padding: .55rem 0; background: none; border-bottom: 1px solid var(--color-border); }
+.statstable td:last-child { text-align: right; font-weight: var(--weight-strong); font-variant-numeric: tabular-nums; }
+.statstable tr:last-child td { border-bottom: 0; }

@@ -1,0 +1,12 @@
+{
+  "name": "Hobobiker.com: Randy and Nancy's Big Bike Trip",
+  "short_name": "Hobobiker",
+  "icons": [
+    { "src": "images/favicon/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "images/favicon/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#1f3550",
+  "background_color": "#faf7f2"
+}
