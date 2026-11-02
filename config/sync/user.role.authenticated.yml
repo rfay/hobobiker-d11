@@ -8,6 +8,7 @@ dependencies:
   module:
     - file
     - filter
+    - search
     - system
 _core:
   default_config_hash: wkW7P5A53YhGmsgamrmTbfwpZrqdnPYiJdoAZQtdmJg
@@ -18,5 +19,7 @@ is_admin: false
 permissions:
   - 'access content'
   - 'delete own files'
+  - 'search content'
+  - 'use advanced search'
   - 'use text format basic_html'
   - 'use text format filtered_html'
