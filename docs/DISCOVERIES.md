@@ -117,3 +117,15 @@ styling, or behavior.
 - Screenshot sample (every 20th page, 123) after these fixes, on a site rebuilt from nothing: 77 pages identical
   pixel for pixel, 122 within 0.5%; the one large difference is a listing with node 3953's teaser (the deliberate
   change), the small ones the audio player (HTML5 instead of Flash).
+
+## Search (found by a person, after every tier passed)
+
+- Anonymous visitors could not search: the front page's search box led to 404 (`/search/node`) or 403 (`/search`).
+  On the original every visitor could (D6 "search content" and "use advanced search" for anonymous and
+  authenticated users). Two causes: Drupal 11.4 moved node search into the search module's submodule `search_node`,
+  which step 80 never installed, so there was no content search page and no index; and the roles lacked the
+  permissions. Step 85 (`scripts/85-search.php`) installs `search_node`, grants the D6 search permissions, keeps
+  D6's batch size (`search_cron_limit` 500) and builds the index (1296 nodes, about 35 seconds).
+- Why the suite missed it: it checks that the search box is on the front page, never what submitting it returns.
+- The original's result URLs put the keywords in the path (`/search/node/Bolivia`); Drupal 11's are
+  `/search/node?keys=Bolivia`. No stored content links to a search URL, so the old form is not redirected.
