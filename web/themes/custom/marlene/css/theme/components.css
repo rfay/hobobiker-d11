@@ -132,3 +132,46 @@
 .form-item { margin: 0 0 1.1rem; }
 .form-item label { display: block; margin-bottom: .3rem; }
 .description, .form-item .description { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+/* Search results page: the form on one row, the advanced options in a tidy panel, each result a quiet block. */
+.search-form .container-inline { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .5rem .75rem; }
+.search-form .container-inline .form-item { flex: 1 1 260px; margin: 0; }
+.search-form .search-help-link { font-size: var(--text-sm); color: var(--color-text-muted); }
+.search-advanced {
+  margin: 1rem 0 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.search-advanced > summary {
+  padding: .6rem 1rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+.search-advanced[open] > summary { border-bottom: 1px solid var(--color-border); }
+.search-advanced .details-wrapper { padding: 1rem; }
+.search-advanced fieldset { margin: 0 0 1rem; padding: 0; border: 0; }
+.search-advanced legend { font-weight: var(--weight-strong); margin-bottom: .4rem; }
+.search-advanced .form-checkboxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .15rem .75rem; }
+.search-advanced .form-type-checkbox { margin: 0; }
+.search-advanced .form-type-checkbox label { display: inline; font-weight: var(--weight-body); }
+
+.search-results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.search-results > li {
+  margin: 0;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.search-results > li:last-child { border-bottom: 0; }
+.search-result__title { margin: 0 0 .35rem; font-size: var(--text-xl); }
+.search-result__title a { color: var(--color-text); text-decoration: none; }
+.search-result__title a:hover { color: var(--color-accent-text); text-decoration: underline; }
+.search-result__snippet { margin: 0 0 .35rem; color: var(--color-text-muted); }
+.search-result__snippet strong { color: var(--color-text); background: var(--color-accent-soft); border-radius: 3px; padding: 0 .15em; }
+.search-result__info { margin: 0; color: var(--color-text-subtle); font-size: var(--text-xs); }
