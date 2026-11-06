@@ -1,7 +1,9 @@
 uuid: 2ac5eb90-8573-489d-b0aa-e00b88e14a83
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - image_effects
 name: 600x800
 label: 600x800
 effects:
@@ -13,3 +15,9 @@ effects:
       width: 600
       height: 800
       anchor: center-center
+  301c0060-79a0-4949-8d90-feea1eaf09a6:
+    uuid: 301c0060-79a0-4949-8d90-feea1eaf09a6
+    id: image_effects_auto_orient
+    weight: -1
+    data:
+      scan_exif: true

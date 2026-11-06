@@ -1,7 +1,9 @@
 uuid: c9620408-729d-4a1e-94c5-fd24a8ba7738
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - image_effects
 name: 180x240
 label: 180x240
 effects:
@@ -13,3 +15,9 @@ effects:
       width: 180
       height: 240
       anchor: center-center
+  16c3a858-329e-4676-910e-072d45613929:
+    uuid: 16c3a858-329e-4676-910e-072d45613929
+    id: image_effects_auto_orient
+    weight: -1
+    data:
+      scan_exif: true

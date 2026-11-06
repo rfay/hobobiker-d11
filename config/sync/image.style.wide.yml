@@ -1,7 +1,9 @@
 uuid: 7d750580-85f5-4084-80bd-f59680632d4a
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - image_effects
 _core:
   default_config_hash: vbPSqe3wbFSkaEY0zGy3NVpofBxcTZYrT6N2YPQX7nI
 name: wide
@@ -21,3 +23,9 @@ effects:
     weight: 2
     data:
       extension: webp
+  83e37c0c-82eb-44ce-a715-b33513bdde3e:
+    uuid: 83e37c0c-82eb-44ce-a715-b33513bdde3e
+    id: image_effects_auto_orient
+    weight: -1
+    data:
+      scan_exif: true

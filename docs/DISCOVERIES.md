@@ -129,3 +129,16 @@ styling, or behavior.
 - Why the suite missed it: it checks that the search box is on the front page, never what submitting it returns.
 - The original's result URLs put the keywords in the path (`/search/node/Bolivia`); Drupal 11's are
   `/search/node?keys=Bolivia`. No stored content links to a search URL, so the old form is not redirected.
+
+## Photos on the marlene branch (after the break from Drupal 6)
+
+- Sideways thumbnails had two causes. 8 photos carry an EXIF orientation that browsers honor for the full-size
+  file but the image styles ignored: `image_effects`' auto-orient is now the first effect of every style. 13
+  others have sideways pixels and no flag (Nancy and Randy at Machu Picchu among them): found on contact sheets of
+  the 543 photos the posts show, checked by the owner, and given the EXIF orientation that turns them upright
+  (`scripts/fix-sideways-photos.php`; pixels unchanged, undo by setting it to 1), their 16 photo tokens made
+  portrait as new revisions.
+- `ciclonauts/ciclo_13_espiritu.jpg` is truncated (corrupt JPEG data; the bottom of the image is missing). Only a
+  better copy can fix it.
+- Clearing every image style's derivatives makes the first visits to a page with many photos answer 503 ("Image
+  generation in progress") for some of them, until each is generated once.

@@ -1,7 +1,9 @@
 uuid: ac230385-9737-4f93-9dc8-81f6e01a39ee
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - image_effects
 _core:
   default_config_hash: aUG-EM9kKTKhcsdttoYmG5tug7pU2mNOQzcpp91jfFQ
 name: medium
@@ -21,3 +23,9 @@ effects:
     weight: 2
     data:
       extension: webp
+  1dab6e7a-520d-41eb-8545-bda13e904c0d:
+    uuid: 1dab6e7a-520d-41eb-8545-bda13e904c0d
+    id: image_effects_auto_orient
+    weight: -1
+    data:
+      scan_exif: true

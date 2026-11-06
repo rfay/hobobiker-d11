@@ -1,0 +1,6 @@
+# This file contains patterns to be ignored while testing for use of
+# deprecated code.
+# See https://www.drupal.org/node/3285162 for more details.
+
+%vendor_stream_wrapper_requirements without a #\[LegacyRequirementsHook\] attribute is deprecated%
+%Method "Drupal\\.*" might add ".*" as a native return type declaration in the future\. Do the same in implementation "Drupal\\vendor_stream_wrapper\\.*"%

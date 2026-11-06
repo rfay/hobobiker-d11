@@ -1,0 +1,18 @@
+# Configuration file for PHPStan static code checking, see https://phpstan.org .
+
+includes:
+  - phpstan-baseline.neon
+
+parameters:
+
+  level: 6
+
+  paths:
+    - .
+
+  treatPhpDocTypesAsCertain: false
+
+  ignoreErrors:
+    -
+      identifier: classExtendsInternalClass.classExtendsInternalClass
+      reportUnmatched: false

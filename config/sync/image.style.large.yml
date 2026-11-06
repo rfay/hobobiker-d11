@@ -1,7 +1,9 @@
 uuid: 15618625-8660-4186-811a-da86c1bdf349
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - image_effects
 _core:
   default_config_hash: yrvYt4IlFH9AKX1vx-_N6OfeG_6HgylGP7hhB9AMH3k
 name: large
@@ -21,3 +23,9 @@ effects:
     weight: 2
     data:
       extension: webp
+  3b6858ec-4d3a-4533-9496-db47c24fa59f:
+    uuid: 3b6858ec-4d3a-4533-9496-db47c24fa59f
+    id: image_effects_auto_orient
+    weight: -1
+    data:
+      scan_exif: true

@@ -1,7 +1,9 @@
 uuid: 5e121389-d095-42e0-877e-193e6036ed1d
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - image_effects
 _core:
   default_config_hash: JXYDC3SLZUXSwnTjR9rBo6uZF3vDSZd8S7EA5ZOH7kM
 name: thumbnail
@@ -21,3 +23,9 @@ effects:
     weight: 2
     data:
       extension: webp
+  0b099e32-5b65-4602-adaf-af3c5b313a9b:
+    uuid: 0b099e32-5b65-4602-adaf-af3c5b313a9b
+    id: image_effects_auto_orient
+    weight: -1
+    data:
+      scan_exif: true
