@@ -138,7 +138,7 @@ styling, or behavior.
   the 543 photos the posts show, checked by the owner, and given the EXIF orientation that turns them upright
   (`scripts/fix-sideways-photos.php`; pixels unchanged, undo by setting it to 1), their 16 photo tokens made
   portrait as new revisions.
-- `ciclonauts/ciclo_13_espiritu.jpg` is truncated (corrupt JPEG data; the bottom of the image is missing). Only a
-  better copy can fix it.
+- `ciclonauts/ciclo_13_espiritu.jpg` was truncated (corrupt JPEG data; the bottom of the image was missing). The
+  owner had it removed: node 3880 (the Ciclonautas' guest post) lost the photo and its caption table, the file is deleted.
 - Clearing every image style's derivatives makes the first visits to a page with many photos answer 503 ("Image
   generation in progress") for some of them, until each is generated once.
