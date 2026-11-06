@@ -1,8 +1,16 @@
 uuid: 0ef963cf-6cde-414d-adc3-baf6cf71663d
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - hobobiker
 name: Wiki
 format: wiki
 weight: 0
-filters: {  }
+filters:
+  hobobiker_photos:
+    id: hobobiker_photos
+    provider: hobobiker
+    status: true
+    weight: 20
+    settings: {  }

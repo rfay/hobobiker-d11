@@ -14,3 +14,9 @@ filters:
     status: true
     weight: 10
     settings: {  }
+  hobobiker_photos:
+    id: hobobiker_photos
+    provider: hobobiker
+    status: true
+    weight: 20
+    settings: {  }

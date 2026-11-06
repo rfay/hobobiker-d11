@@ -8,6 +8,12 @@ name: 'PHP code (rewritten; no PHP runs)'
 format: php_code
 weight: 0
 filters:
+  hobobiker_photos:
+    id: hobobiker_photos
+    provider: hobobiker
+    status: true
+    weight: 20
+    settings: {  }
   tripinfo_table:
     id: tripinfo_table
     provider: hobobiker

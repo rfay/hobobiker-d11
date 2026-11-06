@@ -1,5 +1,20 @@
 # Agent instructions: hobobiker-d11
 
+## Branch `marlene`: broken off from Drupal 6 (owner's decision, 2026-11-06)
+
+On this branch the site is no longer rebuilt from the `d6` copy. **The marlene DDEV project's database is the
+master**: work there (https://marlene.ddev.site, worktree `~/workspace/hobo/marlene`), and the human deploys its
+code and database to marlene.hobobiker.com on ddevprod.thefays.us. The production rules below still hold for
+agents: never connect to that host or push to it; get everything ready and verified here, the human deploys.
+
+- The steps in `scripts/` record how the site was first built; they are not rerun against this database
+  (`00-reset.sh` would destroy it). New work: automatic content fixes are render-time filters in the hobobiker
+  module (stored bodies unchanged, deployed as code and config); a fix that needs judgment is an edit to the
+  content here, with a revision log message.
+- "Reproduce, don't repair" now applies to `main` (d11.hobobiker.com, the faithful rebuild) only. Here, improve.
+- Tests: `MIGRATION_TARGET=marlene`; a deliberate change gets a `"target": "marlene"` entry in
+  `expected-differences.json`.
+
 The Drupal 11 rebuild of hobobiker.com, started live in Part 3 of "Hobobiker Rides Again". Drupal 11.4, PHP 8.4,
 MariaDB 11.8, the standard profile. **This is the start state: an empty site, no pipeline yet.** The site is to be
 built **entirely by rerunnable steps** in `scripts/` (the Migrate API or plain scripts, whichever the plan

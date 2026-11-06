@@ -8,6 +8,12 @@ name: 'Tripinfo Google Map'
 format: tripinfo_google_map
 weight: 0
 filters:
+  hobobiker_photos:
+    id: hobobiker_photos
+    provider: hobobiker
+    status: true
+    weight: 20
+    settings: {  }
   multisource:
     id: multisource
     provider: hobobiker

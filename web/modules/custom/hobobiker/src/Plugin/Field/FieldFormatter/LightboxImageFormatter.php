@@ -8,6 +8,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\hobobiker\Plugin\Filter\PhotosFilter;
 use Drupal\image\Entity\ImageStyle;
 
 /**
@@ -44,8 +45,11 @@ class LightboxImageFormatter extends FormatterBase {
       }
       $uri = $file->getFileUri();
       $text = Html::escape((string) $item->alt);
+      // The image is the link's only content, so its alt names the link: the stored alt, else the photo's Flickr
+      // title or file name (the visible caption stays the stored alt only).
+      $alt = $text !== '' ? $text : Html::escape(PhotosFilter::describe($uri) ?: (string) $this->t('Enlarge photo'));
       $preset = $style->id();
-      $img = '<img src="' . Html::escape($style->buildUrl($uri)) . "\" alt=\"$text\" title=\"\" width=\"180\" height=\"240\" class=\"imagecache imagecache-$preset\"/>";
+      $img = '<img src="' . Html::escape($style->buildUrl($uri)) . "\" alt=\"$alt\" title=\"\" width=\"180\" height=\"240\" class=\"imagecache imagecache-$preset\"/>";
       $markup = '<a href="' . Html::escape($link->buildUrl($uri)) . "\" rel=\"lightbox[$field][$text]\" class=\"imagefield imagefield-lightbox2 imagecache imagecache-$preset\"><div>$img"
         . ($text !== '' ? "<br />$text<br />" : '') . '</div></a>';
       $elements[$delta] = ['#markup' => Markup::create($markup)];

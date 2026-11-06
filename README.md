@@ -79,11 +79,17 @@ field labels, read more) on top of the Drupal 11 rebuild's own declared differen
 
 ## Deploying a change
 
-Code from Git, then the configuration and the steps that build data:
+**`marlene`** broke off from Drupal 6 on 2026-11-06: its DDEV project's database is the master, not a rebuild.
+Deploy the code, the database **and the files** (`web/sites/default/files`, including `flickr/`: the local copies
+of the Flickr photos, from `scripts/flickr-fetch.php`) to marlene.hobobiker.com, then `ddev drush cr` there.
+Automatic content fixes are render-time filters in the hobobiker module (`hobobiker_photos`), so they deploy as
+code and configuration; the stored posts are not changed.
+
+**`main`** (d11.hobobiker.com) is still the rebuild: code from Git, then
 
 ```bash
 ddev drush cim -y
-ddev drush php:script scripts/85-search.php   # once, to build the search index
+ddev drush cron && ddev drush cron && ddev drush cron   # builds the search index, 500 posts a run
 ddev drush cr
 ```
 

@@ -193,3 +193,12 @@ audio { display: block; width: 100% !important; max-width: 560px; height: 44px !
 /* Views: lists of nodes */
 .views-row { margin: 0; }
 .item-list ul { padding-left: 1.2em; }
+
+/* The Lightbox2 overlay: pinned to the window, so it covers it wherever the page is scrolled (the D6 script
+   sizes it to a page height it measures, which falls short on this theme's longer pages). */
+#lightbox2-overlay {
+  position: fixed !important;
+  inset: 0;
+  width: auto !important;
+  height: auto !important;
+}
