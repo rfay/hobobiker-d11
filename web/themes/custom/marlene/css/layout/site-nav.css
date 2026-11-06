@@ -131,7 +131,11 @@
   .nav-toggle__label { display: none; }
 }
 
-/* Wide screens */
+/* Wide screens; a little tighter until there is room for the full spacing. */
+@media (min-width: 64em) and (max-width: 74.99em) {
+  .site-nav__link { padding-inline: .45rem; }
+  .site-header__inner { gap: calc(var(--space) * 2); }
+}
 @media (min-width: 64em) {
   .nav-toggle { display: none !important; }
   .site-nav__list { display: flex; align-items: center; gap: .1rem; }

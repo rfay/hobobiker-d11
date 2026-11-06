@@ -135,7 +135,8 @@
 
 /* Search results page: the form on one row, the advanced options in a tidy panel, each result a quiet block. */
 .search-form .container-inline { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .5rem .75rem; }
-.search-form .container-inline .form-item { flex: 1 1 260px; margin: 0; }
+.search-form .container-inline .form-item { flex: 1 1 260px; min-width: 0; margin: 0; }
+.search-form .container-inline > * { margin: 0; max-width: 100%; }
 .search-form .search-help-link { font-size: var(--text-sm); color: var(--color-text-muted); }
 .search-advanced {
   margin: 1rem 0 0;

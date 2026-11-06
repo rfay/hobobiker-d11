@@ -36,6 +36,10 @@
   text-decoration: none;
   white-space: nowrap;
 }
+/* On a phone with large text the wordmark may wrap rather than push the page sideways. */
+@media (max-width: 63.99em) {
+  .site-brand { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+}
 .site-brand:hover { color: var(--color-accent-text); text-decoration: none; }
 .site-brand__sun {
   width: 30px;
@@ -60,7 +64,7 @@
   min-width: 42px;
   height: 42px;
   padding: 0 .6rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-control-border);
   border-radius: var(--radius-pill);
   background: var(--color-surface);
   color: var(--color-text);
@@ -68,7 +72,7 @@
   cursor: pointer;
   transition: background var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease);
 }
-.icon-button:hover { border-color: var(--color-border-strong); background: var(--color-surface-2); }
+.icon-button:hover { border-color: var(--color-text-muted); background: var(--color-surface-2); }
 .icon-button[hidden] { display: none; }
 
 /* The light/dark toggle shows the icon of the current setting. */
@@ -116,13 +120,17 @@
   justify-content: center;
   padding: clamp(28px, 5vw, 64px) var(--gutter);
   color: var(--color-hero-ink);
+  container-type: inline-size;
 }
 @media (min-width: 56em) {
+  /* A minimum height, never a fixed one: the row grows with the text (a narrow window, a short one, a larger
+     text size), and the photo fills its column without setting the row's height. */
   .banner--hero {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    height: clamp(440px, 68vh, 660px);
+    min-height: clamp(440px, 68vh, 660px);
   }
-  .banner--hero .banner__picture { aspect-ratio: auto; max-height: none; }
+  .banner--hero .banner__picture { position: relative; aspect-ratio: auto; max-height: none; }
+  .banner--hero .banner__image { position: absolute; inset: 0; }
   .banner__text {
     order: -1;
     padding-left: max(var(--gutter), calc((100vw - var(--content-max)) / 2 + var(--gutter)));
@@ -144,6 +152,9 @@
   max-width: 14ch;
   margin: 0 0 .45em;
   font-size: var(--text-hero);
+  /* Sized to its own column (the text panel), not the window: the panel is 5/12 of a wide screen. */
+  font-size: clamp(2.25rem, 12.5cqi, 4.5rem);
+  overflow-wrap: break-word;
   font-weight: 650;
   line-height: 1.02;
   letter-spacing: -0.025em;

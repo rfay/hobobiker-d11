@@ -20,7 +20,9 @@
   --color-border-strong: #cbbfae;
   --color-text: #1d2127;
   --color-text-muted: #59606c;
-  --color-text-subtle: #7d8390;
+  --color-text-subtle: #636975;
+  /* Borders that identify a form control: 3:1 against the backgrounds they sit on (WCAG 1.4.11). */
+  --color-control-border: #8a8070;
   --color-accent: #c2541b;
   --color-accent-hover: #a2440f;
   --color-accent-contrast: #ffffff;
@@ -79,7 +81,8 @@
     --color-border-strong: #454d5b;
     --color-text: #ece8e1;
     --color-text-muted: #a9aeb8;
-    --color-text-subtle: #858b97;
+    --color-text-subtle: #9298a4;
+    --color-control-border: #757d8c;
     --color-accent: #f08a4b;
     --color-accent-hover: #f6a571;
     --color-accent-contrast: #1a1108;
@@ -111,7 +114,8 @@
   --color-border-strong: #454d5b;
   --color-text: #ece8e1;
   --color-text-muted: #a9aeb8;
-  --color-text-subtle: #858b97;
+  --color-text-subtle: #9298a4;
+  --color-control-border: #757d8c;
   --color-accent: #f08a4b;
   --color-accent-hover: #f6a571;
   --color-accent-contrast: #1a1108;

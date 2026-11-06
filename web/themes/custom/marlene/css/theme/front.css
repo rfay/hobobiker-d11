@@ -11,6 +11,9 @@
   align-items: start;
 }
 .panel-display .panel-col { order: -1; }
+/* Grid items may shrink below their longest word (large text on a phone); long words then wrap. */
+.panel-display > *, .panel-display .center-wrapper > *, .panel-panel .inside > * { min-width: 0; }
+.panel-pane { overflow-wrap: anywhere; }
 @media (min-width: 64em) {
   .panel-display .center-wrapper { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr); }
   .panel-display .panel-col { order: 0; }
@@ -35,7 +38,7 @@
 /* The search pane: a slim search bar across the top. */
 .pane-search-0 { padding: .75rem; border-radius: var(--radius-pill); }
 .pane-search-0 .pane-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-.pane-search-0 input[type="search"] { border-color: transparent; background: var(--color-surface-2); }
+.pane-search-0 input[type="search"] { background: var(--color-surface-2); }
 
 /* The trip statistics block */
 .statstable { display: table; width: 100%; font-size: var(--text-sm); }

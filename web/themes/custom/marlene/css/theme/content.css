@@ -95,7 +95,6 @@
   color: var(--color-accent-text);
   font-weight: var(--weight-strong);
   text-decoration: none;
-  white-space: nowrap;
 }
 .read-more__link:hover { text-decoration: underline; }
 p.read-more { margin-top: .5rem; }

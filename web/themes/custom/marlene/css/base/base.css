@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: var(--leading-tight);
   margin: 1.6em 0 .5em;
   text-wrap: balance;
+  overflow-wrap: break-word;
   font-variation-settings: "SOFT" 50, "WONK" 0;
 }
 h1 { font-size: var(--text-3xl); }
@@ -48,7 +49,8 @@ a {
 }
 a:hover { color: var(--color-link-hover); text-decoration-thickness: 2px; }
 
-:focus-visible {
+:focus-visible,
+audio:focus, video:focus, iframe:focus {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
@@ -104,7 +106,7 @@ input[type="number"], input[type="tel"], select, textarea {
   max-width: 100%;
   min-height: 42px;
   padding: .45em .75em;
-  border: 1px solid var(--color-border-strong);
+  border: 1px solid var(--color-control-border);
   border-radius: var(--radius-sm);
   background: var(--color-surface);
   transition: border-color var(--motion-fast) var(--ease), box-shadow var(--motion-fast) var(--ease);
@@ -115,6 +117,13 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--focus-ring);
 }
 label { font-weight: var(--weight-medium); }
+input[type="checkbox"], input[type="radio"] {
+  width: 1.15em;
+  height: 1.15em;
+  margin: 0 .4em 0 0;
+  vertical-align: -.15em;
+  accent-color: var(--color-accent);
+}
 
 .button, input[type="submit"], button[type="submit"] {
   display: inline-flex;
