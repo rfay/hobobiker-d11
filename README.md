@@ -68,10 +68,23 @@ cd ~/workspace/hobo/hobobiker-copy && ddev exec -d /var/www/html/test/playwright
 
 For `main`, use `TEST_BASE_URL=https://hobobiker-d11.ddev.site MIGRATION_TARGET=drupal11`.
 
-## Deploying a change
+## Deploying
 
-**marlene.hobobiker.com:** the code, the database **and the files** (`web/sites/default/files`, including
-`flickr/`), then `ddev drush cr` there. The human deploys; agents never connect to the production host.
+The plan: this branch goes to **marlene.hobobiker.com** for review, then becomes **hobobiker.com**; the Drupal 6
+original moves to old.hobobiker.com, and static.hobobiker.com stays on GitHub Pages. The step-by-step procedure,
+with the cutover, its rollback, and how changes are managed afterwards, is in
+**[HANDOFF.md](HANDOFF.md#deploying-marlenehobobikercom-for-review-then-hobobikercom)**. In short:
+
+1. Here: commit, `git push rfay marlene`, `ddev snapshot`.
+2. On the server, once: clone the `marlene` branch into its own DDEV project, `ddev start`, and recreate the
+   `web/files` symlink.
+3. Here: push the database **and the files** (`web/sites/default/files`, including `flickr/`) with the rsync
+   provider; then on the server `ddev drush cr`. No `settings.local.php` on the server: production caches.
+4. Review; set up mail and cron; then move the hostnames from the Drupal 6 project to this one.
+
+After the cutover the production database is the master: content is edited there, and code and configuration
+are deployed with `git pull`, `ddev composer install`, `ddev drush updb -y`, `ddev drush cim -y`,
+`ddev drush cr`. The human deploys; agents never connect to the production server.
 
 **d11.hobobiker.com** (`main`) is still the rebuild: code from Git, then
 
@@ -112,7 +125,7 @@ followed are in [AGENTS.md](AGENTS.md).
 
 ## Further reading
 
-- [HANDOFF.md](HANDOFF.md): where this branch stands, how to work on it, and future paths.
+- [HANDOFF.md](HANDOFF.md): where this branch stands, how to work on it and deploy it, how change is managed, and future paths.
 - [docs/DISCOVERIES.md](docs/DISCOVERIES.md): what the work found, including what the test suite missed and a
   person caught.
 - [docs/PLAN.md](docs/PLAN.md): the rebuild's plan, with what had to come over, measured.

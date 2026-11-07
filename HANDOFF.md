@@ -22,23 +22,134 @@ rules still hold. What was found along the way is in [docs/DISCOVERIES.md](docs/
 - **Never run `scripts/00-reset.sh` or `scripts/run-all.sh` here**: they would replace the master database with a
   rebuild from Drupal 6 and lose every edit since the break.
 - Take a snapshot before any change to content: `ddev snapshot --name before-WHAT`.
+- `web/sites/default/settings.local.php` is for this development copy only (no caching, no CSS/JS aggregation)
+  and is not in Git, as Drupal intends; production has none. Settings every environment needs go in
+  `settings.php`.
 - **Automatic fixes are render-time filters** (the `hobobiker_photos` filter in the hobobiker module): the stored
   posts stay as they are and the fix deploys as code and configuration. **A fix that needs judgment is an edit to
   the content**, as a new revision with a log message, done by a small rerunnable script in `scripts/` so it is
   on record (see the table in the README).
 - After a change: `ddev drush cex -y`, run the suite (README, "Testing"), and declare any deliberate difference.
 
-## Deploying
+## The sites, and managing change from here
 
-The human deploys; agents never connect to ddevprod.thefays.us.
+| Site | What it is | Changes? |
+| --- | --- | --- |
+| **hobobiker.com** (after the cutover below) | This branch, `marlene`: the living site | Yes: this is where the site goes on |
+| marlene.hobobiker.com | The same, for review before the cutover; afterwards a staging copy, or retired | Review only |
+| d11.hobobiker.com | Branch `main`: the faithful Drupal 11 rebuild of the original | Only security updates |
+| old.hobobiker.com | The original Drupal 6 site, kept as it was | Never |
+| static.hobobiker.com | Part 2's static HTML archive (GitHub Pages, rfay/hobobiker-static) | Never |
 
-- **marlene.hobobiker.com:** the code (Git), the database and the files (`web/sites/default/files`, including
-  `flickr/`), then `ddev drush cr`. The first visits to pages with many photos may answer 503 for some thumbnails
-  ("Image generation in progress") until each is generated once.
-- **d11.hobobiker.com:** `git pull`, `ddev composer install`, `ddev drush updb -y`, `ddev drush cim -y`, three
-  `ddev drush cron` runs (the search index, 500 posts a run), `ddev drush cr`.
-- **Drupal updates** (both branches): `ddev composer update 'drupal/core*' -W`, `ddev drush updb -y`,
-  `ddev drush cr`, the suite, commit. Watch `ddev composer audit`.
+- **The old versions are frozen references.** old.hobobiker.com and static.hobobiker.com show what the site was;
+  nothing is fixed or added there. d11.hobobiker.com shows the rebuild before it changed; it only needs Drupal
+  security releases while it stays up (or retire it). Drupal 6 and its PHP are long out of support: if
+  old.hobobiker.com stays public, keep it behind a password, or let static.hobobiker.com be the public archive.
+  Its posts link to `http://hobobiker.com/...`, so after the cutover those links lead to the new site.
+- **Where the master copy lives changes at the cutover.** Until then it is the marlene DDEV project here, and its
+  database goes up to the server. From the cutover on, **the production database is the master**: content is
+  edited on hobobiker.com in Drupal, and a development copy is made by pulling production down (`ddev pull`),
+  never the reverse. Code and configuration go one way: develop here, commit, push to GitHub, `git pull` on the
+  server.
+- **Kinds of change.** A fix to how content is shown is code (a filter or the theme) and deploys as code. A change
+  to what a post says is an edit, made in Drupal on production (or, for many posts at once, a reviewed script run
+  on a fresh copy of production first, then on production). Configuration changes are exported
+  (`ddev drush cex`), committed, and imported on the server (`ddev drush cim`).
+- **The test suite** (hobobiker-copy) compares with the original. It stays useful as a regression check while the
+  content is close to the original: declare deliberate changes for `marlene`. When the site has moved on far
+  enough that the declarations are noise, freeze the suite at its last passing run and rely on checks of the new
+  site instead.
+
+## Deploying: marlene.hobobiker.com for review, then hobobiker.com
+
+The human deploys; agents never connect to the production server. The commands assume a DDEV project per site
+under `~/workspace/` on that server, as `.ddev/providers/rsync.yaml` does for `d11.hobobiker.com`; adjust names.
+
+**1. Get ready, here (the marlene DDEV project):**
+
+```bash
+cd ~/workspace/hobo/marlene
+git status                        # clean: everything committed
+git push rfay marlene
+ddev drush config:status          # "No differences"
+ddev snapshot --name deploy-$(date +%F)
+```
+
+**2. Once, on the server: the marlene.hobobiker.com project.**
+
+```bash
+git clone -b marlene git@github.com:rfay/hobobiker-d11 ~/workspace/marlene.hobobiker.com
+cd ~/workspace/marlene.hobobiker.com
+ddev config --project-name=marlene-hobobiker --additional-fqdns=marlene.hobobiker.com
+ddev start                              # the post-start hook runs composer install
+ln -s sites/default/files web/files     # old posts link to /files/...; Git does not carry this symlink
+```
+
+There is no `settings.local.php` on the server, and there must not be: without it, Drupal caches pages and
+aggregates CSS and JS, as production should.
+
+**3. The database and the files, from here to the server.** The rsync provider pushes a snapshot of the whole
+database and makes the server's `web/sites/default/files` match this one (`--delete`), `flickr/` included:
+
+```bash
+ddev auth ssh
+ddev push rsync --environment=remote_root=workspace/marlene.hobobiker.com
+```
+
+(Not run here: agents may not run `ddev push`. Check `ddev push --help` for the `--environment` flag; if it is
+missing, copy `.ddev/providers/rsync.yaml` to `marlene.yaml` with that `remote_root` and run `ddev push marlene`.)
+
+**4. On the server:**
+
+```bash
+ddev drush cr
+ddev drush config:status          # "No differences"
+ddev drush status                 # Drupal 11.4.x, database connected
+```
+
+Set up cron (for example the ddev-cron add-on, or a host crontab running `ddev drush cron` hourly); it keeps the
+search index current.
+
+**5. Review marlene.hobobiker.com:** the front page and a few posts on a phone and a desktop, light and dark; a
+photo enlarging in the lightbox; a trip day with its map; search; /aplv, /espanol, /podcast. The first visits to
+pages with many photos may answer 503 for some thumbnails ("Image generation in progress") until each is
+generated once; reload.
+
+**6. Before the cutover:**
+- **Mail.** On DDEV, mail goes to Mailpit, so the contact form reaches nobody. Configure real delivery first (an
+  SMTP module, or the server's mail relay) and send a test from /contact.
+- **Freeze content** on the source of the final push: after the last push, edit only on the new site.
+- **Move the original** to old.hobobiker.com, password-protected or not, as decided above. Snapshot it first
+  (`ddev snapshot` in its project).
+
+**7. The cutover.** DDEV's router decides which project answers which name:
+
+```bash
+# In the Drupal 6 project on the server: give up the names
+ddev config --additional-fqdns=old.hobobiker.com && ddev restart
+# In the marlene project: take them (keep marlene.hobobiker.com while it is useful)
+ddev config --additional-fqdns=hobobiker.com,www.hobobiker.com,marlene.hobobiker.com && ddev restart
+```
+
+Check https://hobobiker.com and https://www.hobobiker.com (certificates), a few old addresses (`/node/3994`,
+`/inuvik_to_ushuaia`, `/files/The%20Women%20of%20Friendship%20Bridge%20Guatemala.pdf`,
+`/tripinfo_item/2007-08-03/2007-06-28/2008-04-14`), search and the contact form.
+
+**Rollback:** swap the names back (`--additional-fqdns` on both projects) and restart both; the Drupal 6 site and
+its database are untouched.
+
+**8. After the cutover:** production is the master (see above). For a code change: commit and push here, then on
+the server `git pull`, `ddev composer install`, `ddev drush updb -y`, `ddev drush cim -y`, `ddev drush cr`. To
+work on a fresh copy here, `ddev pull` from production (a provider like `.ddev/providers/rsync.yaml`, pointed at
+the hobobiker.com project).
+
+**d11.hobobiker.com** (`main`, still the rebuild): `git pull`, `ddev composer install`, `ddev drush updb -y`,
+`ddev drush cim -y`, three `ddev drush cron` runs (the search index, 500 posts a run), `ddev drush cr`. `main`
+still commits `settings.local.php`, so it runs without caching: fine for a reference site, or apply this branch's
+change there too.
+
+**Drupal updates** (both branches): `ddev composer update 'drupal/core*' -W`, `ddev drush updb -y`,
+`ddev drush cr`, the suite, commit, deploy as code. Watch `ddev composer audit`.
 
 ## Done since the break from Drupal 6
 
@@ -49,7 +160,9 @@ The human deploys; agents never connect to ddevprod.thefays.us.
 | Photos | Local copies of the Flickr photos (1024 px) and their titles; small photos enlarge in the lightbox; links to Flickr photo pages open the local copy; captions and alt text for every photo | `scripts/flickr-fetch.php`, `hobobiker_photos` filter |
 | Photos | Thumbnails the right way up: `image_effects` auto-orient; 13 photos with sideways pixels given the EXIF orientation | `scripts/fix-sideways-photos.php` |
 | Photos | Captions written for the 8 photos whose title was a camera number; node 4300's broken vicuñas photo fixed; a truncated photo removed from node 3880 | `scripts/caption-photos.php` |
-| Leftovers | Flickr "Originally uploaded by" credits, Babelfish links, the old blog links under posts, Flash players (YouTube plays again), Flickr's retired slideshow embeds (now links), absolute hobobiker.com links | filter, `scripts/remove-babelfish.php`, theme |
+| Leftovers | Flickr "Originally uploaded by" credits, Babelfish links, the old blog links under posts, Flash players (YouTube plays again), Flickr's retired slideshow embeds (now links) | filter, `scripts/remove-babelfish.php`, theme |
+| Hostname | No hobobiker.com as a hostname in content or configuration: links and files site-relative, map tokens loading local KMZ files, e-mail addresses replaced by the contact page, commented-out embeds that loaded files from the domain removed; the e-mail list and its /subscribe page deleted. Node 4111, an unpublished maintenance log, keeps its history | `scripts/remove-hostname.php`, `scripts/remove-hostname-config.php` |
+| Settings | `settings.local.php` (no caching, no aggregation) is local only and out of Git; production caches pages and aggregates CSS and JS | `.gitignore`, `config/sync/system.performance.yml` |
 
 ## Future paths
 
@@ -64,14 +177,12 @@ Roughly in order of value.
    `flickr-fetch.php`; Lightbox2 already has a slideshow mode), and let the filter point album, slideshow and tag
    links at them. Until then, three small fixes: two album links end in `/set` and answer 404 (drop the suffix),
    two links go to Flickr's image servers for photos the site already has, and the links could use https.
-2. **Old map and video embeds.** Google's classic My Maps (`maps.google.com/maps/ms`, `maps?f=q` with a KMZ),
-   a Google My Maps (`/maps/d/`), mapufacture.com (gone) and a CNN video. Not verified: several pass a
-   hobobiker.com file to Google, so requesting them would reach production. The site already draws KML routes
-   itself with Leaflet (the tripinfo maps, `[multisource:]`): the KMZ-based embeds could become those maps.
+2. **Third-party map and video embeds.** The route pages show Google My Maps (`google.com/maps/d/...`), and one
+   post each embeds mapufacture.com (gone) and a CNN video; not verified. The site draws KML routes itself with
+   Leaflet (the tripinfo maps, `[multisource:]`), from the KMZ files it holds: the My Maps could become those.
 3. **Spanish posts.** 17 posts are tagged Español but their pages do not say so (`lang="es"`, WCAG 3.1.2); the
    theme could set it on posts with that tag.
-4. **The mailing list.** The /latest_stories header invites readers to subscribe at /subscribe, which answers 403
-   (an unpublished page). Remove the sentence or the page's status, the owner's call.
+4. **Mail.** Needed before the cutover (see Deploying, step 6): on DDEV the contact form's mail goes to Mailpit.
 5. **Content left as it was.** 41 unpublished posts, and 446 stored comments (168 published) that are hidden, as
    the original hid them (its comment module was off). Review, publish or delete.
 6. **Alt text quality.** Every photo has alt text now, from its Flickr title or file name; good, but generic in

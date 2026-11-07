@@ -119,7 +119,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: 'Welcome to our bike tour from the top of Canada to the bottom of South America! Are you on our mailing list? For a note from us once a month, <a href="/subscribe">subscribe here</a>.  We love to hear from you - <a href="/contact">email us here</a>.<br/><br/><em>¿Hablas español?</em> Hay <a href="/espanol">una versión español del sitio aquí</a>.<br/>'
+            value: 'Welcome to our bike tour from the top of Canada to the bottom of South America! We love to hear from you - <a href="/contact">email us here</a>.<br/><br/><em>¿Hablas español?</em> Hay <a href="/espanol">una versión español del sitio aquí</a>.<br/>'
             format: full_html_no_restrictions
       footer: {  }
       display_extenders: {  }

@@ -100,7 +100,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "To subscribe to the podcast in ITunes, go to the Advanced menu and select \"Subscribe to Podcast\". Type in http://hobobiker.com/podcast/feed - or you can just search for \"hobobiker\" in the Itunes Store or click on <a href=\"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=220289800\">this link</a>\r\n\r\n<i>Note: After Guatemala we didn't carry a computer, and editing the podcasts was just too much of an effort, so we kind of let it drop. Sorry!</i>"
+            value: "To subscribe to the podcast in ITunes, search for \"hobobiker\" in the iTunes Store or click on <a href=\"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=220289800\">this link</a>\r\n\r\n<i>Note: After Guatemala we didn't carry a computer, and editing the podcasts was just too much of an effort, so we kind of let it drop. Sorry!</i>"
             format: html_with_line_breaks
       footer: {  }
       display_extenders: {  }

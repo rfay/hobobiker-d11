@@ -123,7 +123,7 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<!--<div style=\"height:400px;width:100%\">[multisource:http://www.hobobiker.com/files/regional_kml/MexicoAndGuatemala.kmz]\r\n</div>-->\r\n<iframe src=\"https://www.google.com/maps/d/u/0/embed?mid=zgrTbi5vnCXo.kGi9pzlOzLAQ\" width=\"100%\" height=\"480\"></iframe>\r\n<p>\r\nHere are the detail maps for our route. Each map has an overview, a narrative, and day-by-day maps and GPS/elevation information. We hope you enjoy it!</p>\r\n<p>You can read about the <a href=\"/node/4137\">maps and GPS maps we used</a> on our route <a href=\"/node/4137\">here</a>"
+            value: "<iframe src=\"https://www.google.com/maps/d/u/0/embed?mid=zgrTbi5vnCXo.kGi9pzlOzLAQ\" width=\"100%\" height=\"480\"></iframe>\r\n<p>\r\nHere are the detail maps for our route. Each map has an overview, a narrative, and day-by-day maps and GPS/elevation information. We hope you enjoy it!</p>\r\n<p>You can read about the <a href=\"/node/4137\">maps and GPS maps we used</a> on our route <a href=\"/node/4137\">here</a>"
             format: tripinfo_google_map
       footer: {  }
       display_extenders: {  }
