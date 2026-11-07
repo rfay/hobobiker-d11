@@ -50,7 +50,9 @@ class LightboxImageFormatter extends FormatterBase {
       $alt = $text !== '' ? $text : Html::escape(PhotosFilter::describe($uri) ?: (string) $this->t('Enlarge photo'));
       $preset = $style->id();
       $img = '<img src="' . Html::escape($style->buildUrl($uri)) . "\" alt=\"$alt\" title=\"\" width=\"180\" height=\"240\" class=\"imagecache imagecache-$preset\"/>";
-      $markup = '<a href="' . Html::escape($link->buildUrl($uri)) . "\" rel=\"lightbox[$field][$text]\" class=\"imagefield imagefield-lightbox2 imagecache imagecache-$preset\"><div>$img"
+      // The lightbox caption: the stored alt, else the description (not the "Enlarge photo" fallback).
+      $caption = $text !== '' || $alt === Html::escape((string) $this->t('Enlarge photo')) ? $text : str_replace(['[', ']'], '', $alt);
+      $markup = '<a href="' . Html::escape($link->buildUrl($uri)) . "\" rel=\"lightbox[$field][$caption]\" class=\"imagefield imagefield-lightbox2 imagecache imagecache-$preset\"><div>$img"
         . ($text !== '' ? "<br />$text<br />" : '') . '</div></a>';
       $elements[$delta] = ['#markup' => Markup::create($markup)];
     }

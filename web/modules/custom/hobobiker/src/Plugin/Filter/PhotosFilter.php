@@ -43,8 +43,10 @@ class PhotosFilter extends FilterBase {
     }
     $dom = Html::load($text);
     $this->siteRelative($dom);
+    $this->flickrBlogThis($dom);
     $this->photos($dom);
     $this->flickrTextLinks($dom);
+    $this->lightboxCaptions($dom);
     $this->embeds($dom);
     return new FilterProcessResult(Html::serialize($dom));
   }
@@ -86,7 +88,7 @@ class PhotosFilter extends FilterBase {
    * A description of a photo from its file or URL: its Flickr title, else words from its file name.
    */
   public static function describe(string $url): string {
-    $id = self::flickrId($url) ?? (preg_match('/^(\d{6,})_/', basename((string) parse_url($url, PHP_URL_PATH)), $m) ? $m[1] : NULL);
+    $id = self::flickrId($url) ?? (preg_match('/^(\d{6,})(?:_|\.\w+$)/', basename((string) parse_url($url, PHP_URL_PATH)), $m) ? $m[1] : NULL);
     return self::caption(self::manifest()[$id]['title'] ?? '') ?: self::fileText($url);
   }
 
@@ -98,7 +100,7 @@ class PhotosFilter extends FilterBase {
       return $m[1];
     }
     $path = (string) parse_url($url, PHP_URL_PATH);
-    if (preg_match('~(^|/)(sites/default/)?files/~', ltrim($path, '/')) && preg_match('/^(\d{6,})_/', basename($path), $m)) {
+    if (preg_match('~(^|/)(sites/default/)?files/~', ltrim($path, '/')) && preg_match('/^(\d{6,})(?:_|\.\w+$)/', basename($path), $m)) {
       return $m[1];
     }
     return NULL;
@@ -126,6 +128,58 @@ class PhotosFilter extends FilterBase {
           $element->setAttribute($attribute, preg_replace('~^https?://(www\.)?hobobiker\.com~i', '', $value) ?: '/');
         }
       }
+    }
+  }
+
+  /**
+   * Flickr's old "Blog This" credit under a photo ("TITLE<br />Originally uploaded by NAME."): only the title stays,
+   * as the photo's caption; where the title is a camera number, the photo's own alt text, else nothing.
+   */
+  protected function flickrBlogThis(\DOMDocument $dom): void {
+    $xpath = new \DOMXPath($dom);
+    // Where a line-break filter split the credit into paragraphs, the credit line stands alone: the title is the
+    // paragraph before it. Join them back into one span first.
+    foreach (iterator_to_array($xpath->query('//p[starts-with(normalize-space(.), "Originally uploaded by")]')) as $credit) {
+      $before = $credit->previousSibling;
+      while ($before && $before->nodeType !== XML_ELEMENT_NODE) {
+        $before = $before->previousSibling;
+      }
+      $span = $dom->createElement('span');
+      if ($before && $before->nodeName === 'p' && $xpath->query('.//a[contains(@href, "flickr.com/photos/")]', $before)->length) {
+        while ($before->firstChild) {
+          $span->appendChild($before->firstChild);
+        }
+        $before->parentNode->removeChild($before);
+      }
+      while ($credit->firstChild) {
+        $span->appendChild($credit->firstChild);
+      }
+      $credit->parentNode->replaceChild($span, $credit);
+    }
+    foreach (iterator_to_array($xpath->query('//span[contains(., "Originally uploaded by")]')) as $span) {
+      $title = '';
+      foreach ($span->getElementsByTagName('a') as $link) {
+        if (preg_match('~flickr\.com/photos/~i', $link->getAttribute('href'))) {
+          $title = self::caption(trim($link->textContent));
+          break;
+        }
+      }
+      if ($title === '') {
+        // The photo is in the same block, before the credit.
+        foreach ($span->parentNode->getElementsByTagName('img') as $img) {
+          $alt = trim($img->getAttribute('alt'));
+          $title = $alt !== (string) $this->t('Enlarge photo') ? $alt : '';
+          break;
+        }
+      }
+      if ($title === '') {
+        $span->parentNode->removeChild($span);
+        continue;
+      }
+      $caption = $dom->createElement('span');
+      $caption->setAttribute('class', 'caption');
+      $caption->appendChild($dom->createTextNode($title));
+      $span->parentNode->replaceChild($caption, $span);
     }
   }
 
@@ -183,6 +237,24 @@ class PhotosFilter extends FilterBase {
       if ($large = self::largeUrl($id)) {
         $caption = self::caption(self::manifest()[$id]['title'] ?? '') ?: self::caption(trim($link->textContent));
         $this->lightboxLink($link, $large, $caption);
+      }
+    }
+  }
+
+  /**
+   * Lightbox links without a caption (a [hobophoto:] token written without one): the photo's alt text, else its
+   * Flickr title or file name.
+   */
+  protected function lightboxCaptions(\DOMDocument $dom): void {
+    foreach ($dom->getElementsByTagName('a') as $link) {
+      if (!preg_match('/^lightbox\[([^\]]*)\]\[\s*\]$/', $link->getAttribute('rel'), $m)) {
+        continue;
+      }
+      $img = $link->getElementsByTagName('img')->item(0);
+      $alt = $img ? trim($img->getAttribute('alt')) : '';
+      $caption = $alt !== '' && $alt !== (string) $this->t('Enlarge photo') ? $alt : self::describe($link->getAttribute('href'));
+      if ($caption !== '') {
+        $link->setAttribute('rel', "lightbox[$m[1]][" . str_replace(['[', ']'], '', $caption) . ']');
       }
     }
   }

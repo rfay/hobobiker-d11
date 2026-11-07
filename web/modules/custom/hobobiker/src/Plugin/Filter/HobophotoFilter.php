@@ -32,11 +32,12 @@ class HobophotoFilter extends FilterBase {
   }
 
   /**
-   * D6 hobobiker_filter_split_config(): name=value pairs, values limited to the same characters.
+   * D6 hobobiker_filter_split_config(): name=value pairs, comma separated. The D6 values allowed only ASCII letters,
+   * digits and -@:;/_. and space; on this branch also any letter and an apostrophe, so a caption can say "Estelí".
    */
   public static function splitConfig(string $string): array {
     $config = ['path' => '', 'orientation' => 'landscape', 'caption' => ''];
-    preg_match_all('/([a-zA-Z]+)=([-@0-9a-zA-Z:;\/_. ]+)/', str_replace(',', "\n", $string), $parts, PREG_SET_ORDER);
+    preg_match_all('/([a-zA-Z]+)=([-@0-9\p{L}:;\/_. \']+)/u', str_replace(',', "\n", $string), $parts, PREG_SET_ORDER);
     foreach ($parts as $part) {
       $config[strtolower(trim($part[1]))] = trim($part[2]);
     }

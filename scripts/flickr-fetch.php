@@ -29,7 +29,7 @@ $manifest = is_file($manifest_uri) ? json_decode(file_get_contents($manifest_uri
 $ids = [];
 foreach (\Drupal::database()->query('SELECT body_value FROM {node__body}')->fetchCol() as $body) {
   preg_match_all('~flickr\.com/photos/[^/"\'\s]+/(\d{6,})~i', $body, $m);
-  preg_match_all('~(?:files/|\[hobophoto:\s*)(\d{6,})_[^"\'\s\]/]+\.(?:jpe?g|png|gif)~i', $body, $n);
+  preg_match_all('~(?:files/|\[hobophoto:\s*)(\d{6,})(?:_[^"\'\s\]/]+)?\.(?:jpe?g|png|gif)~i', $body, $n);
   foreach (array_merge($m[1], $n[1]) as $id) {
     $ids[$id] = TRUE;
   }
@@ -39,7 +39,7 @@ ksort($ids);
 // The widest local copy of each id already on the site.
 $local = [];
 foreach (glob($fs->realpath('public://') . '/*') as $path) {
-  if (preg_match('/^(\d{6,})_.+\.(jpe?g|png|gif)$/i', basename($path), $m) && ($size = @getimagesize($path))) {
+  if (preg_match('/^(\d{6,})(?:_.+)?\.(jpe?g|png|gif)$/i', basename($path), $m) && ($size = @getimagesize($path))) {
     if (!isset($local[$m[1]]) || $size[0] > $local[$m[1]]['width']) {
       $local[$m[1]] = ['file' => basename($path), 'width' => $size[0], 'height' => $size[1]];
     }
