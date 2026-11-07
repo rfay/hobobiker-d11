@@ -148,12 +148,9 @@ class MarleneHooks {
       ], $terms);
     }
 
-    // The blog link, except on that author's own blog page.
+    // The audio post's download link and counts. (The original also linked every blog post to its author's blog,
+    // "rfay's blog": dropped here, owner's decision 2026-11-07; the breadcrumb still leads to that page.)
     $links = [];
-    if ($node->bundle() === 'blog' && $this->currentPath->getPath() !== '/blog/' . $node->getOwnerId()) {
-      $name = $node->getOwner()->getAccountName();
-      $links[] = ['text' => t("@name's blog", ['@name' => $name]), 'url' => Url::fromUserInput('/blog/' . $node->getOwnerId())->toString(), 'title' => t("Read @name's latest blog entries.", ['@name' => $name])];
-    }
     if ($node->bundle() === 'audio' && ($download = Audio::downloadUrl($node))) {
       $links[] = ['text' => t('Download audio file'), 'url' => $download, 'title' => ''];
       $links[] = ['text' => t('@count downloads', ['@count' => $node->get('field_audio_download_count')->value])];

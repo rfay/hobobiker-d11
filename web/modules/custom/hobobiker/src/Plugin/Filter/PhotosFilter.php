@@ -41,6 +41,9 @@ class PhotosFilter extends FilterBase {
     if (!preg_match('/<(img|a|iframe|object|embed)\b/i', $text)) {
       return new FilterProcessResult($text);
     }
+    // One post quotes a Flickr slideshow's tag inside its src's own quotes (tags="nebajwomen""), which would end
+    // the attribute early; unquote it before parsing.
+    $text = preg_replace('~(flickr\.com/slideShow/[^"]*tags=)"([\w-]+)""~i', '$1$2"', $text);
     $dom = Html::load($text);
     $this->siteRelative($dom);
     $this->flickrBlogThis($dom);
@@ -272,6 +275,23 @@ class PhotosFilter extends FilterBase {
    * Iframes get a title; Flash embeds become YouTube's player, a link, or a note.
    */
   protected function embeds(\DOMDocument $dom): void {
+    // Flickr's retired slideshow player (slideShow/index.gne): a link to the same album or tag as a slideshow.
+    foreach (iterator_to_array($dom->getElementsByTagName('iframe')) as $iframe) {
+      $src = html_entity_decode($iframe->getAttribute('src'));
+      if (!preg_match('~flickr\.com/slideShow/~i', $src)) {
+        continue;
+      }
+      parse_str((string) parse_url($src, PHP_URL_QUERY), $query);
+      $set = preg_replace('/\D/', '', $query['set_id'] ?? '');
+      $tag = preg_replace('/[^\w-]/', '', $query['tags'] ?? '');
+      $href = $set !== '' ? "https://www.flickr.com/photos/hobobiker/sets/$set/show" : ($tag !== '' ? "https://www.flickr.com/photos/hobobiker/tags/$tag/show" : 'https://www.flickr.com/photos/hobobiker');
+      $note = $dom->createElement('p');
+      $note->setAttribute('class', 'legacy-embed');
+      $link = $dom->createElement('a', (string) $this->t('See these photos as a slideshow on Flickr'));
+      $link->setAttribute('href', $href);
+      $note->appendChild($link);
+      $iframe->parentNode->replaceChild($note, $iframe);
+    }
     foreach ($dom->getElementsByTagName('iframe') as $iframe) {
       if (trim($iframe->getAttribute('title')) === '') {
         $iframe->setAttribute('title', self::embedTitle($iframe->getAttribute('src')));
