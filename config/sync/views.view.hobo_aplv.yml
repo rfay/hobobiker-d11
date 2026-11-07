@@ -105,7 +105,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "Following are the articles we wrote after visiting the amazing <a href=\"http://aplv.org\">Agua para la Vida</a> (\"Water for Life\") project in Rio Blanco, Nicaragua. We're amazingly impressed with them, as you can see :-)  You can view all the pictures from our visit <a href=\"http://www.flickr.com/photos/hobobiker/sets/72157603965747445/show/\" target=\"_blank\">here</a>.\r\n\r\n<b>¿Hablas español?</b> Hay una traducción malísima de esta página <a href=\"http://babelfish.altavista.com/babelfish/trurl_pagecontent?lp=en_es&trurl=http://www.hobobiker.com/aplv\" target=\"_blank\">aquí</a>.\r\n"
+            value: |
+              Following are the articles we wrote after visiting the amazing <a href="http://aplv.org">Agua para la Vida</a> ("Water for Life") project in Rio Blanco, Nicaragua. We're amazingly impressed with them, as you can see :-)  You can view all the pictures from our visit <a href="http://www.flickr.com/photos/hobobiker/sets/72157603965747445/show/" target="_blank">here</a>.
             format: html_with_line_breaks
       footer: {  }
       display_extenders: {  }
