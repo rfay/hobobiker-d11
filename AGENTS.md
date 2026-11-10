@@ -53,7 +53,11 @@ the session's opening prompt.
 
 - **Production** (hobobiker.com, www.hobobiker.com, the host `ddevprod.thefays.us`): never connect to it or write
   to it. Never run `ddev pull`, `ddev push`, `ddev auth ssh`, or `rsync`/`scp`/`ssh` to a remote host.
-  **Never request `hobobiker.com`** (old content hardcodes it; the suite treats it as the target).
+  **Read-only HTTP to the public sites is allowed** (owner's decision, 2026-11-10, to evaluate deployments):
+  `curl`/`wget` GET and HEAD, or a browser, to hobobiker.com, www., marlene. and d11.hobobiker.com, a handful of
+  requests at a time. No POSTs, form submissions, logins or crawls. Never point the test suite
+  (`TEST_BASE_URL`/`BASE_URL`) at them: old content hardcodes `hobobiker.com` and the suite resolves it
+  against the target.
 - **Git:** `rfay` is the real GitHub repository (rfay/hobobiker-d11). Never `git push`. Do not commit unless the
   human asks.
 - `hobobiker-copy` is the reference for every test: never modify it, its database or its files. Its frozen

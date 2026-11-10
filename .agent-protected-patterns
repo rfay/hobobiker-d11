@@ -7,8 +7,9 @@ ddevprod\.thefays\.us
 \bddev[[:space:]]+auth[[:space:]]+ssh\b
 # Remote shells and copies to any user@host
 \b(ssh|scp|sftp|rsync)\b[^|;&]*[[:alnum:]_.-]+@[[:alnum:]_.-]+
-# Fetching the production site (the suite resolves hobobiker.com against the target instead)
-(\b(curl|wget|lynx|httpie)\b|(^|[;&|[:space:]])http[[:space:]])[^|;&]*(//)?(www\.)?hobobiker\.com
+# Writing to the production site (read-only GET/HEAD is allowed, owner's decision 2026-11-10)
+\b(curl|wget|httpie)\b[^|;&]*(-X[[:space:]]*(POST|PUT|PATCH|DELETE)|--data|[[:space:]]-d[[:space:]]|-F[[:space:]]|--form|--post-)[^|;&]*hobobiker\.com
+# Pointing the suite at it (the suite resolves hobobiker.com against the target instead)
 (BASE_URL|baseURL|baseUrl)=[^[:space:]]*//(www\.)?hobobiker\.com
 # The git remote is the real repository
 \bgit[[:space:]]+push\b
