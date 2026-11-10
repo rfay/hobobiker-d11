@@ -11,6 +11,10 @@
 # under Git control. Both directions transfer DDEV database snapshots.
 # `ddev push rsync` replaces the remote database and makes its public-files
 # directory exactly match this one.
+#
+# Since the cutover, this project on the server IS hobobiker.com and its
+# database is the master: use `ddev pull rsync` to refresh this copy, and do
+# not `ddev push rsync` (it would overwrite production's content and files).
 environment_variables:
   remote: rfay@ddevprod.thefays.us
   remote_root: workspace/d11.hobobiker.com

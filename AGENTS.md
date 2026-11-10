@@ -2,15 +2,21 @@
 
 ## Branch `marlene`: broken off from Drupal 6 (owner's decision, 2026-11-06)
 
-On this branch the site is no longer rebuilt from the `d6` copy. **The marlene DDEV project's database is the
-master**: work there (https://marlene.ddev.site, worktree `~/workspace/hobo/marlene`), and the human deploys its
-code and database to marlene.hobobiker.com on ddevprod.thefays.us. The production rules below still hold for
-agents: never connect to that host or push to it; get everything ready and verified here, the human deploys.
+On this branch the site is no longer rebuilt from the `d6` copy. **This branch is hobobiker.com** (cut over by
+2026-11-10; the DDEV project `~/workspace/d11.hobobiker.com` on ddevprod.thefays.us serves hobobiker.com and
+www.hobobiker.com; the Drupal 6 original is old.hobobiker.com; d11. and marlene.hobobiker.com no longer answer).
+
+**The production database is the master.** The marlene DDEV project here (https://marlene.ddev.site, worktree
+`~/workspace/hobo/marlene`) is a development copy, refreshed from production by the human (`ddev pull`). Its
+database never goes back up: `ddev push rsync` would overwrite production's content. Code and configuration go one
+way: develop and verify here, commit; the human pushes to GitHub and deploys (`git pull`, `ddev composer install`,
+`ddev drush updb -y`, `ddev drush cim -y`, `ddev drush cr`). The production rules below still hold for agents.
 
 - The steps in `scripts/` record how the site was first built; they are not rerun against this database
   (`00-reset.sh` would destroy it). New work: automatic content fixes are render-time filters in the hobobiker
   module (stored bodies unchanged, deployed as code and config); a fix that needs judgment is an edit to the
-  content here, with a revision log message.
+  content, made on production by the human (or a reviewed script, run here on a fresh copy first, that the human
+  then runs on production).
 - "Reproduce, don't repair" now applies to `main` (d11.hobobiker.com, the faithful rebuild) only. Here, improve.
 - Tests: `MIGRATION_TARGET=marlene`; a deliberate change gets a `"target": "marlene"` entry in
   `expected-differences.json`.
