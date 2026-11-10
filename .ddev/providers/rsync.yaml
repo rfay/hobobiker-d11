@@ -39,11 +39,12 @@ files_pull_command:
 db_push_command:
   command: |
     set -eu -o pipefail
-    ddev snapshot --name rsync-push
-    snapshot=$(find "${DDEV_APPROOT}/.ddev/db_snapshots" -maxdepth 1 -type f -name '*rsync-push*' -print0 | xargs -0 ls -t | head -1)
-    snapshot_name=$(basename "${snapshot}")
-    rsync -az "${snapshot}" "${remote}:${remote_root}/${remote_snapshots}/${snapshot_name}"
-    ssh "${remote}" "cd '${remote_root}' && ddev snapshot restore '${snapshot_name}'"
+    # `ddev snapshot restore` takes the snapshot's name, not its file name.
+    name="rsync-push-$(date +%Y%m%d%H%M%S)"
+    ddev snapshot --name "${name}"
+    snapshot=$(find "${DDEV_APPROOT}/.ddev/db_snapshots" -maxdepth 1 -type f -name "${name}-*" | head -1)
+    rsync -az "${snapshot}" "${remote}:${remote_root}/${remote_snapshots}/$(basename "${snapshot}")"
+    ssh "${remote}" "cd '${remote_root}' && ddev snapshot restore '${name}'"
   service: host
 
 files_push_command:
