@@ -1,15 +1,16 @@
-# Handoff: marlene.hobobiker.com (last updated 2026-11-07)
+# Handoff: hobobiker.com (last updated 2026-11-10)
 
 For whoever works on this site next, a person or an agent. Read [AGENTS.md](AGENTS.md) first: its production
 rules still hold. What was found along the way is in [docs/DISCOVERIES.md](docs/DISCOVERIES.md).
 
 ## Where it stands
 
-- **Branch `marlene`** is the site at marlene.hobobiker.com: the Drupal 11 rebuild of hobobiker.com in a modern
-  theme (`marlene`), with its content cleaned up. It **broke off from Drupal 6 on 2026-11-06**: it is no longer
-  rebuilt from the D6 copy, and **the marlene DDEV project's database is the master** (worktree
-  `~/workspace/hobo/marlene`, https://marlene.ddev.site).
-- **Branch `main`** is d11.hobobiker.com, the faithful rebuild (theme `hobo_golden`); "reproduce, don't repair"
+- **Branch `marlene` is hobobiker.com** since the cutover on 2026-11-10: the Drupal 11 rebuild in a modern theme
+  (`marlene`), with its content cleaned up. It **broke off from Drupal 6 on 2026-11-06** and is no longer rebuilt
+  from the D6 copy. **The production database is the master**; the marlene DDEV project here (worktree
+  `~/workspace/hobo/marlene`, https://marlene.ddev.site) is a development copy. How production runs and how to
+  deploy: "Production" below.
+- **Branch `main`** is the faithful rebuild (theme `hobo_golden`), no longer served; "reproduce, don't repair"
   still applies there. Both are on Drupal 11.4.12 (PHP 8.4, MariaDB 11.8); `composer audit` was clean on
   2026-11-07.
 - Tests: the suite in hobobiker-copy passes in full against marlene with `MIGRATION_TARGET=marlene` (2538, on
@@ -19,8 +20,8 @@ rules still hold. What was found along the way is in [docs/DISCOVERIES.md](docs/
 
 - Work in the marlene DDEV project, never on production. Its database holds the `d6` schema too (loaded as
   `scripts/00-reset.sh` does), which some scripts read.
-- **Never run `scripts/00-reset.sh` or `scripts/run-all.sh` here**: they would replace the master database with a
-  rebuild from Drupal 6 and lose every edit since the break.
+- **Never run `scripts/00-reset.sh` or `scripts/run-all.sh` here**: they would replace this copy with a rebuild
+  from Drupal 6, without every edit since the break. Refresh it from production instead (`ddev pull rsync`).
 - Take a snapshot before any change to content: `ddev snapshot --name before-WHAT`.
 - `web/sites/default/settings.local.php` is for this development copy only (no caching, no CSS/JS aggregation)
   and is not in Git, as Drupal intends; production has none. Settings every environment needs go in
@@ -35,19 +36,17 @@ rules still hold. What was found along the way is in [docs/DISCOVERIES.md](docs/
 
 | Site | What it is | Changes? |
 | --- | --- | --- |
-| **hobobiker.com** (after the cutover below) | This branch, `marlene`: the living site | Yes: this is where the site goes on |
-| marlene.hobobiker.com | The same, for review before the cutover; afterwards a staging copy, or retired | Review only |
-| d11.hobobiker.com | Branch `main`: the faithful Drupal 11 rebuild of the original | Only security updates |
-| old.hobobiker.com | The original Drupal 6 site, kept as it was | Never |
+| **hobobiker.com**, www.hobobiker.com | This branch, `marlene`: the living site (since 2026-11-10) | Yes: this is where the site goes on |
+| (not served) | Branch `main`: the faithful Drupal 11 rebuild of the original; d11. and marlene.hobobiker.com answer 404 | Only security updates, if served again |
+| old.hobobiker.com | The original Drupal 6 site, kept as it was: a backup, to be stopped | Never |
 | static.hobobiker.com | Part 2's static HTML archive (GitHub Pages, rfay/hobobiker-static) | Never |
 
 - **The old versions are frozen references.** old.hobobiker.com and static.hobobiker.com show what the site was;
-  nothing is fixed or added there. d11.hobobiker.com shows the rebuild before it changed; it only needs Drupal
-  security releases while it stays up (or retire it). Drupal 6 and its PHP are long out of support: if
-  old.hobobiker.com stays public, keep it behind a password, or let static.hobobiker.com be the public archive.
-  Its posts link to `http://hobobiker.com/...`, so after the cutover those links lead to the new site.
-- **Where the master copy lives changes at the cutover.** Until then it is the marlene DDEV project here, and its
-  database goes up to the server. From the cutover on, **the production database is the master**: content is
+  nothing is fixed or added there. `main` keeps the rebuild before it changed, in Git. Drupal 6 and its PHP are
+  long out of support: old.hobobiker.com is a backup with no password, to be stopped (the owner's decision);
+  static.hobobiker.com is the public archive. Its posts link to `http://hobobiker.com/...`, so after the cutover those links lead to the new site.
+- **The master copy is production's database** since the cutover. Before it, the marlene DDEV project here was
+  the master and its database went up to the server once. Now **the production database is the master**: content is
   edited on hobobiker.com in Drupal, and a development copy is made by pulling production down (`ddev pull`),
   never the reverse. Code and configuration go one way: develop here, commit, push to GitHub, `git pull` on the
   server.
@@ -60,116 +59,77 @@ rules still hold. What was found along the way is in [docs/DISCOVERIES.md](docs/
   enough that the declarations are noise, freeze the suite at its last passing run and rely on checks of the new
   site instead.
 
-## Deploying: marlene.hobobiker.com for review, then hobobiker.com
+## Production: how hobobiker.com runs (cut over 2026-11-10)
 
-The human deploys; agents never connect to the production server. The commands assume a DDEV project per site
-under `~/workspace/` on that server, as `.ddev/providers/rsync.yaml` does for `d11.hobobiker.com`; adjust names.
+The human deploys; agents never connect to the server. Agents may make read-only HTTP requests to the public
+sites (AGENTS.md).
 
-**1. Get ready, here (the marlene DDEV project):**
+**Where it is.** ddevprod.thefays.us, DDEV project `hobobiker` in `~/workspace/d11.hobobiker.com` (the directory
+kept the rebuild's name), branch `marlene`, DDEV's hardened images and Let's Encrypt. It answers for hobobiker.com
+and www.hobobiker.com; d11. and marlene.hobobiker.com no longer answer (404). The Drupal 6 original is
+old.hobobiker.com: a backup, no password, to be stopped. ddevprod takes nightly snapshots of every project.
+
+**How it got there.** The d11 project was switched to `marlene`; this project's database and files went up with
+`ddev push rsync` (the provider restores the snapshot by name since `48f7d4b0`); the `post-start` hook ran
+`composer install`; `ddev drush cr`; the hostnames moved from the Drupal 6 project. **That push was the last.**
+The production database is the master now: `ddev push rsync` would overwrite its content and files.
+
+**In Git** (deployed as code):
+- `settings.php`: errors hidden from visitors (`system.logging error_level = 'hide'`; DDEV's settings would show
+  them); mail and notification addresses from the environment (below). No `settings.local.php` on the server.
+- `.ddev/nginx/redirect.conf`: http answers 301 to https (the old site's snippet).
+- `config/sync`: page max-age one hour (`Cache-Control: max-age=3600, public`); the page cache answers `HIT`.
+
+**On the server only** (not in Git; recreate them if the project is ever rebuilt):
+- The symlink `web/files -> sites/default/files` (old posts link to `/files/...`).
+- `.ddev/.env.web` (ignored by Git), then `ddev restart`:
+
+  ```bash
+  MAILER_DSN=smtp://host.docker.internal:25?auto_tls=false   # the host's Postfix, from the web container
+  SITE_MAIL=from-address                                     # the site's From address
+  NOTIFY_MAIL=address-for-security-update-notices            # comma-separated for more
+  ```
+
+  `config/sync` still holds the sanitized snapshot's `example.*` addresses; these override them.
+- Mail: hardened images send none (`sendmail_path` names Mailpit, which is not running; see
+  https://docs.ddev.com/en/stable/users/topics/hosting/#caveats), so Drupal sends with core's `symfony_mailer`
+  over SMTP to the host's Postfix, which relays through Mailgun. Postfix listens on all interfaces;
+  `mynetworks` and a ufw rule (`allow from 172.16.0.0/12 to any port 25`) admit the Docker networks (the web
+  container leaves from its project network, `ddev-hobobiker_default`). ufw's default deny keeps 25 closed to
+  the internet.
+- Cron on the host (search index, update checks).
+
+**Deploying a change.** Develop and verify here, commit, `git push rfay marlene`; on the server:
 
 ```bash
-cd ~/workspace/hobo/marlene
-git status                        # clean: everything committed
-git push rfay marlene
-ddev drush config:status          # "No differences"
-ddev snapshot --name deploy-$(date +%F)
-```
-
-**2. Once, on the server: the marlene.hobobiker.com project.**
-
-```bash
-git clone -b marlene git@github.com:rfay/hobobiker-d11 ~/workspace/marlene.hobobiker.com
-cd ~/workspace/marlene.hobobiker.com
-ddev config --project-name=marlene-hobobiker --additional-fqdns=marlene.hobobiker.com
-ddev start                              # the post-start hook runs composer install
-ln -s sites/default/files web/files     # old posts link to /files/...; Git does not carry this symlink
-```
-
-There is no `settings.local.php` on the server, and there must not be: without it, Drupal caches pages and
-aggregates CSS and JS, as production should.
-
-**3. The database and the files, from here to the server.** The rsync provider pushes a snapshot of the whole
-database and makes the server's `web/sites/default/files` match this one (`--delete`), `flickr/` included:
-
-```bash
-ddev auth ssh
-ddev push rsync --environment=remote_root=workspace/marlene.hobobiker.com
-```
-
-(Not run here: agents may not run `ddev push`. Check `ddev push --help` for the `--environment` flag; if it is
-missing, copy `.ddev/providers/rsync.yaml` to `marlene.yaml` with that `remote_root` and run `ddev push marlene`.)
-
-**4. On the server:**
-
-```bash
+ddev snapshot --name before-$(git rev-parse --short HEAD)
+git pull
+ddev restart                 # only when .ddev/ or .env.web changed; it also runs composer install
+ddev composer install
+ddev drush updb -y
+ddev drush cim -y
 ddev drush cr
-ddev drush config:status          # "No differences"
-ddev drush status                 # Drupal 11.4.x, database connected
 ```
 
-Set up cron (for example the ddev-cron add-on, or a host crontab running `ddev drush cron` hourly); it keeps the
-search index current.
+Then check from outside: the front page and `/node/3994` (200, `Cache-Control: max-age=3600`), `http://` (301),
+`/files/The%20Women%20of%20Friendship%20Bridge%20Guatemala.pdf` (200), search, `/rss.xml`. **Rollback:**
+`git checkout` the previous commit, `ddev snapshot restore before-<commit>`, `ddev drush cr`.
 
-**5. Review marlene.hobobiker.com:** the front page and a few posts on a phone and a desktop, light and dark; a
-photo enlarging in the lightbox; a trip day with its map; search; /aplv, /espanol, /podcast. The first visits to
-pages with many photos may answer 503 for some thumbnails ("Image generation in progress") until each is
-generated once; reload.
-
-**6. Before the cutover:**
-- **Mail.** DDEV's hardened images send no mail (`sendmail_path` still names Mailpit, which is not running; see
-  https://docs.ddev.com/en/stable/users/topics/hosting/#caveats). `settings.php` switches Drupal to core's
-  Symfony mailer over SMTP when `MAILER_DSN` is set, and sets the site's From address from `SITE_MAIL`. The
-  server's own mail system (already relaying through Mailgun) takes the mail. On the server only, in
-  `.ddev/.env.web` (ignored by Git), then `ddev restart`:
-
-  ```bash
-  MAILER_DSN=smtp://host.docker.internal:25?auto_tls=false   # the host's MTA, from inside the web container
-  SITE_MAIL=from-address
-  ```
-
-  The host's MTA must accept and relay mail from the DDEV network: listening on the Docker gateway
-  (`host.docker.internal`), the `ddev_default` subnet in its trusted networks (Postfix: `mynetworks`), and
-  the firewall letting that subnet reach port 25. Check with
-  `ddev drush cget system.mail --include-overridden`, then send yourself a real mail (a one-time login link for
-  uid 1; delete it after reading) and check "Show original" for SPF and DKIM `PASS`:
-
-  ```bash
-  ddev drush php:eval '\Drupal::service("plugin.manager.mail")->mail("user", "password_reset", "you@example.org", "en", ["account" => \Drupal\user\Entity\User::load(1)]);'
-  ```
-
-  Without the variables (local development), mail goes to Mailpit as before.
-- **Freeze content** on the source of the final push: after the last push, edit only on the new site.
-- **Move the original** to old.hobobiker.com, password-protected or not, as decided above. Snapshot it first
-  (`ddev snapshot` in its project).
-
-**7. The cutover.** DDEV's router decides which project answers which name:
+**Checking mail** (no login link in it):
 
 ```bash
-# In the Drupal 6 project on the server: give up the names
-ddev config --additional-fqdns=old.hobobiker.com && ddev restart
-# In the marlene project: take them (keep marlene.hobobiker.com while it is useful)
-ddev config --additional-fqdns=hobobiker.com,www.hobobiker.com,marlene.hobobiker.com && ddev restart
+ddev drush php:eval '$to = "you@example.org"; $c = \Drupal::config("system.site"); $m = \Drupal::service("plugin.manager.mail")->createInstance("symfony_mailer"); $msg = $m->format(["to" => $to, "subject" => "hobobiker.com mail test " . date("c"), "body" => ["A test from hobobiker.com, sent by Drupal through the server SMTP."], "headers" => ["From" => "\"" . $c->get("name") . "\" <" . $c->get("mail") . ">", "Content-Type" => "text/plain; charset=UTF-8"]]); echo $m->mail($msg) ? "sent to $to from " . $c->get("mail") . "\n" : "FAILED\n";'
+sudo tail -5 /var/log/mail.log    # status=sent
 ```
 
-Check https://hobobiker.com and https://www.hobobiker.com (certificates), a few old addresses (`/node/3994`,
-`/inuvik_to_ushuaia`, `/files/The%20Women%20of%20Friendship%20Bridge%20Guatemala.pdf`,
-`/tripinfo_item/2007-08-03/2007-06-28/2008-04-14`), search and the contact form.
+**A fresh copy here.** `ddev pull rsync` (`.ddev/providers/rsync.yaml` points at the production project) replaces
+this project's database and files with production's.
 
-**Rollback:** swap the names back (`--additional-fqdns` on both projects) and restart both; the Drupal 6 site and
-its database are untouched.
+**Drupal updates:** `ddev composer update 'drupal/core*' -W`, `ddev drush updb -y`, `ddev drush cr`, the suite,
+commit, deploy as above. Watch `ddev composer audit`.
 
-**8. After the cutover:** production is the master (see above). For a code change: commit and push here, then on
-the server `git pull`, `ddev composer install`, `ddev drush updb -y`, `ddev drush cim -y`, `ddev drush cr`. To
-work on a fresh copy here, `ddev pull` from production (a provider like `.ddev/providers/rsync.yaml`, pointed at
-the hobobiker.com project).
-
-**d11.hobobiker.com** (`main`, still the rebuild): `git pull`, `ddev composer install`, `ddev drush updb -y`,
-`ddev drush cim -y`, three `ddev drush cron` runs (the search index, 500 posts a run), `ddev drush cr`. `main`
-still commits `settings.local.php`, so it runs without caching: fine for a reference site, or apply this branch's
-change there too.
-
-**Drupal updates** (both branches): `ddev composer update 'drupal/core*' -W`, `ddev drush updb -y`,
-`ddev drush cr`, the suite, commit, deploy as code. Watch `ddev composer audit`.
+**`main`** (the faithful rebuild) is no longer served anywhere; it stays in Git as the reference. To serve it
+again, give it its own DDEV project on the server.
 
 ## Done since the break from Drupal 6
 
@@ -208,8 +168,8 @@ Roughly in order of value.
 6. **Alt text quality.** Every photo has alt text now, from its Flickr title or file name; good, but generic in
    places. The photos that matter most (the front page, the trip summaries) deserve descriptions written by
    someone who was there.
-7. **`main`.** If d11.hobobiker.com is no longer needed as the faithful rebuild, retire it and keep `marlene`; if
-   it stays, keep its Drupal core in step (security releases).
+7. **`main`.** It is no longer served (its d11 project became hobobiker.com). Keep it in Git as the reference, or
+   give it a DDEV project of its own again and keep its Drupal core in step.
 
 ## How the checks were done
 

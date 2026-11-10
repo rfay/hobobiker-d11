@@ -894,14 +894,20 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
   include __DIR__ . '/settings.ddev.php';
 }
 
+// settings.ddev.php shows every PHP error to visitors ('verbose'); this site is
+// production. Errors are still logged (/admin/reports/dblog). For development,
+// set 'verbose' again in settings.local.php.
+$config['system.logging']['error_level'] = 'hide';
+
 /**
- * Outgoing mail on the server: SMTP to Mailgun, from the environment.
+ * Outgoing mail on the server: SMTP to the host, from the environment.
  *
  * DDEV's hardened images send no mail (sendmail_path still names Mailpit, which
  * is not running), so production sends over SMTP to the server's own mail
  * system. The values live only in the server's .ddev/.env.web (never in Git):
  *   MAILER_DSN=smtp://host.docker.internal:25?auto_tls=false
  *   SITE_MAIL=from-address
+ *   NOTIFY_MAIL=address-for-security-update-notices   (comma-separated for more)
  * (Or a provider with a login: smtp://USER:PASSWORD@host:587, URL-encoded.)
  * Query-string options (auto_tls, verify_peer, ...) go to Symfony's transport.
  * Without them (local development), mail goes to Mailpit as usual.
@@ -921,6 +927,9 @@ if ($mailer_dsn = getenv('MAILER_DSN')) {
 }
 if ($site_mail = getenv('SITE_MAIL')) {
   $config['system.site']['mail'] = $site_mail;
+}
+if ($notify_mail = getenv('NOTIFY_MAIL')) {
+  $config['update.settings']['notification']['emails'] = array_values(array_filter(array_map('trim', explode(',', $notify_mail))));
 }
 
 /**

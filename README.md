@@ -5,16 +5,17 @@ Americas (2006–2009) and some earlier trips. It ran on Drupal 6 for more than 
 rebuild on Drupal 11 (11.4, PHP 8.4, MariaDB 11.8), started live in Part 3 of "Hobobiker Rides Again: Plan it,
 test it, migrate it" and built **entirely by rerunnable scripts** from a copy of the original's database.
 
-**This branch, `marlene`, is the site at marlene.hobobiker.com:** the same rebuild in a modern theme, with its
-content cleaned up. It broke off from Drupal 6 on 2026-11-06; its database is now the master. For where it stands
+**This branch, `marlene`, is hobobiker.com** (since 2026-11-10): the same rebuild in a modern theme, with its
+content cleaned up. It broke off from Drupal 6 on 2026-11-06; production's database is now the master. For where it stands
 and where it could go next, read **[HANDOFF.md](HANDOFF.md)**.
 
 ## The sites
 
 | Site | Branch | What it is |
 | --- | --- | --- |
-| <https://marlene.hobobiker.com> | `marlene` | The site in a modern, responsive theme, `marlene`: light and dark, a phone-friendly menu, a banner of Randy and Nancy before the Cordillera Blanca; photos local and enlargeable, captioned, the right way up; content search. |
-| <https://d11.hobobiker.com> | `main` | The faithful rebuild, reproducing the original page by page, its 20-year-old look included (theme `hobo_golden`, a port of the original's). |
+| <https://hobobiker.com> | `marlene` | The site in a modern, responsive theme, `marlene`: light and dark, a phone-friendly menu, a banner of Randy and Nancy before the Cordillera Blanca; photos local and enlargeable, captioned, the right way up; content search. |
+| (not served) | `main` | The faithful rebuild, reproducing the original page by page, its 20-year-old look included (theme `hobo_golden`, a port of the original's). |
+| <https://old.hobobiker.com> | | The Drupal 6 original, a backup, to be stopped. |
 | <https://static.hobobiker.com> | ([rfay/hobobiker-static](https://github.com/rfay/hobobiker-static)) | Part 2's static HTML archive of the original. |
 
 The `marlene` theme is named for Marlene Wanberg, whose
@@ -70,31 +71,22 @@ For `main`, use `TEST_BASE_URL=https://hobobiker-d11.ddev.site MIGRATION_TARGET=
 
 ## Deploying
 
-The plan: this branch goes to **marlene.hobobiker.com** for review, then becomes **hobobiker.com**; the Drupal 6
-original moves to old.hobobiker.com, and static.hobobiker.com stays on GitHub Pages. The step-by-step procedure,
-with the cutover, its rollback, and how changes are managed afterwards, is in
-**[HANDOFF.md](HANDOFF.md#deploying-marlenehobobikercom-for-review-then-hobobikercom)**. In short:
-
-1. Here: commit, `git push rfay marlene`, `ddev snapshot`.
-2. On the server, once: clone the `marlene` branch into its own DDEV project, `ddev start`, and recreate the
-   `web/files` symlink.
-3. Here: push the database **and the files** (`web/sites/default/files`, including `flickr/`) with the rsync
-   provider; then on the server `ddev drush cr`. No `settings.local.php` on the server: production caches.
-4. Review; set up mail and cron; then move the hostnames from the Drupal 6 project to this one.
-
-After the cutover the production database is the master: content is edited there, and code and configuration
-are deployed with `git pull`, `ddev composer install`, `ddev drush updb -y`, `ddev drush cim -y`,
-`ddev drush cr`. The human deploys; agents never connect to the production server.
-
-**d11.hobobiker.com** (`main`) is still the rebuild: code from Git, then
+hobobiker.com runs this branch in a DDEV project on ddevprod.thefays.us; **its database is the master**, so only
+code and configuration go up. The human deploys; agents never connect to the server. Develop and verify here,
+commit, `git push rfay marlene`; on the server:
 
 ```bash
+ddev snapshot --name before-$(git rev-parse --short HEAD)
+git pull
 ddev composer install
 ddev drush updb -y
 ddev drush cim -y
-ddev drush cron && ddev drush cron && ddev drush cron   # builds the search index, 500 posts a run
 ddev drush cr
 ```
+
+(`ddev restart` too when `.ddev/` changed.) A fresh copy here: `ddev pull rsync`; never `ddev push rsync`, which
+would overwrite production. What lives only on the server (mail settings in `.ddev/.env.web`, the `web/files`
+symlink, cron, the Postfix relay) and how to check a deploy: **[HANDOFF.md](HANDOFF.md#production-how-hobobikercom-runs-cut-over-2026-11-10)**.
 
 ## How the site was first built
 

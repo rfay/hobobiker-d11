@@ -3,7 +3,7 @@
 ## Branch `marlene`: broken off from Drupal 6 (owner's decision, 2026-11-06)
 
 On this branch the site is no longer rebuilt from the `d6` copy. **This branch is hobobiker.com** (cut over by
-2026-11-10; the DDEV project `~/workspace/d11.hobobiker.com` on ddevprod.thefays.us serves hobobiker.com and
+2026-11-10; the DDEV project `hobobiker` in `~/workspace/d11.hobobiker.com` on ddevprod.thefays.us serves hobobiker.com and
 www.hobobiker.com; the Drupal 6 original is old.hobobiker.com; d11. and marlene.hobobiker.com no longer answer).
 
 **The production database is the master.** The marlene DDEV project here (https://marlene.ddev.site, worktree
@@ -17,7 +17,7 @@ way: develop and verify here, commit; the human pushes to GitHub and deploys (`g
   module (stored bodies unchanged, deployed as code and config); a fix that needs judgment is an edit to the
   content, made on production by the human (or a reviewed script, run here on a fresh copy first, that the human
   then runs on production).
-- "Reproduce, don't repair" now applies to `main` (d11.hobobiker.com, the faithful rebuild) only. Here, improve.
+- "Reproduce, don't repair" now applies to `main` (the faithful rebuild, no longer served) only. Here, improve.
 - Tests: `MIGRATION_TARGET=marlene`; a deliberate change gets a `"target": "marlene"` entry in
   `expected-differences.json`.
 
@@ -60,7 +60,7 @@ the session's opening prompt.
 - **Production** (hobobiker.com, www.hobobiker.com, the host `ddevprod.thefays.us`): never connect to it or write
   to it. Never run `ddev pull`, `ddev push`, `ddev auth ssh`, or `rsync`/`scp`/`ssh` to a remote host.
   **Read-only HTTP to the public sites is allowed** (owner's decision, 2026-11-10, to evaluate deployments):
-  `curl`/`wget` GET and HEAD, or a browser, to hobobiker.com, www., marlene. and d11.hobobiker.com, a handful of
+  `curl`/`wget` GET and HEAD, or a browser, to hobobiker.com, www., old., marlene. and d11.hobobiker.com, a handful of
   requests at a time. No POSTs, form submissions, logins or crawls. Never point the test suite
   (`TEST_BASE_URL`/`BASE_URL`) at them: old content hardcodes `hobobiker.com` and the suite resolves it
   against the target.
