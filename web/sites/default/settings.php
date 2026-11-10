@@ -895,6 +895,32 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 }
 
 /**
+ * Outgoing mail on the server: SMTP to Mailgun, from the environment.
+ *
+ * DDEV's hardened images send no mail (sendmail_path still names Mailpit, which
+ * is not running), so production sends through Mailgun over SMTP. The values
+ * live only in the server's .ddev/.env.web (never in Git):
+ *   MAILER_DSN=smtp://USER:PASSWORD@smtp.mailgun.org:587   (URL-encode USER and PASSWORD)
+ *   SITE_MAIL=address-on-the-mailgun-domain
+ * Without them (local development), mail goes to Mailpit as usual.
+ */
+if ($mailer_dsn = getenv('MAILER_DSN')) {
+  $dsn = parse_url($mailer_dsn);
+  $config['system.mail']['interface']['default'] = 'symfony_mailer';
+  $config['system.mail']['mailer_dsn'] = [
+    'scheme' => $dsn['scheme'] ?? 'smtp',
+    'host' => $dsn['host'] ?? 'default',
+    'user' => isset($dsn['user']) ? rawurldecode($dsn['user']) : NULL,
+    'password' => isset($dsn['pass']) ? rawurldecode($dsn['pass']) : NULL,
+    'port' => $dsn['port'] ?? NULL,
+    'options' => [],
+  ];
+}
+if ($site_mail = getenv('SITE_MAIL')) {
+  $config['system.site']['mail'] = $site_mail;
+}
+
+/**
  * Load local development override configuration, if available.
  *
  * Create a settings.local.php file to override variables on secondary (staging,

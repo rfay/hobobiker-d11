@@ -116,8 +116,25 @@ pages with many photos may answer 503 for some thumbnails ("Image generation in 
 generated once; reload.
 
 **6. Before the cutover:**
-- **Mail.** On DDEV, mail goes to Mailpit, so the contact form reaches nobody. Configure real delivery first (an
-  SMTP module, or the server's mail relay) and send a test from /contact.
+- **Mail.** DDEV's hardened images send no mail (`sendmail_path` still names Mailpit, which is not running; see
+  https://docs.ddev.com/en/stable/users/topics/hosting/#caveats). `settings.php` switches Drupal to core's
+  Symfony mailer over SMTP when `MAILER_DSN` is set, and sets the site's From address from `SITE_MAIL`. On the
+  server only, in `.ddev/.env.web` (ignored by Git), then `ddev restart`:
+
+  ```bash
+  MAILER_DSN=smtp://USER:PASSWORD@smtp.mailgun.org:587   # Mailgun SMTP credentials, URL-encoded
+  SITE_MAIL=address-on-the-mailgun-domain
+  ```
+
+  The From domain needs Mailgun's DKIM record and `include:mailgun.org` in its SPF. Check with
+  `ddev drush cget system.mail --include-overridden`, then send yourself a real mail (a one-time login link for
+  uid 1; delete it after reading) and check "Show original" for SPF and DKIM `PASS`:
+
+  ```bash
+  ddev drush php:eval '\Drupal::service("plugin.manager.mail")->mail("user", "password_reset", "you@example.org", "en", ["account" => \Drupal\user\Entity\User::load(1)]);'
+  ```
+
+  Without the variables (local development), mail goes to Mailpit as before.
 - **Freeze content** on the source of the final push: after the last push, edit only on the new site.
 - **Move the original** to old.hobobiker.com, password-protected or not, as decided above. Snapshot it first
   (`ddev snapshot` in its project).
