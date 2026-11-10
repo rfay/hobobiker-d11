@@ -109,6 +109,7 @@ ddev composer install
 ddev drush updb -y
 ddev drush cim -y
 ddev drush cr
+chmod a-w web/sites/default/settings.php   # git checks it out writable; the status report warns
 ```
 
 Then check from outside: the front page and `/node/3994` (200, `Cache-Control: max-age=3600`), `http://` (301),

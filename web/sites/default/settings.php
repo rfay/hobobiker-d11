@@ -899,6 +899,10 @@ if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev
 // set 'verbose' again in settings.local.php.
 $config['system.logging']['error_level'] = 'hide';
 
+// Drupal 12's default, adopted now: forms are validated by Drupal, not the
+// browser (https://www.drupal.org/node/3537128).
+$settings['enable_html5_validation'] = FALSE;
+
 /**
  * Outgoing mail on the server: SMTP to the host, from the environment.
  *
