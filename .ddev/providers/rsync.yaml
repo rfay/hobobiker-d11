@@ -17,7 +17,7 @@
 # not `ddev push rsync` (it would overwrite production's content and files).
 environment_variables:
   remote: rfay@ddevprod.thefays.us
-  remote_root: workspace/d11.hobobiker.com
+  remote_root: workspace/hobobiker.com
   remote_files: web/sites/default/files
   remote_snapshots: .ddev/db_snapshots
 
